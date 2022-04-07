@@ -14,6 +14,8 @@ export default function PracticeMode (){
 
         const letters = word[wordCount].concat(' ')
 
+        event.target.setAttribute('maxLength',letters.length)
+
 
         if (event.target.value === letters) {
             

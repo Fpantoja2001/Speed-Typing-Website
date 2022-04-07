@@ -7,37 +7,36 @@ export default function PracticeMode (){
     const userInput = useRef()
     let textIndex = 0    
     let wordCount = 0
-    let maxIncrease = 1;
-    let wordDisplay = []
 
     function format (event){
 
+        console.log(event.target.current)
+
         const word = referenceText.current.textContent.split(' ')
 
-        const letters = word[wordCount].split('').map(x => x.charCodeAt())
+        const letters = word[wordCount].split('').map(x => x.charCodeAt()).concat(32)
 
-        if (event.charCode === letters[textIndex] && event.charCode !== 32) {
+
+   
+
+        if (event.charCode === letters[textIndex]) {
             
-            console.log(event.charCode, letters[textIndex])
             textIndex = textIndex + 1
-            maxIncrease = maxIncrease + 1
-            userInput.current.setAttribute('maxLength',maxIncrease)
             
         }
         if (letters.length === textIndex){
             
-            userInput.current.setAttribute('placeholder',wordDisplay.push(word[wordCount]))
+            
             wordCount = wordCount + 1
-            maxIncrease = maxIncrease + 1
             textIndex = 0           
             console.log('switch')
-            console.log(wordDisplay)
+            event.target.value = ''
 
         }
         if (wordCount === word.length){
             
             console.log('win')
-            userInput.current.setAttribute('disabled',true)
+            event.target.setAttribute('disabled',true)
 
         }
         if (event.charCode === 32){
@@ -84,7 +83,7 @@ export default function PracticeMode (){
                 Hello my name is carl.
             </p>
 
-            <input type="text" className='typingBox' onKeyPress={format} ref={userInput} maxLength={maxIncrease}/>
+            <input type="text" className='typingBox' onKeyPress={format}/>
 
         </div>
     )

@@ -1,4 +1,42 @@
+@import '../../global.scss';
+
 .page{
     height: calc(100vh - 100px);
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .wrapper {
+        width: 80%;
+        height: 40%;
+        background-color: $darkBlue;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+
+            .reference {
+                background-color: $mellowBlue ;
+                color: $popYellow;
+                padding: 20px;
+                margin: 20px;
+                border-radius: 4px;
+                width: 80%;
+                border-radius: 20px;
+
+                
+            } 
+            .typingBox{
+                width: 60%;
+                padding: 20px;
+                margin: 20px;
+                border-radius: 20px;
+
+            }
+    }
+    
+    
 }

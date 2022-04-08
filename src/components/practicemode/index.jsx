@@ -16,6 +16,8 @@ export default function PracticeMode (){
 
         event.target.setAttribute('maxLength',letters.length)
 
+        event.target.focus()
+
 
         if (event.target.value === letters) {
             
@@ -37,12 +39,22 @@ export default function PracticeMode (){
     return (
         
         <div className='page'>
-            
-            <p className='reference' ref={referenceText} >
-                Hello my name is carl.
-            </p>
 
-            <input type="text" className='typingBox' onInput={format}/>
+            <div className='wrapper'>
+
+                <p className='reference' ref={referenceText} >
+                One, remember to look up at the stars and not down at your feet. Two, never give up work. Work gives you meaning and purpose and life is empty without it. Three, if you are lucky enough to find love, remember it is there and don't throw it away.
+                </p>
+
+                
+                <input type="text" className='typingBox' onInput={format}/>
+                
+
+                
+
+            </div>
+            
+            
 
         </div>
     )

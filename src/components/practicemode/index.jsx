@@ -3,13 +3,13 @@ import { useRef } from 'react'
 
 export default function PracticeMode (){
 
-<<<<<<< HEAD
+
     const referenceText = useRef()   
     
-=======
+
     const referenceText = useRef() 
     const timerUpdate = useRef()  
->>>>>>> 767a988923f8e401a91d62f136aee274c674971c
+
     let wordCount = 0
 
 

@@ -17,6 +17,13 @@
         justify-content: center;
         align-items: center;
         border-radius: 20px;
+        font-size: 18px;
+
+            .stats{
+                background-color: white;
+                padding: 10px;
+                border-radius: 20px;
+            }
 
             .reference {
                 background-color: $mellowBlue ;

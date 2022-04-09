@@ -3,23 +3,30 @@ import { useRef } from 'react'
 
 export default function PracticeMode (){
 
+<<<<<<< HEAD
     const referenceText = useRef()   
     
+=======
+    const referenceText = useRef() 
+    const timerUpdate = useRef()  
+>>>>>>> 767a988923f8e401a91d62f136aee274c674971c
     let wordCount = 0
 
-    function format (event){
 
-        console.log(event.target.current)
+    function format (event){
 
         const word = referenceText.current.textContent.split(' ')
 
         const letters = word[wordCount].concat(' ')
 
+        event.target.setAttribute('maxLength',letters.length)
+
+        event.target.focus()
+
 
         if (event.target.value === letters) {
             
             wordCount = wordCount + 1  
-            
             event.target.value = ''
             
         }
@@ -31,17 +38,39 @@ export default function PracticeMode (){
 
         }
 
+        timer()
+
+    }
+
+    function timer (){
+        timerUpdate.current.innerText = 1
     }
 
     return (
         
         <div className='page'>
-            
-            <p className='reference' ref={referenceText} >
-                Hello my name is carl.
-            </p>
 
-            <input type="text" className='typingBox' onInput={format}/>
+            <div className='wrapper'>
+
+                <div className='stats' ref={timerUpdate}>
+
+                    0
+
+                </div>
+
+                <p className='reference' ref={referenceText} >
+                One, remember to look up at the stars and not down at your feet. Two, never give up work. Work gives you meaning and purpose and life is empty without it. Three, if you are lucky enough to find love, remember it is there and don't throw it away.
+                </p>
+
+                
+                <input type="text" className='typingBox' onInput={format}/>
+                
+
+                
+
+            </div>
+            
+            
 
         </div>
     )

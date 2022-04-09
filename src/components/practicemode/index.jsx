@@ -8,6 +8,8 @@ export default function PracticeMode (){
     let wordCount = 0
 
 
+    // checks to make sure text matches
+    
     function format (event){
 
         const word = referenceText.current.textContent.split(' ')

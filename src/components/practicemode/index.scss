@@ -10,7 +10,7 @@
 
     .wrapper {
         width: 80%;
-        height: 40%;
+        height: 50%;
         background-color: $darkBlue;
         display: flex;
         flex-direction: column;
@@ -23,6 +23,10 @@
                 background-color: white;
                 padding: 10px;
                 border-radius: 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                width: 80%;
             }
 
             .reference {

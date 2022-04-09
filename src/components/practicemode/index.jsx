@@ -8,7 +8,45 @@ export default function PracticeMode (){
     
     const timerUpdate = useRef()  
 
+    const inputBox = useRef()
+
     let wordCount = 0
+
+    const wpm = useRef()
+
+    let start;
+
+    let startCountDown = 6
+
+    const countD = useRef()
+
+    const t = setInterval(() => {
+
+        startCountDown = startCountDown - 1
+        countD.current.innerText = `Count Down: ${startCountDown}`
+
+        if (startCountDown === 0){
+            gameStart()
+        }
+    }, 1000);
+    
+
+    
+
+    window.onload = t
+    
+
+    function gameStart(){
+
+        clearInterval(t)
+        inputBox.current.removeAttribute('disabled') 
+        inputBox.current.focus()
+        timer()
+        format()
+        console.log('start')
+
+        
+    }
 
 
     // checks to make sure text matches
@@ -20,9 +58,6 @@ export default function PracticeMode (){
         const letters = word[wordCount].concat(' ')
 
         event.target.setAttribute('maxLength',letters.length)
-
-        event.target.focus()
-
 
         if (event.target.value === letters) {
             
@@ -38,13 +73,29 @@ export default function PracticeMode (){
 
         }
 
-        timer()
-
     }
 
     function timer (){
-        timerUpdate.current.innerText = 1
+        start = new Date()
+
+        setInterval(() => {
+
+            timerUpdate.current.innerText =  `Elapsed time: ${timerFormat()}`
+            
+        }, 1000);
     }
+
+    function timerFormat (){
+
+        return Math.floor((new Date() - start)/1000)
+
+    }
+
+    function cancel (e) {
+        console.log('cant use that')
+        e.preventDefault()
+    }
+
 
     return (
         
@@ -52,9 +103,15 @@ export default function PracticeMode (){
 
             <div className='wrapper'>
 
-                <div className='stats' ref={timerUpdate}>
+                <div className='stats' >
 
-                    0
+                    <div className ='timer' ref={timerUpdate}>Elapsed Time: 0</div>
+
+                    <div className='wpm' ref={wpm}>0</div>
+
+                    <div className='countdown' ref={countD}>Count Down: 6</div>
+
+                    
 
                 </div>
 
@@ -63,7 +120,7 @@ export default function PracticeMode (){
                 </p>
 
                 
-                <input type="text" className='typingBox' onInput={format}/>
+                <input type="text" className='typingBox' onInput={format} ref={inputBox} disabled={true} onPaste={cancel}/>
                 
 
                 

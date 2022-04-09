@@ -4,6 +4,7 @@ import { useRef } from 'react'
 export default function PracticeMode (){
 
     const referenceText = useRef()   
+    
     let wordCount = 0
 
     function format (event){

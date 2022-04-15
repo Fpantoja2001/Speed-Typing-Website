@@ -7,47 +7,97 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #FBFCFF;
+    
+    .stats{
+        background-color: white;
+        color: $darkBlue;
+        padding: 10px 0px 10px 0px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 80%;
+        margin: 20px;
+        border: solid 1px $darkBlue;
+    }
 
     .wrapper {
         width: 80%;
-        height: 50%;
-        background-color: $darkBlue;
+        height: 40%;
+        background-color: #1C6E8C;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        border-radius: 20px;
+        border-radius: 10px;
         font-size: 18px;
+        border: solid 1px $darkBlue;
 
-            .stats{
-                background-color: white;
-                padding: 10px;
-                border-radius: 20px;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-around;
-                width: 80%;
+        
+
+        .reference {
+            background-color: #FBFCFF;
+            color: $darkBlue;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 4px;
+            width: 80%;
+            border-radius: 10px;
+            display: flex;
+            flex-wrap: wrap;  
+            border: solid 1px $darkBlue;         
+
+            div{
+                margin-right: 8px;
             }
 
-            .reference {
-                background-color: $mellowBlue ;
-                color: $popYellow;
-                padding: 20px;
-                margin: 20px;
-                border-radius: 4px;
-                width: 80%;
-                border-radius: 20px;
+            .onWord {
+                text-decoration: underline;
+                text-decoration-color:black ;
+            }
+
+            .wrong{
+                color: #E63946;
+            }
+
+                
+            .cursor{
+                content: '|';
+                color: black;
+            }
+
+            .correct{
+                color: green;
+            }
 
                 
             } 
             .typingBox{
-                width: 60%;
+                width: 80%;
                 padding: 20px;
                 margin: 20px;
-                border-radius: 20px;
+                border-radius: 10px;
+                border: solid 1px $darkBlue;  
 
-            }
-    }
+            }   
+
+         }
+
+        .button {
+            width: 80%;
+           
+            .nextBox {
+                height: 50px;
+                width: 120px;
+                margin: 20px 0px 20px 20px;
+                border-radius: 6px;
+                float: right;  
+            } 
+
+        }
+    
     
     
 }
+

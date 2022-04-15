@@ -1,133 +1,249 @@
 import './index.scss'
-import { useRef } from 'react'
+import React, {useRef } from 'react'
 
 export default function PracticeMode (){
 
-
-    const referenceText = useRef()   
+    const timerUpdate = useRef(),wpm = useRef(),countDown = useRef(),referenceText = useRef(),inputBox = useRef(), accuracy = useRef()
     
-    const timerUpdate = useRef()  
+    const quote = "I don't believe in an interventionist God, but I know, darling, that you do. But if I did I would kneel down and ask him not to intervene when it came to you. Not to touch a hair on your head, to leave you as you are, and if he felt he had to direct you, then direct you into my arms."
 
-    const inputBox = useRef()
+    // This variable serves to help the Count Down Timer
+    let cdsi;
 
-    let wordCount = 0
+    // 
+    let timerEnd;
 
-    const wpm = useRef()
+    // This variable serves to keep track of the word the user is currently supposed to type, had
+    // to start at 10 because this program would result in error when switching from double to triple
+    // digits
+    let wordPOS = 10;
 
-    let start;
+    // This variable helps the elapsed timer function
+    let startTime;
 
-    let startCountDown = 6
-
-    const countD = useRef()
-
-    const t = setInterval(() => {
-
-        startCountDown = startCountDown - 1
-        countD.current.innerText = `Count Down: ${startCountDown}`
-
-        if (startCountDown === 0){
-            gameStart()
-        }
-    }, 1000);
+    // These variables serve to keep count of when the user either types a chracter correctly or incorrectly,
+    // this is so the users accuracy can be calculated at the end.
+    let incorrectCharacters = 0
+    let correctCharacters = 0
     
+    // This variable serves to number the divs in which whole words will be split up into indivisual Span tags
+    let divIdentifier = 9;
 
-    
+    // Span Quote functions to structure the reference text so that I can iterate both through
+    // the entire words in it and each character indivisually. I did this so that I can underline the
+    // word the user is on and apply either the 'correct' or 'incorrect' css class to each character
+    // indivisually to help the user determine when they either type a character correctly or incorrectly.
 
-    window.onload = t
-    
+    // It essentially is taking each word and assigning it a div, and it then takes every chracter of that word 
+    // and assigns it its own div
 
-    function gameStart(){
+    const spanQuote = quote.split(' ').map((char) => {
+        
+        divIdentifier++;
 
-        clearInterval(t)
-        inputBox.current.removeAttribute('disabled') 
+        const charToSpan = char.split('').map((char,x=0) => {
+            return <span id={`${divIdentifier}${x}`} className='text'>{`${char}`}</span>
+        })
+ 
+        return <div id={divIdentifier}>{charToSpan}</div>
+    })
+
+    window.onload = countDownTimer()
+
+    // This function controls the start of game logic
+    function GameStart(){
+
+        // Disables the input box until the countdown timer reaches 0
+        inputBox.current.removeAttribute('disabled')
+
+        // Places cursor in the box the second the game starts 
         inputBox.current.focus()
-        timer()
-        format()
-        console.log('start')
 
-        
+        // Starts the elapsed time timer
+        elapsedTime()
+
+
     }
-
-
-    // checks to make sure text matches
     
-    function format (event){
+    
 
-        const word = referenceText.current.textContent.split(' ')
+    // This is the function that gets called everytime a user types; It handles everything having to 
+    // with making sure the user types correctly to edge cases.
 
-        const letters = word[wordCount].concat(' ')
+    function type (e){
 
-        event.target.setAttribute('maxLength',letters.length)
+        let tempWord;
 
-        if (event.target.value === letters) {
-            
-            wordCount = wordCount + 1  
-            event.target.value = ''
-            
-        }
+        document.getElementById(wordPOS).className = 'onWord' // This underlines the current word the user is on
         
-        if (wordCount === word.length){
-            
-            console.log('win')
-            event.target.setAttribute('disabled',true)
+        // This variable takes the current word the user is on and adds a space at the end so the user
+        // gets a sense of entering a word essentially. The only exception is the last word, so once the 
+        // user enters the last word, the game ends. 
+
+        if(wordPOS === document.getElementById('quoteBox').children.length + 9){
+
+            tempWord = document.getElementById(wordPOS).innerText.concat('')
+
+        }else {
+
+            tempWord = document.getElementById(wordPOS).innerText.concat(' ')
 
         }
 
-    }
+        console.log(tempWord)
 
-    function timer (){
-        start = new Date()
+        // This if statement works to make sure that if the user backspaces, the state of characters he has
+        // already typed whether right or wrong gets erased. This is essentially achieved by setting the class
+        // of any index above the cursor position to ''
 
-        setInterval(() => {
-
-            timerUpdate.current.innerText =  `Elapsed time: ${timerFormat()}`
+        if (e.target.selectionStart < tempWord.length - 1){
             
+            document.getElementById(`${wordPOS}${e.target.selectionStart}`).className = ''
+      
+        }
+
+        // This for loop, loops through the user input field and the reference text to make sure all
+        // all letters are typed correctly, and it applies classes based on that fact 
+
+        for (let i = 0; i < e.target.selectionStart; i++){
+            
+            // This if statement was created to ignore the space at the end of the word
+
+
+            if (e.target.selectionStart === tempWord.length){
+
+                break; 
+                
+            } else{
+
+                if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText){
+
+                document.getElementById(`${wordPOS}${i}`).className = 'correct'
+
+                }else {
+
+                    document.getElementById(`${wordPOS}${i}`).className = 'wrong'
+                }
+            }
+            
+        }
+
+            
+              
+       // This statement checks if the user typed word matches the temp word above 
+
+       if(e.target.value === tempWord) {
+
+            // Clears the underline of the current word
+            document.getElementById(wordPOS).className = ''
+
+            // If the word does match, then it increases the wordPOS variable to move 
+            // the user onto the next word. 
+            ++wordPOS  
+            console.log(wordPOS) 
+
+            // This resets the value of the input field            
+            e.target.value = ''
+
+            //Updates and Calculates the WPM of the user after they their first word correct
+            wpm.current.innerText = `WPM: ${Math.round(((wordPOS - 10) / timerFormat()) * 60)}`
+            
+       }
+       
+       // This if statement defines the win condition, and if they are met then the input box 
+       // becomes disabled
+       if (wordPOS > document.getElementById('quoteBox').children.length + 9) {
+           
+           // This disables the input box once the game ends
+           e.target.setAttribute('disabled',true)
+
+           // Ends the timer 
+           stopInterval()
+
+           // Prompts Next Race Button 
+           document.getElementById('nb').removeAttribute('hidden')
+       } 
+        
+    }
+
+    // These functions (elapsedTime & timerFormat) create the timer that is used to help calculate the wpm
+    function elapsedTime(end){
+        startTime = new Date() 
+
+        timerEnd = setInterval(() => {
+            timerUpdate.current.innerText = `Elapsed time: ${timerFormat()}`
+            
+        },1000)
+    }
+
+    function stopInterval(){
+        clearInterval(timerEnd)
+    }
+
+    function timerFormat(){
+        return Math.floor((new Date() - startTime)/1000)
+    }
+
+    // This function operates the count down timer
+    
+    function countDownTimer(){
+        let cdt = 6;
+        
+        cdsi = setInterval(() => {
+            cdt--;
+            countDown.current.innerText = `Count Down: ${cdt}`
+            if(cdt === 0){
+                clearInterval(cdsi)
+                GameStart()
+            }
         }, 1000);
-    }
-
-    function timerFormat (){
-
-        return Math.floor((new Date() - start)/1000)
 
     }
 
-    function cancel (e) {
-        console.log('cant use that')
-        e.preventDefault()
+    // This disables the user from pasting in the input box
+    function cancelPaste(e){
+        e.preventDeafault()
     }
 
+    // This function reloads the page on press of 'next' button
+    function reload(){
+        window.location.reload()
+    }
+    
 
     return (
         
         <div className='page'>
+            
+            
+            <div className='stats' >
+
+                <div className ='timer' ref={timerUpdate}>Elapsed Time: 0</div>
+
+                <div className='wpm' ref={wpm}>WPM: 0</div>
+
+                <div className='countdown' ref={countDown}>Count Down: 6</div>
+
+                <div className='accuracy' ref={accuracy}>Accuracy: </div>
+                    
+            </div>
 
             <div className='wrapper'>
 
-                <div className='stats' >
-
-                    <div className ='timer' ref={timerUpdate}>Elapsed Time: 0</div>
-
-                    <div className='wpm' ref={wpm}>0</div>
-
-                    <div className='countdown' ref={countD}>Count Down: 6</div>
-
-                    
-
+                <div className='reference' id='quoteBox' ref={referenceText}>
+                    {spanQuote}
                 </div>
 
-                <p className='reference' ref={referenceText} >
-                One, remember to look up at the stars and not down at your feet. Two, never give up work. Work gives you meaning and purpose and life is empty without it. Three, if you are lucky enough to find love, remember it is there and don't throw it away.
-                </p>
-
                 
-                <input type="text" className='typingBox' onInput={format} ref={inputBox} disabled={true} onPaste={cancel}/>
+                <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled='true' placeholder='Type here...'/>
                 
-
-                
-
             </div>
-            
-            
+
+            <div className='button'>
+                <button className='nextBox' id='nb' hidden={true} onClick={reload}>Next Race</button>
+            </div>
+                
+                
 
         </div>
     )

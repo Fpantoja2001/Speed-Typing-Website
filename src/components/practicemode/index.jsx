@@ -5,7 +5,7 @@ export default function PracticeMode (){
 
     const timerUpdate = useRef(),wpm = useRef(),countDown = useRef(),referenceText = useRef(),inputBox = useRef(), accuracy = useRef()
     
-    const quote = "I don't believe in an interventionist God, but I know, darling, that you do. But if I did I would kneel down and ask him not to intervene when it came to you. Not to touch a hair on your head, to leave you as you are, and if he felt he had to direct you, then direct you into my arms."
+    const quote = "We are born at a given moment, in a given place and, like vintage years of wine, we have the qualities of the year and of the season of which we are born. Astrology does not lay claim to anything more."
 
     // This variable serves to help the Count Down Timer
     let cdsi;
@@ -74,6 +74,8 @@ export default function PracticeMode (){
 
         let tempWord;
 
+        progress()
+
         document.getElementById(wordPOS).className = 'onWord' // This underlines the current word the user is on
         
         // This variable takes the current word the user is on and adds a space at the end so the user
@@ -89,8 +91,6 @@ export default function PracticeMode (){
             tempWord = document.getElementById(wordPOS).innerText.concat(' ')
 
         }
-
-        console.log(tempWord)
 
         // This if statement works to make sure that if the user backspaces, the state of characters he has
         // already typed whether right or wrong gets erased. This is essentially achieved by setting the class
@@ -126,6 +126,12 @@ export default function PracticeMode (){
                 }
             }
             
+        }
+
+        function progress(){
+            console.log(document.getElementById('quoteBox').children.length/(wordPOS-9))
+
+            document.getElementById('pb').style.width = `${((wordPOS - 9)/document.getElementById('quoteBox').children.length)*100}%`
         }
 
             
@@ -171,7 +177,7 @@ export default function PracticeMode (){
         startTime = new Date() 
 
         timerEnd = setInterval(() => {
-            timerUpdate.current.innerText = `Elapsed time: ${timerFormat()}`
+            timerUpdate.current.innerText = `Time: ${timerFormat()}`
             
         },1000)
     }
@@ -214,18 +220,9 @@ export default function PracticeMode (){
     return (
         
         <div className='page'>
-            
-            
-            <div className='stats' >
 
-                <div className ='timer' ref={timerUpdate}>Elapsed Time: 0</div>
-
-                <div className='wpm' ref={wpm}>WPM: 0</div>
-
-                <div className='countdown' ref={countDown}>Count Down: 6</div>
-
-                <div className='accuracy' ref={accuracy}>Accuracy: </div>
-                    
+            <div className='progressBar'> 
+                <div className='update' id='pb'></div>
             </div>
 
             <div className='wrapper'>
@@ -239,11 +236,29 @@ export default function PracticeMode (){
                 
             </div>
 
+            
+                
+            <div className='stats' >
+
+                <div className='currentStats'>
+                    <div className ='timer' ref={timerUpdate}>Time: 0</div>
+
+                    <div className='wpm' ref={wpm}>WPM: 0</div>
+
+                    <div className='countdown' ref={countDown}>Count Down: 6</div>
+
+                    <div className='accuracy' ref={accuracy}>Accuracy: 0% </div>
+                </div>
+
+                <div className='historicalStats'></div>
+
+                
+                    
+            </div> 
+            
             <div className='button'>
                 <button className='nextBox' id='nb' hidden={true} onClick={reload}>Next Race</button>
-            </div>
-                
-                
+            </div> 
 
         </div>
     )

@@ -8,24 +8,31 @@
     justify-content: center;
     align-items: center;
     background-color: #FBFCFF;
-    
-    .stats{
-        background-color: white;
-        color: $darkBlue;
-        padding: 10px 0px 10px 0px;
+
+    .progressBar{
+        width: 43%;
         border-radius: 10px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        width: 80%;
+        height: 35px;
         margin: 20px;
         border: solid 1px $darkBlue;
+
+        .update {
+            background-color:aquamarine;
+            border-radius: 10px;
+            height: 100%;
+            width: 0%;
+            display: flex;
+            align-items: center;
+            
+        }
     }
+    
+    
 
     .wrapper {
-        width: 80%;
+        width: 50%;
         height: 40%;
-        background-color: #1C6E8C;
+        background-color: #FBFCFF;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -84,19 +91,43 @@
 
          }
 
-        .button {
-            width: 80%;
-           
-            .nextBox {
-                height: 50px;
-                width: 120px;
-                margin: 20px 0px 20px 20px;
-                border-radius: 6px;
-                float: right;  
-            } 
+        
+        .stats{
+        background-color: white;
+        color: $darkBlue;
+        padding: 10px 0px 10px 0px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 50%;
+        margin: 20px;
+        border: solid 1px $darkBlue;
+        height: 20%;
 
+            .currentStats{
+                width: 45%;
+
+                div{
+                    margin: 20px;
+                }
+            }
+            .historicalStats {
+                width: 45%;
+            }
         }
-    
+        .button {
+                width: 50%;
+            
+                .nextBox {
+                    height: 50px;
+                    width: 120px;
+                    margin: 20px 0px 0px 20px;
+                    border-radius: 6px;
+                    float: right;  
+                } 
+
+            }
     
     
 }

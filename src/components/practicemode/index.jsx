@@ -197,8 +197,10 @@ export default function PracticeMode (){
         
         cdsi = setInterval(() => {
             cdt--;
-            countDown.current.innerText = `Count Down: ${cdt}`
+            countDown.current.innerText = `${cdt}`
             if(cdt === 0){
+                document.getElementById('cdBox').style.color = `green`
+                countDown.current.innerText = `GO`
                 clearInterval(cdsi)
                 GameStart()
             }
@@ -232,8 +234,13 @@ export default function PracticeMode (){
                     {spanQuote}
                 </div>
 
+                <div className='input'>
+                    <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled='true' placeholder='Type here...'/>
+                    <div className='countDown' ref={countDown} id='cdBox'>6</div>
+                </div>
+
                 
-                <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled='true' placeholder='Type here...'/>
+                
                 
             </div>
 
@@ -246,7 +253,7 @@ export default function PracticeMode (){
 
                     <div className='wpm' ref={wpm}>WPM: 0</div>
 
-                    <div className='countdown' ref={countDown}>Count Down: 6</div>
+                    
 
                     <div className='accuracy' ref={accuracy}>Accuracy: 0% </div>
                 </div>

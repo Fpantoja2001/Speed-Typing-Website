@@ -80,20 +80,42 @@
 
                 
             } 
+            
+        
+        .input{
+            display: flex;
+            flex-direction: row;
+            width: 88%;
+            
+            .countDown {
+                width: 10%;
+                height: 60px;
+                margin: 20px 0px 20px 5px;
+                border: solid 1px $darkBlue;  
+                border-radius: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 20px;
+            }
+            
             .typingBox{
-                width: 80%;
+                width: 90%;
                 padding: 20px;
-                margin: 20px;
+                margin: 20px 20px 20px 0px;
                 border-radius: 10px;
                 border: solid 1px $darkBlue;  
 
-            }   
+            } 
 
-         }
+        }
+        
+
+        }
 
         
         .stats{
-        background-color: white;
+        background-color: #FBFCFF;
         color: $darkBlue;
         padding: 10px 0px 10px 0px;
         border-radius: 10px;
@@ -105,29 +127,32 @@
         border: solid 1px $darkBlue;
         height: 20%;
 
-            .currentStats{
-                width: 45%;
+        .currentStats{
+            width: 45%;
 
-                div{
-                    margin: 20px;
-                }
+            div{
+                margin: 35px;
+            }
+            
             }
             .historicalStats {
                 width: 45%;
             }
         }
         .button {
-                width: 50%;
+            width: 50%;
             
-                .nextBox {
-                    height: 50px;
-                    width: 120px;
-                    margin: 20px 0px 0px 20px;
-                    border-radius: 6px;
-                    float: right;  
-                } 
+            .nextBox {
+                height: 50px;
+                width: 120px;
+                margin: 20px 0px 0px 20px;
+                border-radius: 6px;
+                float: right;  
+                border: solid 1px $darkBlue;
+                background-color: #FBFCFF;
+            } 
 
-            }
+        }
     
     
 }

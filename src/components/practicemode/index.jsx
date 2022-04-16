@@ -222,6 +222,7 @@ export default function PracticeMode (){
         <div className='page'>
 
             <div className='progressBar'> 
+                <p>Progress Bar</p>
                 <div className='update' id='pb'></div>
             </div>
 

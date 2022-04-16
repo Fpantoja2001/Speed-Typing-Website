@@ -4,12 +4,18 @@ export default function Navbar () {
     return (
         <div className='navbar'>
             <div className='title'>
-                <h1>stype</h1>
+                <h1>sType</h1>
             </div>
             <div className='menu'>
                 <ul>
                     <li>
-                        Menu
+                        Modes
+                    </li>
+                    <li>
+                        Account
+                    </li>
+                    <li>
+                        Home
                     </li>
                 </ul>
             </div>

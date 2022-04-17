@@ -10,7 +10,7 @@
     background-color: $bgColor;
 
     .progressBar{
-        width: 43%;
+        width: 34%;
         height: 40px;
         margin: 20px;
         border: 1px solid $darkColor;
@@ -23,12 +23,13 @@
             font-size: 20px;
             margin-top: 5px;
             width: 10%;
+            font-weight: 600;
 
         }
  
 
         .update {
-            background-color:$mainColor;
+            background-color:$accentColor;
             height: 100%;
             width: 0%;
             
@@ -38,7 +39,7 @@
     
 
     .wrapper {
-        width: 50%;
+        width: 40%;
         height: 40%;
         background-color: $darkColor;
         display: flex;
@@ -105,6 +106,7 @@
                 justify-content: center;
                 align-items: center;
                 font-size: 20px;
+                background-color: #FBFCFF;
             }
             
             .typingBox{
@@ -124,25 +126,21 @@
 
         
         .stats{
-<<<<<<< HEAD
         background-color: $darkColor;
-        color: white;
-=======
-        background-color: #FBFCFF;
         color: $darkBlue;
->>>>>>> af9b2a5d68ea4f41997d2daaa1f61d85de0f9375
         padding: 10px 0px 10px 0px;
         border-radius: 10px;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-        width: 50%;
+        width: 40%;
         margin: 20px;
         border: solid 1px $darkBlue;
         height: 20%;
 
         .currentStats{
             width: 45%;
+            color: #FBFCFF;
 
             div{
                 margin: 35px;
@@ -154,7 +152,7 @@
             }
         }
         .button {
-            width: 50%;
+            width: 40%;
             
             .nextBox {
                 height: 50px;
@@ -163,7 +161,9 @@
                 border-radius: 6px;
                 float: right;  
                 border: solid 1px $darkBlue;
-                background-color: #FBFCFF;
+                background-color: $accentColor;
+                font-size: 15px;
+                font-weight: 600;
             } 
 
         }

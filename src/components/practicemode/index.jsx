@@ -44,7 +44,8 @@ export default function PracticeMode (){
        async function newQuote (){
             const response = await fetch("https://api.quotable.io/random") 
             const data = await response.json()
-
+            quoteBox.innerHTML = ''
+ 
             data.content.split(' ').map((char) => {
                 divIdentifier++
 
@@ -68,22 +69,6 @@ export default function PracticeMode (){
        newQuote()
     },[])
     
-
-   
-      
-    // const spanQuote = quote.split(' ').map((char) => {
-        
-    //     divIdentifier++;
-
-    //     const charToSpan = char.split('').map((char,x=0) => {
-    //         return <span id={`${divIdentifier}${x}`} className='text'>{`${char}`}</span>
-    //     })
-    
-    //     return <div id={divIdentifier}>{charToSpan}</div>
-
-    // })
-
-
 
     // This function controls the start of game logic
     async function GameStart(){
@@ -208,7 +193,7 @@ export default function PracticeMode (){
     }
 
     // These functions (elapsedTime & timerFormat) create the timer that is used to help calculate the wpm
-    function elapsedTime(end){
+    function elapsedTime(){
         startTime = new Date() 
 
         timerEnd = setInterval(() => {
@@ -216,17 +201,18 @@ export default function PracticeMode (){
             
         },1000)
     }
-
+    
+    function timerFormat(){
+        return Math.floor((new Date() - startTime)/1000)
+    }
+    
+    // Stops the elapsed time timer when the game ends
     function stopInterval(){
         clearInterval(timerEnd)
     }
 
-    function timerFormat(){
-        return Math.floor((new Date() - startTime)/1000)
-    }
-
-    // This function operates the count down timer
     
+    // This function operates the count down timer
     function countDownTimer(){
         let cdt = 6;
         
@@ -271,10 +257,7 @@ export default function PracticeMode (){
                     <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled='true' placeholder='Type here...'/>
                     <div className='countDown' ref={countDown} id='cdBox'>6</div>
                 </div>
-
-                
-                
-                
+    
             </div>
 
             
@@ -285,8 +268,6 @@ export default function PracticeMode (){
                     <div className ='timer' ref={timerUpdate}>Time: 0</div>
 
                     <div className='wpm' ref={wpm}>WPM: 0</div>
-
-                    
 
                     <div className='accuracy' ref={accuracy}>Accuracy: 0% </div>
                 </div>

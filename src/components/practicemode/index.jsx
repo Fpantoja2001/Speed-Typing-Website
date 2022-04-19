@@ -5,7 +5,7 @@ export default function PracticeMode (){
 
     const timerUpdate = useRef(),wpm = useRef(),countDown = useRef(),referenceText = useRef(),inputBox = useRef(), accuracy = useRef()
     
-    const quote = "We are born at a given moment, in a given place and, like vintage years of wine, we have the qualities of the year and of the season of which we are born. Astrology does not lay claim to anything more."
+    let quote = "We are born at a given moment, in a given place and, like vintage years of wine, we have the qualities of the year and of the season of which we are born. Astrology does not lay claim to anything more."
 
     // This variable serves to help the Count Down Timer
     let cdsi;
@@ -29,6 +29,9 @@ export default function PracticeMode (){
     // This variable serves to number the divs in which whole words will be split up into indivisual Span tags
     let divIdentifier = 9;
 
+    //
+    
+    const quoteBox = document.getElementById('quoteBox')
     // Span Quote functions to structure the reference text so that I can iterate both through
     // the entire words in it and each character indivisually. I did this so that I can underline the
     // word the user is on and apply either the 'correct' or 'incorrect' css class to each character
@@ -37,21 +40,49 @@ export default function PracticeMode (){
     // It essentially is taking each word and assigning it a div, and it then takes every chracter of that word 
     // and assigns it its own div
 
-    const spanQuote = quote.split(' ').map((char) => {
+
+
+
+    async function newQuote (){
+       const response = await fetch("https://api.quotable.io/random") 
+       const data = await response.json()
+       
+    //    const spanQuote = quote.split(' ').map((char) => {
         
-        divIdentifier++;
+    //         divIdentifier++;
+    
+    //         const charToSpan = char.split('').map((char,x=0) => {
+    //             return <span id={`${divIdentifier}${x}`} className='text'>{`${char}`}</span>
+    //         })
+        
+    //         return <div id={divIdentifier}>{charToSpan}</div>
+    
+    //     })
+       
+        // qb.innerHTML += spanQuote
 
-        const charToSpan = char.split('').map((char,x=0) => {
-            return <span id={`${divIdentifier}${x}`} className='text'>{`${char}`}</span>
-        })
- 
-        return <div id={divIdentifier}>{charToSpan}</div>
-    })
+    }
+        
+      
+    // const spanQuote = quote.split(' ').map((char) => {
+        
+    //     divIdentifier++;
 
-    window.onload = countDownTimer()
+    //     const charToSpan = char.split('').map((char,x=0) => {
+    //         return <span id={`${divIdentifier}${x}`} className='text'>{`${char}`}</span>
+    //     })
+    
+    //     return <div id={divIdentifier}>{charToSpan}</div>
+
+    // })
+
+    window.onload = () => {
+
+        console.log(quoteBox)
+    } 
 
     // This function controls the start of game logic
-    function GameStart(){
+    async function GameStart(){
 
         // Disables the input box until the countdown timer reaches 0
         inputBox.current.removeAttribute('disabled')
@@ -231,7 +262,7 @@ export default function PracticeMode (){
             <div className='wrapper'>
 
                 <div className='reference' id='quoteBox' ref={referenceText}>
-                    {spanQuote}
+                 jkbk
                 </div>
 
                 <div className='input'>

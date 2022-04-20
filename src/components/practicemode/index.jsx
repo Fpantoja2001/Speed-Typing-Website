@@ -23,9 +23,11 @@ export default function PracticeMode (){
     // this is so the users accuracy can be calculated at the end.
     let incorrectCharacters = 0
     let correctCharacters = 0
+    let charCount = 0
     
     // This variable serves to number the divs in which whole words will be split up into indivisual Span tags
     let divIdentifier = 9;
+
 
     // This useEffect works to structure the reference text so that I can iterate both through
     // the entire words in it and each character indivisually. I did this so that I can underline the
@@ -40,10 +42,14 @@ export default function PracticeMode (){
     useEffect(()=>{
        
        const quoteBox = document.getElementById('quoteBox')
+       const authorField = document.getElementById('author')
+       const tagField = document.getElementById('tags')
 
        async function newQuote (){
             const response = await fetch("https://api.quotable.io/random") 
             const data = await response.json()
+            authorField.innerText = `Author: ${data.author}`
+            tagField.innerText = `Tags: ${data.tags}`
             quoteBox.innerHTML = ''
  
             data.content.split(' ').map((char) => {
@@ -58,15 +64,20 @@ export default function PracticeMode (){
                     span.id = `${divIdentifier}${x}`
                     span.className = Text
                     divGen.appendChild(span)
+
+                    return charCount
                 })
 
                 quoteBox.appendChild(divGen)
+
+                return charCount
 
             })
        }
        
        countDownTimer()
        newQuote()
+       console.log(charCount)
     },[])
     
 
@@ -166,7 +177,6 @@ export default function PracticeMode (){
             // If the word does match, then it increases the wordPOS variable to move 
             // the user onto the next word. 
             ++wordPOS  
-            console.log(wordPOS) 
 
             // This resets the value of the input field            
             e.target.value = ''
@@ -272,7 +282,10 @@ export default function PracticeMode (){
                     <div className='accuracy' ref={accuracy}>Accuracy: 0% </div>
                 </div>
 
-                <div className='historicalStats'></div>
+                <div className='historicalStats'>
+                    <div className='author' id='author'>Author: </div>
+                    <div className='tags' id='tags'>Tag: </div>
+                </div>
 
                 
                     

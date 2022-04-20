@@ -19,10 +19,10 @@
         p{
             position: absolute;
             color: $darkColor;
-            right: 45%;
+            
             font-size: 20px;
             margin-top: 5px;
-            width: 10%;
+            width: 34%;
             font-weight: 600;
 
         }
@@ -149,6 +149,11 @@
             }
             .historicalStats {
                 width: 45%;
+                color: #FBFCFF;
+                
+                div {
+                    margin: 35px 0px 35px 0px;
+                }
             }
         }
         .button {

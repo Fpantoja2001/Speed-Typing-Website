@@ -255,8 +255,7 @@ export default function PracticeMode (){
             countDown.current.innerText = `${cdt}`
             if(cdt === 0){
                 document.getElementById('cdBox').setAttribute('hidden',true)
-                
-                countDown.current.innerText = `GO`
+                document.getElementById('divGone').setAttribute('hidden',true)
                 clearInterval(cdsi)
                 GameStart()
             }
@@ -284,7 +283,7 @@ export default function PracticeMode (){
             <div className='wrapper'>
                 <div className='progressStats'>
                     <span className='countDown' ref={countDown} id='cdBox'>6</span>
-                    <span className='divider'>|</span>
+                    <span className='divider' id='divGone'>|</span>
                     <span id ='progressChar'>Char 0 / ?</span>
                     <span className='divider'>|</span>
                     <span id='progressWords'>Word 0 / ? </span>

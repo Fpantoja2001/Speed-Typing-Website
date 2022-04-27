@@ -23,12 +23,16 @@ export default function PracticeMode (){
     // this is so the users accuracy can be calculated at the end.
     let incorrectCharacters = 0
     let correctCharacters = 0
-    let charCount = 0
+    let charCount;
+    let wordCount;
+
+    const progressWord = document.getElementById('progressWords')
+    const referenceText = document.getElementById('quoteBox')
     
     // This variable serves to number the divs in which whole words will be split up into indivisual Span tags
     let divIdentifier = 9;
 
-
+    
     // This useEffect works to structure the reference text so that I can iterate both through
     // the entire words in it and each character indivisually. I did this so that I can underline the
     // word the user is on and apply either the 'correct' or 'incorrect' css class to each character
@@ -44,7 +48,9 @@ export default function PracticeMode (){
        const quoteBox = document.getElementById('quoteBox')
        const authorField = document.getElementById('author')
        const tagField = document.getElementById('tags')
-
+       const initWordCount = document.getElementById('progressWords')
+       const initCharCount = document.getElementById('progressChar')
+       
        async function newQuote (){
             const response = await fetch("https://api.quotable.io/random") 
             const data = await response.json()
@@ -65,19 +71,21 @@ export default function PracticeMode (){
                     span.className = Text
                     divGen.appendChild(span)
 
-                    return charCount
                 })
 
                 quoteBox.appendChild(divGen)
-
-                return charCount
+                charCount = data.content.split(' ').join('').split('').length - 1
+                wordCount = data.content.split(' ').length
+                initWordCount.innerText = `Word 0 / ${wordCount}`
+                initCharCount.innerText = `Char 0 / ${charCount}`
 
             })
        }
        
+       
        countDownTimer()
        newQuote()
-       console.log(charCount)
+       
     },[])
     
 
@@ -97,15 +105,18 @@ export default function PracticeMode (){
     }
     
     
-
     // This is the function that gets called everytime a user types; It handles everything having to 
     // with making sure the user types correctly to edge cases.
+   
+    let tempCharCount = 0 
+    let i = 0 
 
     function type (e){
 
+        
+        
         let tempWord;
-
-        progress()
+   
 
         document.getElementById(wordPOS).className = 'onWord' // This underlines the current word the user is on
         
@@ -133,14 +144,30 @@ export default function PracticeMode (){
       
         }
 
+        // Same function as the one below that checks the user input to see if user typed in
+        // correct chars, the only difference is its out of the for loop so it can be used as 
+        // a char progress counter for the user to see 
+
+        if (e.target.selectionStart === tempWord.length){
+               
+        } else{
+
+            if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText){
+                
+                i++
+                tempCharCount++
+                document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
+                document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
+            }
+        }
+
         // This for loop, loops through the user input field and the reference text to make sure all
         // all letters are typed correctly, and it applies classes based on that fact 
-
+        
         for (let i = 0; i < e.target.selectionStart; i++){
-            
+
             // This if statement was created to ignore the space at the end of the word
-
-
+                
             if (e.target.selectionStart === tempWord.length){
 
                 break; 
@@ -150,7 +177,7 @@ export default function PracticeMode (){
                 if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText){
 
                 document.getElementById(`${wordPOS}${i}`).className = 'correct'
-
+            
                 }else {
 
                     document.getElementById(`${wordPOS}${i}`).className = 'wrong'
@@ -158,14 +185,7 @@ export default function PracticeMode (){
             }
             
         }
-
-        function progress(){
-            console.log(document.getElementById('quoteBox').children.length/(wordPOS-9))
-
-            document.getElementById('pb').style.width = `${((wordPOS - 9)/document.getElementById('quoteBox').children.length)*100}%`
-        }
-
-            
+        
               
        // This statement checks if the user typed word matches the temp word above 
 
@@ -178,12 +198,16 @@ export default function PracticeMode (){
             // the user onto the next word. 
             ++wordPOS  
 
+            i = 0
+
             // This resets the value of the input field            
             e.target.value = ''
 
             //Updates and Calculates the WPM of the user after they their first word correct
             wpm.current.innerText = `WPM: ${Math.round(((wordPOS - 10) / timerFormat()) * 60)}`
             
+            // Updates the word count for the user
+            document.getElementById('progressWords').innerText = `Word ${wordPOS - 10} / ${wordCount}`
        }
        
        // This if statement defines the win condition, and if they are met then the input box 
@@ -230,7 +254,8 @@ export default function PracticeMode (){
             cdt--;
             countDown.current.innerText = `${cdt}`
             if(cdt === 0){
-                document.getElementById('cdBox').style.color = `green`
+                document.getElementById('cdBox').setAttribute('hidden',true)
+                
                 countDown.current.innerText = `GO`
                 clearInterval(cdsi)
                 GameStart()
@@ -253,46 +278,59 @@ export default function PracticeMode (){
     return (
         
         <div className='page'>
-
-            <div className='progressBar'> 
-                <p>Progress Bar</p>
-                <div className='update' id='pb'></div>
-            </div>
-
+            
+            
+        
             <div className='wrapper'>
-
+                <div className='progressStats'>
+                    <span className='countDown' ref={countDown} id='cdBox'>6</span>
+                    <span className='divider'>|</span>
+                    <span id ='progressChar'>Char 0 / ?</span>
+                    <span className='divider'>|</span>
+                    <span id='progressWords'>Word 0 / ? </span>
+                    
+                </div>
+                
                 <div className='reference' id='quoteBox'></div>
 
                 <div className='input'>
-                    <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled='true' placeholder='Type here...'/>
-                    <div className='countDown' ref={countDown} id='cdBox'>6</div>
+                    <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled='true' placeholder='Type here...'/> 
                 </div>
-    
+                
+                
             </div>
 
             
-                
-            <div className='stats' >
 
-                <div className='currentStats'>
-                    <div className ='timer' ref={timerUpdate}>Time: 0</div>
+            <div className='wrapper2'>
+                {/* <div className='countDown' ref={countDown} id='cdBox'>6</div> */}
 
-                    <div className='wpm' ref={wpm}>WPM: 0</div>
-
-                    <div className='accuracy' ref={accuracy}>Accuracy: 0% </div>
+                <div className='progressBar'> 
+                    <p>Progress Bar</p>
+                    <div className='update' id='pb'></div>
                 </div>
 
-                <div className='historicalStats'>
-                    <div className='author' id='author'>Author: </div>
-                    <div className='tags' id='tags'>Tag: </div>
-                </div>
+                <div className='stats' >
 
+                    <div className='currentStats'>
+                        <div className ='timer' ref={timerUpdate}>Time: 0</div>
+
+                        <div className='wpm' ref={wpm}>WPM: 0</div>
+
+                        <div className='accuracy' ref={accuracy}>Accuracy: 0% </div>
+                    </div>
+
+                    <div className='historicalStats'>
+                        <div className='author' id='author'>Author: </div>
+                        <div className='tags' id='tags'>Tag: </div>
+                    </div>
+                 
+                </div>
                 
-                    
-            </div> 
-            
-            <div className='button'>
-                <button className='nextBox' id='nb' hidden={true} onClick={reload}>Next Race</button>
+                <div className='button'>
+                        <button className='nextBox' id='nb' hidden={true} onClick={reload}>Next Race</button>
+                </div> 
+ 
             </div> 
 
         </div>

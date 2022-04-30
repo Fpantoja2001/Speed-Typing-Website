@@ -21,8 +21,7 @@ export default function PracticeMode (){
 
     // These variables serve to keep count of when the user either types a chracter correctly or incorrectly,
     // this is so the users accuracy can be calculated at the end.
-    let incorrectCharacters = 0
-    let correctCharacters = 0
+    let incorrectCharCount = 0
     let charCount;
     let wordCount;
 
@@ -113,11 +112,9 @@ export default function PracticeMode (){
 
     function type (e){
 
-        
-        
         let tempWord;
    
-
+        document.getElementById('accuracy').innerText = `Accuracy: ${(((charCount - incorrectCharCount)/charCount)*100).toFixed(2)}%`
         document.getElementById(wordPOS).className = 'onWord' // This underlines the current word the user is on
         
         // This variable takes the current word the user is on and adds a space at the end so the user
@@ -158,6 +155,8 @@ export default function PracticeMode (){
                 tempCharCount++
                 document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
                 document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
+            } else {
+                incorrectCharCount++
             }
         }
 
@@ -212,7 +211,7 @@ export default function PracticeMode (){
        
        // This if statement defines the win condition, and if they are met then the input box 
        // becomes disabled
-       if (wordPOS > document.getElementById('quoteBox').children.length + 9) {
+       if (wordPOS - 1 === document.getElementById('quoteBox').children.length + 9) {
            
            // This disables the input box once the game ends
            e.target.setAttribute('disabled',true)
@@ -317,7 +316,7 @@ export default function PracticeMode (){
 
                         <div className='wpm' ref={wpm}>WPM: 0</div>
 
-                        <div className='accuracy' ref={accuracy}>Accuracy: 0% </div>
+                        <div className='accuracy' id='accuracy' ref={accuracy}>Accuracy: 0% </div>
                     </div>
 
                     <div className='historicalStats'>

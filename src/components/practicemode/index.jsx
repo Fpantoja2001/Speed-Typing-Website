@@ -77,6 +77,7 @@ export default function PracticeMode (){
                 wordCount = data.content.split(' ').length
                 initWordCount.innerText = `Word 0 / ${wordCount}`
                 initCharCount.innerText = `Char 0 / ${charCount}`
+                document.getElementById(`${wordPOS}${i}`).style.backgroundColor = '#387780'
 
             })
        }
@@ -110,8 +111,11 @@ export default function PracticeMode (){
     let tempCharCount = 0 
     let i = 0 
 
-    function type (e){
+    let cursorPOS = 0
 
+    function type (e){
+        
+        
         let tempWord;
    
         document.getElementById('accuracy').innerText = `Accuracy: ${(((charCount - incorrectCharCount)/charCount)*100).toFixed(2)}%`
@@ -138,8 +142,26 @@ export default function PracticeMode (){
         if (e.target.selectionStart < tempWord.length - 1){
             
             document.getElementById(`${wordPOS}${e.target.selectionStart}`).className = ''
-      
+
         }
+
+        //Cursor Logic Handler -- Work in Progress
+        // if(e.target.selectionStart === tempWord.length){
+            
+        //    console.log('word done') 
+
+        // } else{
+        //     console.log(e.target.selectionStart, cursorPOS)
+             
+        //     if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText) {
+                
+        //         document.getElementById(`${wordPOS}${cursorPOS}`).style.backgroundColor = ''
+        //         cursorPOS++
+        //         document.getElementById(`${wordPOS}${cursorPOS}`).style.backgroundColor = '#387780'
+
+        //     }        
+            
+        // }
 
         // Same function as the one below that checks the user input to see if user typed in
         // correct chars, the only difference is its out of the for loop so it can be used as 
@@ -150,15 +172,19 @@ export default function PracticeMode (){
         } else{
 
             if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText){
-                
+
                 i++
                 tempCharCount++
                 document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
                 document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
+                
             } else {
                 incorrectCharCount++
             }
         }
+
+
+        
 
         // This for loop, loops through the user input field and the reference text to make sure all
         // all letters are typed correctly, and it applies classes based on that fact 
@@ -197,6 +223,8 @@ export default function PracticeMode (){
             // the user onto the next word. 
             ++wordPOS  
 
+            cursorPOS = 0
+
             i = 0
 
             // This resets the value of the input field            
@@ -208,7 +236,7 @@ export default function PracticeMode (){
             // Updates the word count for the user
             document.getElementById('progressWords').innerText = `Word ${wordPOS - 10} / ${wordCount}`
        }
-       
+
        // This if statement defines the win condition, and if they are met then the input box 
        // becomes disabled
        if (wordPOS - 1 === document.getElementById('quoteBox').children.length + 9) {
@@ -222,6 +250,8 @@ export default function PracticeMode (){
            // Prompts Next Race Button 
            document.getElementById('nb').removeAttribute('hidden')
        } 
+
+      
         
     }
 

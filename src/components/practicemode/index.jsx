@@ -3,7 +3,7 @@ import React, {useRef, useEffect } from 'react'
 
 export default function PracticeMode (){
 
-    const timerUpdate = useRef(),wpm = useRef(),countDown = useRef(),inputBox = useRef(), accuracy = useRef()
+    const timerUpdate = useRef(),wpm = useRef(),countDown = useRef(),inputBox = useRef(), accuracyField = useRef()
 
     // This variable serves to help the Count Down Timer
     let cdsi;
@@ -50,8 +50,7 @@ export default function PracticeMode (){
        async function newQuote (){
             const response = await fetch("https://api.quotable.io/random") 
             const data = await response.json()
-            authorField.innerText = `Author: ${data.author}`
-            tagField.innerText = `Tags: ${data.tags}`
+            authorField.innerText = `- ${data.author}`
             quoteBox.innerHTML = ''
  
             data.content.split(' ').map((char) => {
@@ -64,7 +63,7 @@ export default function PracticeMode (){
                     const span = document.createElement('span')
                     span.innerText = char
                     span.id = `${divIdentifier}${x}`
-                    span.className = Text
+                    span.className = "Text"
                     divGen.appendChild(span)
 
                 })
@@ -108,16 +107,17 @@ export default function PracticeMode (){
     let tempCharCount = 0 
     let i = 0 
 
-    let cursorPOS = 0
-
-    function type (e){
-        
-        
+    function type (e){        
         let tempWord;
-   
-        document.getElementById('accuracy').innerText = `Accuracy: ${(((charCount - incorrectCharCount)/charCount)*100).toFixed(2)}%`
+
+        //Updates and Calculates the WPM of the user after they their first word correct
+        // wpm.current.innerText = `WPM: ${Math.round(((wordPOS - 10) / timerFormat()) * 60)}`
+
+
+        accuracyField.current.innerText = `Accuracy: ${(((charCount - incorrectCharCount)/charCount)*100).toFixed(2)}%`
         document.getElementById(wordPOS).className = 'onWord' // This underlines the current word the user is on
         
+            
         // This variable takes the current word the user is on and adds a space at the end so the user
         // gets a sense of entering a word essentially. The only exception is the last word, so once the 
         // user enters the last word, the game ends. 
@@ -142,23 +142,7 @@ export default function PracticeMode (){
 
         }
 
-        //Cursor Logic Handler -- Work in Progress
-        // if(e.target.selectionStart === tempWord.length){
-            
-        //    console.log('word done') 
-
-        // } else{
-        //     console.log(e.target.selectionStart, cursorPOS, tempWord.length)
-             
-        //     if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText) {
-                
-        //         document.getElementById(`${wordPOS}${cursorPOS}`).className = null
-        //         cursorPOS++
-        //         document.getElementById(`${wordPOS}${cursorPOS}`).className = 'onChar'
-
-        //     }        
-            
-        // }
+        
 
         // Same function as the one below that checks the user input to see if user typed in
         // correct chars, the only difference is its out of the for loop so it can be used as 
@@ -168,13 +152,12 @@ export default function PracticeMode (){
                
         } else{
 
-            if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText){
-
+            if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText && e.target.value[i] !== ' '){
                 i++
                 tempCharCount++
                 document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
                 document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
-                
+
             } else {
                 incorrectCharCount++
             }
@@ -225,8 +208,6 @@ export default function PracticeMode (){
             // This resets the value of the input field            
             e.target.value = ''
 
-            //Updates and Calculates the WPM of the user after they their first word correct
-            wpm.current.innerText = `WPM: ${Math.round(((wordPOS - 10) / timerFormat()) * 60)}`
             
             // Updates the word count for the user
             document.getElementById('progressWords').innerText = `Word ${wordPOS - 10} / ${wordCount}`
@@ -235,7 +216,7 @@ export default function PracticeMode (){
        // This if statement defines the win condition, and if they are met then the input box 
        // becomes disabled
        if (wordPOS - 1 === document.getElementById('quoteBox').children.length + 9) {
-           
+
            // This disables the input box once the game ends
            e.target.setAttribute('disabled',true)
 
@@ -256,7 +237,7 @@ export default function PracticeMode (){
 
         timerEnd = setInterval(() => {
             timerUpdate.current.innerText = `Time: ${timerFormat()}`
-            
+            wpm.current.innerText = `WPM: ${Math.round(((wordPOS - 10) / timerFormat()) * 60)}`  
         },1000)
     }
     
@@ -302,8 +283,6 @@ export default function PracticeMode (){
         
         <div className='page'>
             
-            
-        
             <div className='wrapper'>
                 <div className='progressStats'>
                     <span className ='timer' ref={timerUpdate}>Time: 0</span>
@@ -317,6 +296,10 @@ export default function PracticeMode (){
                 
                 <div className='reference' id='quoteBox'></div>
 
+                <div className='authorHolder'>
+                    <div className='author' id='author'>Author: </div>
+                </div>
+
                 <div className='input'>
                     <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled='true' placeholder='Type here...'/> 
                 </div>
@@ -329,7 +312,7 @@ export default function PracticeMode (){
                 <div className='mainStats'>
                     <span className='wpm' ref={wpm}>WPM: 0</span>
                     <span className='divider'>|</span>
-                    <span className='accuracy' id='accuracy' ref={accuracy}>Accuracy: 0% </span>
+                    <span className='accuracy' id='accuracy' ref={accuracyField}>Accuracy: 0% </span>
                 </div>
                 
             </div>
@@ -337,22 +320,7 @@ export default function PracticeMode (){
             
 
             <div className='wrapper2'>
-                {/* <div className='countDown' ref={countDown} id='cdBox'>6</div> */}
 
-                
-
-                <div className='stats' >
-
-                    <div className='currentStats'>
-                        
-                    </div>
-
-                    <div className='historicalStats'>
-                        <div className='author' id='author'>Author: </div>
-                        <div className='tags' id='tags'>Tag: </div>
-                    </div>
-                 
-                </div>
                 
                 <div className='button'>
                         <button className='nextBox' id='nb' hidden={true} onClick={reload}>Next Race</button>

@@ -7,14 +7,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: $richBlue;
+    background-color: $darkColor;
 
 
     .title{
         font-size: 100px;
         font-weight: 700;
         margin: 50px;
-        color: $popYellow;
+        color: $darkColor;
     }
 
     .modeSelection{
@@ -29,7 +29,7 @@
             border-radius: 4px;
             font-size: 20px;
             border:solid 1px;
-            background-color: $mellowBlue;
+            background-color: $darkColor;
 
             &:hover{
 
@@ -42,7 +42,7 @@
     }
 
     .demo{
-        background-color: $darkBlue;
+        background-color: $darkColor;
         height: 50%;
         width: 80%;
         margin-top: 40px;

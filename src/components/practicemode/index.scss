@@ -35,6 +35,7 @@
                 color: $accentColor;
                 float: right;
                 margin-left: 20px;
+                transition: all 0.2s
             }
         }
 
@@ -63,6 +64,15 @@
                 width: 0%;
                 transition: all 0.2s;
                 
+            }
+        }
+
+        .authorHolder{
+            width: 73%;
+            color: $accentColor;
+
+            .author {
+                float: right;
             }
         }
 
@@ -106,7 +116,9 @@
                 text-decoration-color:black;
             }
 
-            
+            .cursor {
+                background-color: aqua;
+            }
 
             .wrong{
                 color: #E63946;
@@ -141,8 +153,8 @@
                 width: 70%;
                 padding: 20px;
                 margin: 50px 20px 20px 20px;
-                border: solid 1px $darkBlue;  
-                background-color: $bgColor;
+                border: solid 1px $darkColor;  
+                background-color: white;
 
             } 
 
@@ -157,40 +169,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #4D5061;
+            background-color: $contrast;
             flex-direction: column;
-
-            .stats{
-                background-color: $darkColor;
-                color: $darkBlue;
-                padding: 10px 0px 10px 0px;
-                border-radius: 10px;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-around;
-                width: 30%;
-                margin: 20px;
-                border: solid 1px $darkBlue;
-                height: 60%;
-
-                .currentStats{
-                    width: 45%;
-                    color: #FBFCFF;
-
-                    div{
-                        margin: 35px;
-                    }
-                    
-                    }
-                    .historicalStats {
-                        width: 45%;
-                        color: #FBFCFF;
-                        
-                        div {
-                            margin: 35px 0px 35px 0px;
-                        }
-                    }
-                }
         }
         
         .button {
@@ -202,7 +182,7 @@
                 margin: 20px 0px 0px 20px;
                 border-radius: 6px;
                 float: right;  
-                border: solid 1px $darkBlue;
+                border: solid 1px $darkColor;
                 background-color: $accentColor;
                 font-size: 15px;
                 font-weight: 600;

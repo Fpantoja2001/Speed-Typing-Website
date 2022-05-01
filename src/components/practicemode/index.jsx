@@ -25,9 +25,6 @@ export default function PracticeMode (){
     let charCount;
     let wordCount;
 
-    const progressWord = document.getElementById('progressWords')
-    const referenceText = document.getElementById('quoteBox')
-    
     // This variable serves to number the divs in which whole words will be split up into indivisual Span tags
     let divIdentifier = 9;
 
@@ -77,7 +74,7 @@ export default function PracticeMode (){
                 wordCount = data.content.split(' ').length
                 initWordCount.innerText = `Word 0 / ${wordCount}`
                 initCharCount.innerText = `Char 0 / ${charCount}`
-                document.getElementById(`${wordPOS}${i}`).style.backgroundColor = '#387780'
+                document.getElementById(`${wordPOS}${i}`).className  = 'onChar'
 
             })
        }
@@ -151,13 +148,13 @@ export default function PracticeMode (){
         //    console.log('word done') 
 
         // } else{
-        //     console.log(e.target.selectionStart, cursorPOS)
+        //     console.log(e.target.selectionStart, cursorPOS, tempWord.length)
              
         //     if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText) {
                 
-        //         document.getElementById(`${wordPOS}${cursorPOS}`).style.backgroundColor = ''
+        //         document.getElementById(`${wordPOS}${cursorPOS}`).className = null
         //         cursorPOS++
-        //         document.getElementById(`${wordPOS}${cursorPOS}`).style.backgroundColor = '#387780'
+        //         document.getElementById(`${wordPOS}${cursorPOS}`).className = 'onChar'
 
         //     }        
             
@@ -222,8 +219,6 @@ export default function PracticeMode (){
             // If the word does match, then it increases the wordPOS variable to move 
             // the user onto the next word. 
             ++wordPOS  
-
-            cursorPOS = 0
 
             i = 0
 
@@ -311,6 +306,7 @@ export default function PracticeMode (){
         
             <div className='wrapper'>
                 <div className='progressStats'>
+                    <span className ='timer' ref={timerUpdate}>Time: 0</span>
                     <span className='countDown' ref={countDown} id='cdBox'>6</span>
                     <span className='divider' id='divGone'>|</span>
                     <span id ='progressChar'>Char 0 / ?</span>
@@ -324,7 +320,17 @@ export default function PracticeMode (){
                 <div className='input'>
                     <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled='true' placeholder='Type here...'/> 
                 </div>
-                
+
+                <div className='progressBar'> 
+                    <p>Progress Bar</p>
+                    <div className='update' id='pb'></div>
+                </div>
+   
+                <div className='mainStats'>
+                    <span className='wpm' ref={wpm}>WPM: 0</span>
+                    <span className='divider'>|</span>
+                    <span className='accuracy' id='accuracy' ref={accuracy}>Accuracy: 0% </span>
+                </div>
                 
             </div>
 
@@ -333,19 +339,12 @@ export default function PracticeMode (){
             <div className='wrapper2'>
                 {/* <div className='countDown' ref={countDown} id='cdBox'>6</div> */}
 
-                <div className='progressBar'> 
-                    <p>Progress Bar</p>
-                    <div className='update' id='pb'></div>
-                </div>
+                
 
                 <div className='stats' >
 
                     <div className='currentStats'>
-                        <div className ='timer' ref={timerUpdate}>Time: 0</div>
-
-                        <div className='wpm' ref={wpm}>WPM: 0</div>
-
-                        <div className='accuracy' id='accuracy' ref={accuracy}>Accuracy: 0% </div>
+                        
                     </div>
 
                     <div className='historicalStats'>

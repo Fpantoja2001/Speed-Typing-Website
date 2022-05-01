@@ -10,8 +10,8 @@
     background-color: $darkColor;
 
     .wrapper {
-        width: 50%;
-        height: 50%;
+        width: 70%;
+        height: 60%;
         background-color: $darkColor;
         display: flex;
         flex-direction: column;
@@ -21,6 +21,11 @@
 
         .progressStats{
             width: 73%;
+
+            .timer{
+                float: left;
+                margin-left: 0;
+            }
             
             .divider{
                 color:$textColor;
@@ -31,6 +36,50 @@
                 float: right;
                 margin-left: 20px;
             }
+        }
+
+        .progressBar{
+            width: 73%;
+            height: 5px;
+            margin: 20px;
+            border: 1px solid black;
+            text-align: center;
+            position: relative;
+
+            p{
+                position: absolute;
+                color: $darkColor;
+                font-size: 20px;
+                margin-top: 5px;
+                width: 100%;
+                font-weight: 600;
+
+            }
+    
+
+            .update {
+                background-color:$accentColor;
+                height: 100%;
+                width: 0%;
+                transition: all 0.2s;
+                
+            }
+        }
+
+        .mainStats{
+            margin-top: 40px;
+            width: 73%;
+
+            .divider {
+                color: $textColor;
+            }
+
+            span {
+                color: $accentColor;
+                float: right;
+                margin-left: 20px;
+            }
+
         }
 
         
@@ -44,7 +93,6 @@
             border-radius: 10px;
             display: flex;
             flex-wrap: wrap;  
-            
             font-size: 20px;
                 
 
@@ -52,14 +100,13 @@
                 margin-right: 8px;
             }
 
+
             .onWord {
                 text-decoration: underline;
                 text-decoration-color:black;
             }
 
-            .onChar {
-                background-color: #E63946;
-            }
+            
 
             .wrong{
                 color: #E63946;
@@ -106,39 +153,12 @@
 
         .wrapper2{
             width: 100%;
-            height: 50%;
+            height: 40%;
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: #4D5061;
             flex-direction: column;
-            
-            .progressBar{
-                width: 34%;
-                height: 40px;
-                margin: 20px;
-                border: 1px solid black;
-                text-align: center;
-                transition: all 10s;
-
-                p{
-                    position: absolute;
-                    color: $darkColor;
-                    font-size: 20px;
-                    margin-top: 5px;
-                    width: 34%;
-                    font-weight: 600;
-
-                }
-        
-
-                .update {
-                    background-color:$accentColor;
-                    height: 100%;
-                    width: 0%;
-                    
-                }
-            }
 
             .stats{
                 background-color: $darkColor;

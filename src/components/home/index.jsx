@@ -16,7 +16,9 @@ export default function Home () {
                     <button className='versus'>versus</button>
                 </div>
 
-                <div className='demo'>ll</div>
+                <div className='demo'>
+                    
+                </div>
         </div>
 
     )

@@ -1,5 +1,6 @@
 import './index.scss'
 import React, {useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 
 export default function PracticeMode (){
 
@@ -320,6 +321,14 @@ export default function PracticeMode (){
             
 
             <div className='wrapper2'>
+
+                <div className='bugReport'>
+
+                    <button>
+                        <Link to='/bugReport'>Bug Report</Link>
+                    </button>
+
+                </div>
 
                 
                 <div className='button'>

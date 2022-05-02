@@ -8,6 +8,7 @@ import {
   Routes,
 } from "react-router-dom";
 import PracticeMode from './components/practicemode';
+import BugReport from './components/bugreport';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home/>}/>
             <Route path='/practice' element={<PracticeMode/>}/>
+            <Route path='/bugReport' element={<BugReport/>}/>
           </Routes>
         </Router>
         

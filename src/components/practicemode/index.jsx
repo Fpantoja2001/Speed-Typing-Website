@@ -226,6 +226,8 @@ export default function PracticeMode (){
 
            // Prompts Next Race Button 
            document.getElementById('nb').removeAttribute('hidden')
+
+           document.getElementById('pgr').removeAttribute('hidden')
        } 
 
       
@@ -285,6 +287,13 @@ export default function PracticeMode (){
         <div className='page'>
             
             <div className='wrapper'>
+                <div className='postGameReport' id='pgr' hidden={true}>
+
+                    <div>
+                        
+                    </div>
+                    
+                </div>
                 <div className='progressStats'>
                     <span className ='timer' ref={timerUpdate}>Time: 0</span>
                     <span className='countDown' ref={countDown} id='cdBox'>6</span>
@@ -306,7 +315,6 @@ export default function PracticeMode (){
                 </div>
 
                 <div className='progressBar'> 
-                    <p>Progress Bar</p>
                     <div className='update' id='pb'></div>
                 </div>
    

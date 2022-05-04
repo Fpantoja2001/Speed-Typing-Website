@@ -1,4 +1,5 @@
 import './index.scss'
+import { Link } from 'react-router-dom';
 
 export default function Navbar () {
     return (
@@ -15,7 +16,7 @@ export default function Navbar () {
                         Account
                     </li>
                     <li>
-                        Home
+                        <Link className='navHome' to='/'>Home</Link>
                     </li>
                 </ul>
             </div>

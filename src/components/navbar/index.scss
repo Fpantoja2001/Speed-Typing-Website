@@ -43,6 +43,20 @@
                 list-style: none;
                 text-decoration: none;
                 margin-right:30px;
+
+                .navHome{
+                   list-style: none; 
+                   text-decoration: none;
+                   font-weight: 500;
+                   font-size: 25px;
+                   color: $accentColor;
+
+                   
+                }
+                
+                .navHome:hover{
+                    font-size: 28px;
+                }
             }
         }
     }

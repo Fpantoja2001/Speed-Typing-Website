@@ -1,6 +1,10 @@
 import './index.scss'
 import React, {useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import CloseSharpIcon from '@mui/icons-material/CloseSharp';
+import BugReportIcon from '@mui/icons-material/BugReport';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import ReplayIcon from '@mui/icons-material/Replay';
 
 export default function PracticeMode (){
 
@@ -19,6 +23,9 @@ export default function PracticeMode (){
 
     // This variable helps the elapsed timer function
     let startTime;
+
+    let wperm = 0;
+   
 
     // These variables serve to keep count of when the user either types a chracter correctly or incorrectly,
     // this is so the users accuracy can be calculated at the end.
@@ -40,11 +47,10 @@ export default function PracticeMode (){
 
 
     
-    useEffect(()=>{
+    useEffect(() => {
        
        const quoteBox = document.getElementById('quoteBox')
        const authorField = document.getElementById('author')
-       const tagField = document.getElementById('tags')
        const initWordCount = document.getElementById('progressWords')
        const initCharCount = document.getElementById('progressChar')
        
@@ -106,7 +112,9 @@ export default function PracticeMode (){
     // with making sure the user types correctly to edge cases.
    
     let tempCharCount = 0 
+    let accuracyReport = 0
     let i = 0 
+    
 
     function type (e){        
         let tempWord;
@@ -114,8 +122,8 @@ export default function PracticeMode (){
         //Updates and Calculates the WPM of the user after they their first word correct
         // wpm.current.innerText = `WPM: ${Math.round(((wordPOS - 10) / timerFormat()) * 60)}`
 
-
-        accuracyField.current.innerText = `Accuracy: ${(((charCount - incorrectCharCount)/charCount)*100).toFixed(2)}%`
+        accuracyReport = (((charCount - incorrectCharCount)/charCount)*100).toFixed(2)
+        accuracyField.current.innerText = `Accuracy: ${accuracyReport}%`
         document.getElementById(wordPOS).className = 'onWord' // This underlines the current word the user is on
         
             
@@ -158,6 +166,7 @@ export default function PracticeMode (){
                 tempCharCount++
                 document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
                 document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
+                document.getElementById('pp').innerText = `Progress ${Math.round((tempCharCount/charCount)*100)}%`
 
             } else {
                 incorrectCharCount++
@@ -227,7 +236,9 @@ export default function PracticeMode (){
            // Prompts Next Race Button 
            document.getElementById('nb').removeAttribute('hidden')
 
-           document.getElementById('pgr').removeAttribute('hidden')
+           console.log(wperm)
+
+           document.getElementById('pgo').style.display = 'flex'
        } 
 
       
@@ -238,9 +249,12 @@ export default function PracticeMode (){
     function elapsedTime(){
         startTime = new Date() 
 
+        
+
         timerEnd = setInterval(() => {
+            wperm = Math.round(((wordPOS - 10) / timerFormat()) * 60)
             timerUpdate.current.innerText = `Time: ${timerFormat()}`
-            wpm.current.innerText = `WPM: ${Math.round(((wordPOS - 10) / timerFormat()) * 60)}`  
+            wpm.current.innerText = `WPM: ${wperm}`  
         },1000)
     }
     
@@ -289,8 +303,19 @@ export default function PracticeMode (){
             <div className='wrapper'>
                 <div className='postGameReport' id='pgr' hidden={true}>
 
-                    <div>
+                    <div className='heading'>
+
+                        <h1>Post Game Report</h1>
+
+                        <span>
+                            <CloseSharpIcon className='icon'></CloseSharpIcon>
+                        </span>
                         
+                    </div>
+
+                    <div className='postStats'>
+                        <div className='wpmReport' id='wpmReport'>WPM: 0</div>
+                        <div className='accuracyReport' id='accuracyReport'>Accuracy: 0</div>
                     </div>
                     
                 </div>
@@ -311,7 +336,7 @@ export default function PracticeMode (){
                 </div>
 
                 <div className='input'>
-                    <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled='true' placeholder='Type here...'/> 
+                    <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled={true} placeholder='Type here...'/> 
                 </div>
 
                 <div className='progressBar'> 
@@ -319,30 +344,30 @@ export default function PracticeMode (){
                 </div>
    
                 <div className='mainStats'>
+                    <span className='progressPercent' id='pp'>Progress 0%</span>
                     <span className='wpm' ref={wpm}>WPM: 0</span>
                     <span className='divider'>|</span>
                     <span className='accuracy' id='accuracy' ref={accuracyField}>Accuracy: 0% </span>
                 </div>
-                
-            </div>
 
-            
+                <div className='postGameOptions' id='pgo' hidden={true}>
 
-            <div className='wrapper2'>
+                    
 
-                <div className='bugReport'>
+                    <span className='bugReport' >
+                        <Link to='/bugReport'><BugReportIcon id='ic'></BugReportIcon></Link>
+                    </span>
+                    
+                    <span className='replay' >
+                        <ReplayIcon id='ic'></ReplayIcon>
+                    </span>
 
-                    <button>
-                        <Link to='/bugReport'>Bug Report</Link>
-                    </button>
+                    <span className='nextGame' >
+                        <NavigateNextIcon className='icon' id='nb' onClick={reload}></NavigateNextIcon>
+                    </span>
 
                 </div>
-
                 
-                <div className='button'>
-                        <button className='nextBox' id='nb' hidden={true} onClick={reload}>Next Race</button>
-                </div> 
- 
             </div> 
 
         </div>

@@ -103,10 +103,8 @@
             margin-top: 80px;
             animation: fadeIn 2s;
 
-            .nextGame{
-                .icon{
-                    font-size: 31px;
-                }
+            #nb{
+                font-size: 35px;
             }
 
             span{
@@ -116,7 +114,6 @@
                 justify-content: center;
                 color: $textColor;
 
-
                 a{
                    color: $textColor;
                    display: flex;
@@ -124,12 +121,16 @@
                    margin: 0px 10px 0px 10px;
                 }
 
-                #ic:hover{
+                #re:hover{
+                    color: $accentColor;
+                }
+                #br:hover{
                     color: $accentColor;
                 }
                 #nb:hover{
                     color: $accentColor;
                 }
+               
             }
         }
 

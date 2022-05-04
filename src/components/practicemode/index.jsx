@@ -1,10 +1,11 @@
 import './index.scss'
 import React, {useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ReplayIcon from '@mui/icons-material/Replay';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
 
 export default function PracticeMode (){
 
@@ -294,7 +295,6 @@ export default function PracticeMode (){
     function reload(){
         window.location.reload()
     }
-    
 
     return (
         
@@ -307,10 +307,7 @@ export default function PracticeMode (){
 
                         <h1>Post Game Report</h1>
 
-                        <span>
-                            <CloseSharpIcon className='icon'></CloseSharpIcon>
-                        </span>
-                        
+                    
                     </div>
 
                     <div className='postStats'>
@@ -352,18 +349,22 @@ export default function PracticeMode (){
 
                 <div className='postGameOptions' id='pgo' hidden={true}>
 
-                    
-
-                    <span className='bugReport' >
-                        <Link to='/bugReport'><BugReportIcon id='ic'></BugReportIcon></Link>
+                    <span className='bugReport' id='br'>
+                        <Tippy content='Bug Report' delay={[400,0]}>
+                            <Link to='/bugReport'><BugReportIcon ></BugReportIcon></Link>    
+                        </Tippy>
                     </span>
                     
-                    <span className='replay' >
-                        <ReplayIcon id='ic'></ReplayIcon>
+                    <span className='replay'id='re' >
+                        <Tippy content='Replay' delay={[400,0]}>
+                           <ReplayIcon ></ReplayIcon> 
+                        </Tippy>
                     </span>
 
-                    <span className='nextGame' >
-                        <NavigateNextIcon className='icon' id='nb' onClick={reload}></NavigateNextIcon>
+                    <span className='nextGame'>
+                        <Tippy content='Next Game' delay={[400,0]}>
+                           <NavigateNextIcon className='icon' id='nb' onClick={reload}></NavigateNextIcon> 
+                        </Tippy>                       
                     </span>
 
                 </div>

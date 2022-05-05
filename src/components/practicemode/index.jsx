@@ -37,6 +37,11 @@ export default function PracticeMode (){
     // This variable serves to number the divs in which whole words will be split up into indivisual Span tags
     let divIdentifier = 9;
     let data;
+    const quoteBox = document.getElementById('quoteBox')
+    const authorField = document.getElementById('author')
+    const initWordCount = document.getElementById('progressWords')
+    const initCharCount = document.getElementById('progressChar')
+
 
     
     // This useEffect works to structure the reference text so that I can iterate both through
@@ -48,59 +53,18 @@ export default function PracticeMode (){
     // and assigns it its own div
 
     const [count,setCount] = useState(0)
-    const [replay,setReplay] = useState(0)
+
+    let toggle = useRef()
 
     async function apiCall (){
 
         const response = await fetch("https://api.quotable.io/random") 
         const data = await response.json()
-
+        toggle.current = data
         return data
     }
-
     
-
-    useEffect(() => {
-
-
-       const quoteBox = document.getElementById('quoteBox')
-       const authorField = document.getElementById('author')
-       const initWordCount = document.getElementById('progressWords')
-       const initCharCount = document.getElementById('progressChar')
-
-
-       
-       async function newQuote (){
-           data = await apiCall()
-            
-            authorField.innerText = `- ${data.author}`
-            quoteBox.innerHTML = ''
- 
-            data.content.split(' ').map((char) => {
-                divIdentifier++
-
-                const divGen = document.createElement('div')
-                divGen.id = divIdentifier
-
-                char.split('').map((char,x=0) => {
-                    const span = document.createElement('span')
-                    span.innerText = char
-                    span.id = `${divIdentifier}${x}`
-                    span.className = "Text"
-                    divGen.appendChild(span)
-
-                })
-
-                quoteBox.appendChild(divGen)
-                charCount = data.content.split(' ').join('').split('').length - 1
-                wordCount = data.content.split(' ').length
-                initWordCount.innerText = `Word 0 / ${wordCount}`
-                initCharCount.innerText = `Char 0 / ${charCount}`
-
-            })
-        }
-        
-        function countDownStart (){
+    function countDownStart (){
             let cdt = 6
             cdsi  = setInterval(() => {
                 cdt--
@@ -115,7 +79,7 @@ export default function PracticeMode (){
                 
             },1000)
         }
-
+        
         function gameStart (){
             inputBox.current.removeAttribute('disabled')
 
@@ -138,7 +102,55 @@ export default function PracticeMode (){
             return Math.floor((new Date() - startTime)/1000)
         }
 
-        newQuote()
+        
+
+    useEffect(() => {
+
+        const quoteBox = document.getElementById('quoteBox')
+        const authorField = document.getElementById('author')
+        const initWordCount = document.getElementById('progressWords')
+        const initCharCount = document.getElementById('progressChar')
+
+       async function newQuote (data){
+
+            authorField.innerText = `- ${data.author}`
+            quoteBox.innerHTML = ''
+ 
+            data.content.split(' ').map((char) => {
+                divIdentifier++
+
+                const divGen = document.createElement('div')
+                divGen.id = divIdentifier
+
+                char.split('').map((char,x=0) => {
+                    const span = document.createElement('span')
+                    span.innerText = char
+                    span.id = `${divIdentifier}${x}`
+                    span.className = "Text"
+                    divGen.appendChild(span)
+
+                })
+
+                quoteBox.appendChild(divGen)
+                charCount = data.content.split(' ').join('').split('').length -1
+                wordCount = data.content.split(' ').length
+                initWordCount.innerText = `Word 0 / ${wordCount}`
+                initCharCount.innerText = `Char 0 / ${charCount}`
+            })
+        }
+        
+
+        async function nextQuote(count){
+
+            if (count === -1){
+                newQuote(toggle.current)
+            }else{
+                newQuote(await apiCall()) 
+            }
+                
+        }
+        
+        nextQuote(count)
         
         countDownStart()
         
@@ -163,11 +175,8 @@ export default function PracticeMode (){
             document.getElementById('pb').style.width = 0 
         }
 
-    },[count,replay]) 
-    
+    },[count]) 
 
-    
-    
     // This is the function that gets called everytime a user types; It handles everything having to 
     // with making sure the user types correctly to edge cases.
    
@@ -370,7 +379,7 @@ export default function PracticeMode (){
                     
                     <span className='replay'>
                         <Tippy content='Replay' delay={[400,0]}>
-                           <ReplayIcon id='re' onClick={() => setReplay((c) => c + 1)}></ReplayIcon> 
+                           <ReplayIcon id='re' onClick={() => setCount(-1)}></ReplayIcon> 
                         </Tippy>
                     </span>
 

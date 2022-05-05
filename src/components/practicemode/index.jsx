@@ -1,5 +1,5 @@
 import './index.scss'
-import React, {useRef, useEffect } from 'react'
+import React, {useRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -46,20 +46,46 @@ export default function PracticeMode (){
     // It essentially is taking each word and assigning it a div, and it then takes every chracter of that word 
     // and assigns it its own div
 
+    const [count,setCount] = useState(0)
+    console.log(count)
 
-    
+    async function apiCall (){
+
+        const response = await fetch("https://api.quotable.io/random") 
+        const data = await response.json()
+
+        return data
+    }
+
+    let replayQuote = ''
+    let data;
+
     useEffect(() => {
-       
+
        const quoteBox = document.getElementById('quoteBox')
        const authorField = document.getElementById('author')
        const initWordCount = document.getElementById('progressWords')
        const initCharCount = document.getElementById('progressChar')
        
        async function newQuote (){
-            const response = await fetch("https://api.quotable.io/random") 
-            const data = await response.json()
+
+            
+
+            if(count === 0){
+              console.log('hjdbj')
+              data = await apiCall() 
+              replayQuote =  data
+
+
+            } else {
+              console.log(replayQuote)
+            }
+
+            
             authorField.innerText = `- ${data.author}`
             quoteBox.innerHTML = ''
+
+            console.log('jhdb')
  
             data.content.split(' ').map((char) => {
                 divIdentifier++
@@ -81,16 +107,19 @@ export default function PracticeMode (){
                 wordCount = data.content.split(' ').length
                 initWordCount.innerText = `Word 0 / ${wordCount}`
                 initCharCount.innerText = `Char 0 / ${charCount}`
-                document.getElementById(`${wordPOS}${i}`).className  = 'onChar'
 
             })
-       }
-       
-       
-       countDownTimer()
-       newQuote()
-       
-    },[])
+        }
+        
+        countDownTimer()
+        newQuote()
+
+    },[count]) 
+    
+
+ 
+ 
+
     
 
     // This function controls the start of game logic
@@ -237,8 +266,6 @@ export default function PracticeMode (){
            // Prompts Next Race Button 
            document.getElementById('nb').removeAttribute('hidden')
 
-           console.log(wperm)
-
            document.getElementById('pgo').style.display = 'flex'
        } 
 
@@ -296,6 +323,7 @@ export default function PracticeMode (){
         window.location.reload()
     }
 
+
     return (
         
         <div className='page'>
@@ -349,15 +377,15 @@ export default function PracticeMode (){
 
                 <div className='postGameOptions' id='pgo' hidden={true}>
 
-                    <span className='bugReport' id='br'>
+                    <span className='bugReport'>
                         <Tippy content='Bug Report' delay={[400,0]}>
-                            <Link to='/bugReport'><BugReportIcon ></BugReportIcon></Link>    
+                            <Link to='/bugReport'><BugReportIcon id='br'></BugReportIcon></Link>    
                         </Tippy>
                     </span>
                     
-                    <span className='replay'id='re' >
+                    <span className='replay'>
                         <Tippy content='Replay' delay={[400,0]}>
-                           <ReplayIcon ></ReplayIcon> 
+                           <ReplayIcon id='re' onClick={() => setCount((c) => c + 1)}></ReplayIcon> 
                         </Tippy>
                     </span>
 

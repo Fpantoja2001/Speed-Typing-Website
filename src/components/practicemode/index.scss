@@ -97,11 +97,12 @@
         }
 
         .postGameOptions{
-            display:none;
+            display: flex;
             justify-content: center;
             width: 73%;
             margin-top: 80px;
             animation: fadeIn 2s;
+            height: 100px;
 
             #nb{
                 font-size: 35px;
@@ -123,12 +124,15 @@
 
                 #re:hover{
                     color: $accentColor;
+                    font-size: 37px;
                 }
                 #br:hover{
                     color: $accentColor;
+                    font-size: 37px;
                 }
                 #nb:hover{
                     color: $accentColor;
+                    font-size: 50px;
                 }
                
             }

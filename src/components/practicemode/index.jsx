@@ -36,6 +36,7 @@ export default function PracticeMode (){
 
     // This variable serves to number the divs in which whole words will be split up into indivisual Span tags
     let divIdentifier = 9;
+    let data;
 
     
     // This useEffect works to structure the reference text so that I can iterate both through
@@ -47,7 +48,7 @@ export default function PracticeMode (){
     // and assigns it its own div
 
     const [count,setCount] = useState(0)
-    console.log(count)
+    const [replay,setReplay] = useState(0)
 
     async function apiCall (){
 
@@ -57,35 +58,23 @@ export default function PracticeMode (){
         return data
     }
 
-    let replayQuote = ''
-    let data;
+    
 
     useEffect(() => {
+
 
        const quoteBox = document.getElementById('quoteBox')
        const authorField = document.getElementById('author')
        const initWordCount = document.getElementById('progressWords')
        const initCharCount = document.getElementById('progressChar')
+
+
        
        async function newQuote (){
-
-            
-
-            if(count === 0){
-              console.log('hjdbj')
-              data = await apiCall() 
-              replayQuote =  data
-
-
-            } else {
-              console.log(replayQuote)
-            }
-
+           data = await apiCall()
             
             authorField.innerText = `- ${data.author}`
             quoteBox.innerHTML = ''
-
-            console.log('jhdb')
  
             data.content.split(' ').map((char) => {
                 divIdentifier++
@@ -111,31 +100,72 @@ export default function PracticeMode (){
             })
         }
         
-        countDownTimer()
+        function countDownStart (){
+            let cdt = 6
+            cdsi  = setInterval(() => {
+                cdt--
+                countDown.current.innerText = `${cdt}`
+                
+                if(cdt  === 0){
+                    document.getElementById('cdBox').setAttribute('hidden',true)
+                    document.getElementById('divGone').setAttribute('hidden',true)   
+                    clearInterval(cdsi)
+                    gameStart()
+                }
+                
+            },1000)
+        }
+
+        function gameStart (){
+            inputBox.current.removeAttribute('disabled')
+
+            inputBox.current.focus()
+   
+            elapsedTime()
+        }
+
+        function elapsedTime(){
+            startTime = new Date() 
+    
+            timerEnd = setInterval(() => {
+                wperm = Math.round(((wordPOS - 10) / timerFormat()) * 60)
+                timerUpdate.current.innerText = `Time: ${timerFormat()}`
+                wpm.current.innerText = `WPM: ${wperm}`  
+            },1000)
+        }
+        
+        function timerFormat(){
+            return Math.floor((new Date() - startTime)/1000)
+        }
+
         newQuote()
+        
+        countDownStart()
+        
+        // Clears all fields previously editted during games runtime
 
-    },[count]) 
+        return () => {
+            quoteBox.innerHTML = ''
+            authorField.innerText = ''
+            initWordCount.innerText = ''
+            initCharCount.innerText = '' 
+            document.getElementById('cdBox').removeAttribute('hidden')
+            document.getElementById('divGone').removeAttribute('hidden')
+            countDown.current.innerText = `6`
+            inputBox.current.setAttribute('disabled',true)
+            inputBox.current.value = ''
+            document.getElementById('pp').innerText = `Progress 0%`
+            accuracyField.current.innerText = `Accuracy: 0%`
+            wpm.current.innerText = `WPM: 0`
+            timerUpdate.current.innerText = `Time: 0`
+            clearInterval(timerEnd)
+            clearInterval(cdsi) 
+            document.getElementById('pb').style.width = 0 
+        }
+
+    },[count,replay]) 
     
 
- 
- 
-
-    
-
-    // This function controls the start of game logic
-    async function GameStart(){
-
-        // Disables the input box until the countdown timer reaches 0
-        inputBox.current.removeAttribute('disabled')
-
-        // Places cursor in the box the second the game starts 
-        inputBox.current.focus()
-
-        // Starts the elapsed time timer
-        elapsedTime()
-
-
-    }
     
     
     // This is the function that gets called everytime a user types; It handles everything having to 
@@ -261,57 +291,16 @@ export default function PracticeMode (){
            e.target.setAttribute('disabled',true)
 
            // Ends the timer 
-           stopInterval()
+           clearInterval(timerEnd)
 
-           // Prompts Next Race Button 
-           document.getElementById('nb').removeAttribute('hidden')
 
-           document.getElementById('pgo').style.display = 'flex'
-       } 
-
-      
+       }   
         
     }
 
     // These functions (elapsedTime & timerFormat) create the timer that is used to help calculate the wpm
-    function elapsedTime(){
-        startTime = new Date() 
-
-        
-
-        timerEnd = setInterval(() => {
-            wperm = Math.round(((wordPOS - 10) / timerFormat()) * 60)
-            timerUpdate.current.innerText = `Time: ${timerFormat()}`
-            wpm.current.innerText = `WPM: ${wperm}`  
-        },1000)
-    }
-    
-    function timerFormat(){
-        return Math.floor((new Date() - startTime)/1000)
-    }
-    
+   
     // Stops the elapsed time timer when the game ends
-    function stopInterval(){
-        clearInterval(timerEnd)
-    }
-
-    
-    // This function operates the count down timer
-    function countDownTimer(){
-        let cdt = 6;
-        
-        cdsi = setInterval(() => {
-            cdt--;
-            countDown.current.innerText = `${cdt}`
-            if(cdt === 0){
-                document.getElementById('cdBox').setAttribute('hidden',true)
-                document.getElementById('divGone').setAttribute('hidden',true)
-                clearInterval(cdsi)
-                GameStart()
-            }
-        }, 1000);
-
-    }
 
     // This disables the user from pasting in the input box
     function cancelPaste(e){
@@ -319,10 +308,6 @@ export default function PracticeMode (){
     }
 
     // This function reloads the page on press of 'next' button
-    function reload(){
-        window.location.reload()
-    }
-
 
     return (
         
@@ -364,7 +349,7 @@ export default function PracticeMode (){
                     <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled={true} placeholder='Type here...'/> 
                 </div>
 
-                <div className='progressBar'> 
+                <div className='progressBar'>
                     <div className='update' id='pb'></div>
                 </div>
    
@@ -375,7 +360,7 @@ export default function PracticeMode (){
                     <span className='accuracy' id='accuracy' ref={accuracyField}>Accuracy: 0% </span>
                 </div>
 
-                <div className='postGameOptions' id='pgo' hidden={true}>
+                <div className='postGameOptions' id='pgo'>
 
                     <span className='bugReport'>
                         <Tippy content='Bug Report' delay={[400,0]}>
@@ -385,13 +370,13 @@ export default function PracticeMode (){
                     
                     <span className='replay'>
                         <Tippy content='Replay' delay={[400,0]}>
-                           <ReplayIcon id='re' onClick={() => setCount((c) => c + 1)}></ReplayIcon> 
+                           <ReplayIcon id='re' onClick={() => setReplay((c) => c + 1)}></ReplayIcon> 
                         </Tippy>
                     </span>
 
                     <span className='nextGame'>
                         <Tippy content='Next Game' delay={[400,0]}>
-                           <NavigateNextIcon className='icon' id='nb' onClick={reload}></NavigateNextIcon> 
+                           <NavigateNextIcon className='icon' id='nb' onClick={() => setCount((c) => c + 1)}></NavigateNextIcon> 
                         </Tippy>                       
                     </span>
 

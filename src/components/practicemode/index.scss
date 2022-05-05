@@ -41,21 +41,11 @@
 
         .progressBar{
             width: 73%;
-            height: 5px;
+            min-height:5px;
             margin: 20px;
             text-align: center;
             position: relative;
-
-            p{
-                position: absolute;
-                color: $darkColor;
-                font-size: 20px;
-                margin-top: 5px;
-                width: 100%;
-                font-weight: 600;
-
-            }
-    
+            display: block;
 
             .update {
                 background-color:$accentColor;

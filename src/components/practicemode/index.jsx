@@ -55,6 +55,7 @@ export default function PracticeMode (){
     const [count,setCount] = useState(0)
 
     let toggle = useRef()
+    let replayTog = useRef()
 
     async function apiCall (){
 
@@ -142,10 +143,11 @@ export default function PracticeMode (){
 
         async function nextQuote(count){
 
-            if (count === -1){
-                newQuote(toggle.current)
-            }else{
+            if (count > replayTog.current || count === 0){
                 newQuote(await apiCall()) 
+                
+            }else if (count < replayTog.current){
+                newQuote(toggle.current)
             }
                 
         }
@@ -173,6 +175,7 @@ export default function PracticeMode (){
             clearInterval(timerEnd)
             clearInterval(cdsi) 
             document.getElementById('pb').style.width = 0 
+            replayTog.current = count
         }
 
     },[count]) 
@@ -379,7 +382,7 @@ export default function PracticeMode (){
                     
                     <span className='replay'>
                         <Tippy content='Replay' delay={[400,0]}>
-                           <ReplayIcon id='re' onClick={() => setCount(-1)}></ReplayIcon> 
+                           <ReplayIcon id='re' onClick={() => setCount((c) => c - 1)}></ReplayIcon> 
                         </Tippy>
                     </span>
 

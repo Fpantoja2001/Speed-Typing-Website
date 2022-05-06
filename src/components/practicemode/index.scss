@@ -1,5 +1,9 @@
 @import '../../global.scss';
 
+*:focus {
+    outline: 0;
+}
+
 .page{
     height: calc(100vh - 80px);
     width: 100%;

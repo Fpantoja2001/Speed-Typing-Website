@@ -211,18 +211,15 @@ export default function PracticeMode (){
 
         
         if (cursorPOS > e.target.selectionStart){
-            
-            console.log('backspace')
             i--
             tempCharCount--
             document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
             document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
             document.getElementById('pp').innerText = `Progress ${Math.round((tempCharCount/charCount)*100)}%`
-
-
+        
             if(i < 0){
                 i = 0
-            }
+            } 
 
         } else {
             
@@ -231,16 +228,17 @@ export default function PracticeMode (){
             } else{
     
                 if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText){
-    
                     i++
                     tempCharCount++
                     document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
                     document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
                     document.getElementById('pp').innerText = `Progress ${Math.round((tempCharCount/charCount)*100)}%`
-    
-                } else {
-                    
+                } else {    
                     incorrectCharCount++
+                    tempCharCount++
+                    document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
+                    document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
+                    document.getElementById('pp').innerText = `Progress ${Math.round((tempCharCount/charCount)*100)}%`
                 }
                 
             }

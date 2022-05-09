@@ -180,28 +180,17 @@ export default function PracticeMode (){
 
     },[count]) 
 
-    // This is the function that gets called everytime a user types; It handles everything having to 
-    // with making sure the user types correctly to edge cases.
-   
     let tempCharCount = 0 
     let accuracyReport = 0
     let i = 0 
+    let cursorPOS = 0;
     
 
     function type (e){        
-        let tempWord;
-
-        //Updates and Calculates the WPM of the user after they their first word correct
-        // wpm.current.innerText = `WPM: ${Math.round(((wordPOS - 10) / timerFormat()) * 60)}`
-
-        accuracyReport = (((charCount - incorrectCharCount)/charCount)*100).toFixed(2)
-        accuracyField.current.innerText = `Accuracy: ${accuracyReport}%`
-        document.getElementById(wordPOS).className = 'onWord' // This underlines the current word the user is on
         
-            
-        // This variable takes the current word the user is on and adds a space at the end so the user
-        // gets a sense of entering a word essentially. The only exception is the last word, so once the 
-        // user enters the last word, the game ends. 
+        let tempWord;
+        document.getElementById(wordPOS).className = 'onWord'  
+
 
         if(wordPOS === document.getElementById('quoteBox').children.length + 9){
 
@@ -213,10 +202,7 @@ export default function PracticeMode (){
 
         }
 
-        // This if statement works to make sure that if the user backspaces, the state of characters he has
-        // already typed whether right or wrong gets erased. This is essentially achieved by setting the class
-        // of any index above the cursor position to ''
-
+       
         if (e.target.selectionStart < tempWord.length - 1){
             
             document.getElementById(`${wordPOS}${e.target.selectionStart}`).className = ''
@@ -224,46 +210,58 @@ export default function PracticeMode (){
         }
 
         
+        if (cursorPOS > e.target.selectionStart){
+            
+            console.log('backspace')
+            i--
+            tempCharCount--
+            document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
+            document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
+            document.getElementById('pp').innerText = `Progress ${Math.round((tempCharCount/charCount)*100)}%`
 
-        // Same function as the one below that checks the user input to see if user typed in
-        // correct chars, the only difference is its out of the for loop so it can be used as 
-        // a char progress counter for the user to see 
 
-        if (e.target.selectionStart === tempWord.length){
-               
-        } else{
-
-            if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText && e.target.value[i] !== ' '){
-                i++
-                tempCharCount++
-                document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
-                document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
-                document.getElementById('pp').innerText = `Progress ${Math.round((tempCharCount/charCount)*100)}%`
-
-            } else {
-                incorrectCharCount++
+            if(i < 0){
+                i = 0
             }
+
+        } else {
+            
+            if (e.target.selectionStart === tempWord.length){
+               
+            } else{
+    
+                if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText){
+    
+                    i++
+                    tempCharCount++
+                    document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
+                    document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
+                    document.getElementById('pp').innerText = `Progress ${Math.round((tempCharCount/charCount)*100)}%`
+    
+                } else {
+                    
+                    incorrectCharCount++
+                }
+                
+            }
+            
         }
 
+        accuracyReport = (((charCount - incorrectCharCount)/charCount)*100).toFixed(2)
+        accuracyField.current.innerText = `Accuracy: ${accuracyReport}%`
 
-        
-
-        // This for loop, loops through the user input field and the reference text to make sure all
-        // all letters are typed correctly, and it applies classes based on that fact 
         
         for (let i = 0; i < e.target.selectionStart; i++){
-
-            // This if statement was created to ignore the space at the end of the word
                 
             if (e.target.selectionStart === tempWord.length){
 
-                break; 
+                break;
                 
             } else{
 
                 if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText){
 
-                document.getElementById(`${wordPOS}${i}`).className = 'correct'
+                    document.getElementById(`${wordPOS}${i}`).className = 'correct'
             
                 }else {
 
@@ -274,52 +272,40 @@ export default function PracticeMode (){
         }
         
               
-       // This statement checks if the user typed word matches the temp word above 
 
        if(e.target.value === tempWord) {
 
-            // Clears the underline of the current word
             document.getElementById(wordPOS).className = ''
 
-            // If the word does match, then it increases the wordPOS variable to move 
-            // the user onto the next word. 
-            ++wordPOS  
+            wordPOS++ 
 
             i = 0
 
-            // This resets the value of the input field            
             e.target.value = ''
-
             
-            // Updates the word count for the user
             document.getElementById('progressWords').innerText = `Word ${wordPOS - 10} / ${wordCount}`
+
+
+            if (wordPOS  === document.getElementById('quoteBox').children.length + 10) {
+
+                e.target.setAttribute('disabled',true)
+
+                clearInterval(timerEnd)
+
+            } 
+     
        }
 
-       // This if statement defines the win condition, and if they are met then the input box 
-       // becomes disabled
-       if (wordPOS - 1 === document.getElementById('quoteBox').children.length + 9) {
-
-           // This disables the input box once the game ends
-           e.target.setAttribute('disabled',true)
-
-           // Ends the timer 
-           clearInterval(timerEnd)
-
-
-       }   
+       cursorPOS = e.target.selectionStart // value set to identify backspaces
         
     }
 
-    // These functions (elapsedTime & timerFormat) create the timer that is used to help calculate the wpm
-   
-    // Stops the elapsed time timer when the game ends
 
-    // This disables the user from pasting in the input box
     function cancelPaste(e){
         e.preventDeafault()
     }
 
-    // This function reloads the page on press of 'next' button
+   
 
     return (
         

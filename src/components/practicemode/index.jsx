@@ -36,13 +36,6 @@ export default function PracticeMode (){
 
     // This variable serves to number the divs in which whole words will be split up into indivisual Span tags
     let divIdentifier = 9;
-    let data;
-    const quoteBox = document.getElementById('quoteBox')
-    const authorField = document.getElementById('author')
-    const initWordCount = document.getElementById('progressWords')
-    const initCharCount = document.getElementById('progressChar')
-
-
     
     // This useEffect works to structure the reference text so that I can iterate both through
     // the entire words in it and each character indivisually. I did this so that I can underline the
@@ -129,14 +122,15 @@ export default function PracticeMode (){
                     span.id = `${divIdentifier}${x}`
                     span.className = "Text"
                     divGen.appendChild(span)
-
+                    return 1
                 })
 
                 quoteBox.appendChild(divGen)
-                charCount = data.content.split(' ').join('').split('').length -1
+                charCount = data.content.split(' ').join('').split('').length
                 wordCount = data.content.split(' ').length
                 initWordCount.innerText = `Word 0 / ${wordCount}`
                 initCharCount.innerText = `Char 0 / ${charCount}`
+                return 1
             })
         }
         
@@ -185,8 +179,7 @@ export default function PracticeMode (){
     let i = 0 
     let cursorPOS = 0;
     
-
-    function type (e){        
+    async function type (e){        
         
         let tempWord;
         document.getElementById(wordPOS).className = 'onWord'  
@@ -207,95 +200,89 @@ export default function PracticeMode (){
             
             document.getElementById(`${wordPOS}${e.target.selectionStart}`).className = ''
 
-        }
+        } 
 
-        
-        if (cursorPOS > e.target.selectionStart){
-            i--
-            tempCharCount--
-            document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
-            document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
-            document.getElementById('pp').innerText = `Progress ${Math.round((tempCharCount/charCount)*100)}%`
-        
-            if(i < 0){
-                i = 0
-            } 
 
-        } else {
-            
-            if (e.target.selectionStart === tempWord.length){
-               
-            } else{
+
+        try {   
+
+            if (e.target.selectionStart >= tempWord.length){
     
-                if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText){
-                    i++
-                    tempCharCount++
-                    document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
-                    document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
-                    document.getElementById('pp').innerText = `Progress ${Math.round((tempCharCount/charCount)*100)}%`
-                } else {    
-                    incorrectCharCount++
-                    tempCharCount++
-                    document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
-                    document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
-                    document.getElementById('pp').innerText = `Progress ${Math.round((tempCharCount/charCount)*100)}%`
+            } else {
+               if (cursorPOS > e.target.selectionStart) {
+                
+                } else {
+
+                    if (document.getElementById(`${wordPOS}${i}`).innerText === e.target.value[i]){
+                        i++
+                        tempCharCount++
+                    } else {
+                        incorrectCharCount++
+                    }
+                } 
+            }
+            
+
+            for (let i = 0; i < e.target.selectionStart; i++){
+
+                if (e.target.selectionStart < tempWord.length){
+
+                    if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText){
+    
+                        document.getElementById(`${wordPOS}${i}`).className = 'correct'
+                
+                    }else {
+    
+                        document.getElementById(`${wordPOS}${i}`).className = 'wrong'
+                    }
+
+                } else {
+
+                    break;
+
                 }
                 
             }
-            
-        }
 
-        accuracyReport = (((charCount - incorrectCharCount)/charCount)*100).toFixed(2)
-        accuracyField.current.innerText = `Accuracy: ${accuracyReport}%`
+            if(e.target.value === tempWord) {
 
-        
-        for (let i = 0; i < e.target.selectionStart; i++){
+                document.getElementById(wordPOS).className = ''
+
+                wordPOS++ 
+
+                i = 0
+
+                e.target.value = ''
                 
-            if (e.target.selectionStart === tempWord.length){
-
-                break;
+                document.getElementById('progressWords').innerText = `Word ${wordPOS - 10} / ${wordCount}`
                 
-            } else{
+                if (wordPOS === document.getElementById('quoteBox').children.length + 10) {
 
-                if (e.target.value[i] === document.getElementById(`${wordPOS}${i}`).innerText){
+                    document.getElementById(`${document.getElementById('quoteBox').children.length + 9}${tempWord.length - 1}`).className = 'correct'
+                    tempCharCount ++
+                    e.target.setAttribute('disabled',true)
+                    clearInterval(timerEnd)
 
-                    document.getElementById(`${wordPOS}${i}`).className = 'correct'
-            
-                }else {
-
-                    document.getElementById(`${wordPOS}${i}`).className = 'wrong'
-                }
-            }
-            
-        }
-        
-              
-
-       if(e.target.value === tempWord) {
-
-            document.getElementById(wordPOS).className = ''
-
-            wordPOS++ 
-
-            i = 0
-
-            e.target.value = ''
-            
-            document.getElementById('progressWords').innerText = `Word ${wordPOS - 10} / ${wordCount}`
-
-
-            if (wordPOS  === document.getElementById('quoteBox').children.length + 10) {
-
-                e.target.setAttribute('disabled',true)
-
-                clearInterval(timerEnd)
-
-            } 
+                } 
      
-       }
+            }
 
-       cursorPOS = e.target.selectionStart // value set to identify backspaces
+
+        } catch(error){
+            console.log(error)
+        }
+
         
+        
+
+       
+
+       document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
+       document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
+       document.getElementById('pp').innerText = `Progress ${Math.round((tempCharCount/charCount)*100)}%`
+       accuracyReport = (((charCount - incorrectCharCount)/charCount)*100).toFixed(2)
+       accuracyField.current.innerText = `Accuracy: ${accuracyReport}%`
+       cursorPOS = e.target.selectionStart // value set to identify backspaces
     }
 
 

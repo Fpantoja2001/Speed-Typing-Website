@@ -9,7 +9,7 @@ import 'tippy.js/dist/tippy.css';
 
 export default function PracticeMode (){
 
-    const timerUpdate = useRef(),wpm = useRef(),countDown = useRef(),inputBox = useRef(), accuracyField = useRef()
+    const timerUpdate = useRef(),wpm = useRef(),countDown = useRef(),inputBox = useRef(), accuracyField = useRef(), wpmBar = useRef(), cpm =  useRef(),cpmBar = useRef()
 
     // This variable serves to help the Count Down Timer
     let cdsi;
@@ -26,6 +26,7 @@ export default function PracticeMode (){
     let startTime;
 
     let wperm = 0;
+    let cpmCal = 0;
    
 
     // These variables serve to keep count of when the user either types a chracter correctly or incorrectly,
@@ -66,7 +67,6 @@ export default function PracticeMode (){
                 
                 if(cdt  === 0){
                     document.getElementById('cdBox').setAttribute('hidden',true)
-                    document.getElementById('divGone').setAttribute('hidden',true)   
                     clearInterval(cdsi)
                     gameStart()
                 }
@@ -87,8 +87,13 @@ export default function PracticeMode (){
     
             timerEnd = setInterval(() => {
                 wperm = Math.round(((wordPOS - 10) / timerFormat()) * 60)
-                timerUpdate.current.innerText = `Time: ${timerFormat()}`
-                wpm.current.innerText = `WPM: ${wperm}`  
+                cpmCal = Math.round((tempCharCount / timerFormat()) * 60)
+                timerUpdate.current.innerText = `Time ${timerFormat()}`
+                wpm.current.innerText = `${wperm}`  
+                wpmBar.current.style.width = `${(wperm * 3.75)/10}%`
+                cpmBar.current.style.width = `${cpmCal / 10}%`
+                cpm.current.innerText = cpmCal
+                
             },1000)
         }
         
@@ -101,13 +106,13 @@ export default function PracticeMode (){
     useEffect(() => {
 
         const quoteBox = document.getElementById('quoteBox')
-        const authorField = document.getElementById('author')
+        // const authorField = document.getElementById('author')
         const initWordCount = document.getElementById('progressWords')
         const initCharCount = document.getElementById('progressChar')
 
        async function newQuote (data){
 
-            authorField.innerText = `- ${data.author}`
+            // authorField.innerText = `- ${data.author}`
             quoteBox.innerHTML = ''
  
             data.content.split(' ').map((char) => {
@@ -154,22 +159,24 @@ export default function PracticeMode (){
 
         return () => {
             quoteBox.innerHTML = ''
-            authorField.innerText = ''
+            // authorField.innerText = ''
             initWordCount.innerText = ''
             initCharCount.innerText = '' 
             document.getElementById('cdBox').removeAttribute('hidden')
-            document.getElementById('divGone').removeAttribute('hidden')
             countDown.current.innerText = `6`
             inputBox.current.setAttribute('disabled',true)
             inputBox.current.value = ''
             document.getElementById('pp').innerText = `Progress 0%`
-            accuracyField.current.innerText = `Accuracy: 0%`
-            wpm.current.innerText = `WPM: 0`
-            timerUpdate.current.innerText = `Time: 0`
+            accuracyField.current.innerText = `Accuracy 0%`
+            wpm.current.innerText = `0`
+            timerUpdate.current.innerText = `Time 0`
             clearInterval(timerEnd)
             clearInterval(cdsi) 
             document.getElementById('pb').style.width = 0 
             replayTog.current = count
+            wpmBar.current.style.width = 0
+            cpmBar.current.style.width = 0
+            cpm.current.innerText = `0`
         }
 
     },[count]) 
@@ -279,9 +286,9 @@ export default function PracticeMode (){
 
        document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
        document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
-       document.getElementById('pp').innerText = `Progress ${Math.round((tempCharCount/charCount)*100)}%`
+       document.getElementById('pp').innerText = `${Math.round((tempCharCount/charCount)*100)}%`
        accuracyReport = (((charCount - incorrectCharCount)/charCount)*100).toFixed(2)
-       accuracyField.current.innerText = `Accuracy: ${accuracyReport}%`
+       accuracyField.current.innerText = `Accuracy ${accuracyReport}%`
        cursorPOS = e.target.selectionStart // value set to identify backspaces
     }
 
@@ -297,76 +304,89 @@ export default function PracticeMode (){
         <div className='page'>
             
             <div className='wrapper'>
-                <div className='postGameReport' id='pgr' hidden={true}>
+                
+                <div id='overhead'>
 
-                    <div className='heading'>
-
-                        <h1>Post Game Report</h1>
-
+                   <div className='progressBar'>
+                        <div className='update' id='pb'></div>
+                        <span className='progressPercent' id='pp'>Progress 0%</span>
+                        
+                    </div> 
                     
-                    </div>
-
-                    <div className='postStats'>
-                        <div className='wpmReport' id='wpmReport'>WPM: 0</div>
-                        <div className='accuracyReport' id='accuracyReport'>Accuracy: 0</div>
-                    </div>
-                    
-                </div>
-                <div className='progressStats'>
-                    <span className ='timer' ref={timerUpdate}>Time: 0</span>
                     <span className='countDown' ref={countDown} id='cdBox'>6</span>
-                    <span className='divider' id='divGone'>|</span>
+                </div>
+                
+
+                <div className='reference' id='quoteBox'></div>
+                
+                <div className='input'>
+                    <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled={true} placeholder='Type here...'/> 
+                </div>
+
+                <div className='progressStats'>
                     <span id ='progressChar'>Char 0 / ?</span>
                     <span className='divider'>|</span>
                     <span id='progressWords'>Word 0 / ? </span>
                     
                 </div>
                 
-                <div className='reference' id='quoteBox'></div>
+            </div> 
 
-                <div className='authorHolder'>
-                    <div className='author' id='author'>Author: </div>
-                </div>
+                
+                <div className='secondWrapper'>
 
-                <div className='input'>
-                    <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled={true} placeholder='Type here...'/> 
-                </div>
+                    <div className='currentGameStats'>
 
-                <div className='progressBar'>
-                    <div className='update' id='pb'></div>
-                </div>
-   
-                <div className='mainStats'>
-                    <span className='progressPercent' id='pp'>Progress 0%</span>
-                    <span className='wpm' ref={wpm}>WPM: 0</span>
-                    <span className='divider'>|</span>
-                    <span className='accuracy' id='accuracy' ref={accuracyField}>Accuracy: 0% </span>
-                </div>
+                        <div className='topBar'>
+                        <span className ='timer' ref={timerUpdate}>Time 0</span>
 
-                <div className='postGameOptions' id='pgo'>
+                            <div className='options'>
 
-                    <span className='bugReport'>
-                        <Tippy content='Bug Report' delay={[400,0]}>
-                            <Link to='/bugReport'><BugReportIcon id='br'></BugReportIcon></Link>    
-                        </Tippy>
-                    </span>
+                            <span className='bugReport'>
+                                    <Tippy content='Bug Report' delay={[400,0]}>
+                                        <Link to='/bugReport'><BugReportIcon id='br'></BugReportIcon></Link>    
+                                    </Tippy>
+                                </span>
+                        
+                                <span className='replay'>
+                                    <Tippy content='Replay' delay={[400,0]}>
+                                    <ReplayIcon id='re' onClick={() => setCount((c) => c - 1)}></ReplayIcon> 
+                                    </Tippy>
+                                </span>
+
+                                <span className='nextGame'>
+                                    <Tippy content='Next Game' delay={[400,0]}>
+                                    <NavigateNextIcon className='icon' id='nb' onClick={() => setCount((c) => c + 1)}></NavigateNextIcon> 
+                                    </Tippy>                       
+                            </span> 
+
+                            </div>
+                        
+                            <span className='accuracy' id='accuracy' ref={accuracyField}>Accuracy 0% </span>
+                            
+                        </div>
+
+                        <div className='mainStats'>
+                            <span className='wpmTitle'>WPM</span>
+                            <span className='wpmBar' ref={wpmBar}></span>
+                            <span className='wpm' ref={wpm}>0</span>  
+                            <div className='divisor'></div>
+                            
+                        </div>
+
+                        <div className='cpmStats'>
+                            <span className='cpmTitle'>CPM</span>
+                            <span className='cpmBar' ref={cpmBar}></span>
+                            <span className='cpm' ref={cpm}>0</span>
+                        </div>
+
+                    </div>
+
                     
-                    <span className='replay'>
-                        <Tippy content='Replay' delay={[400,0]}>
-                           <ReplayIcon id='re' onClick={() => setCount((c) => c - 1)}></ReplayIcon> 
-                        </Tippy>
-                    </span>
-
-                    <span className='nextGame'>
-                        <Tippy content='Next Game' delay={[400,0]}>
-                           <NavigateNextIcon className='icon' id='nb' onClick={() => setCount((c) => c + 1)}></NavigateNextIcon> 
-                        </Tippy>                       
-                    </span>
+                
 
                 </div>
                 
-            </div> 
-
         </div>
     )
 

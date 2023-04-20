@@ -344,6 +344,38 @@
                 color: $newAccentColor;
             }
         }
+
+        .quoteLengthSelect {
+            position: relative;
+            font-size: 18px;
+            width: 90%;
+            height: 10%;
+            display: flex;
+            align-items: center;
+            margin-top: 100px;
+            left: 5%;
+
+            .selectors {
+                width: 80%;
+                height: 90%;
+                position: absolute;
+                right: 0;
+                display: flex;
+                justify-content: end;
+                
+
+                button{
+                    height: 100%;
+                    width: 30%;
+                    margin-left: 10%;
+                    font-size: 18px;
+                    border-radius: 5px;
+                    color: $newMainColor;
+                    background-color: $newSecondAccentColor;
+                    border: 2px solid $newAccentColor;
+                }
+            }
+        }
             
 
     }

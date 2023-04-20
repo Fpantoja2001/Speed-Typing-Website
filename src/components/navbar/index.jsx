@@ -12,7 +12,7 @@ export default function Navbar () {
                     <li>
                         <Link className='navHome' to='/'>Home</Link>
                     </li>
-                    <li>
+                    <li id='gSelect'>
                         Game Mode
                     </li>
                     <li id='createBtn'>

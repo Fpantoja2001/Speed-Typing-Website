@@ -10,6 +10,7 @@
     color: $accentColor;
     font-family: 'IBM Plex Sans', sans-serif !important;
 
+
     .title{
         width:50%;
         text-align: center;
@@ -34,9 +35,16 @@
         align-items: center;
         font-size: 24px;
         font-weight: 700;
-        float: right;
         justify-content: end;
         color: $newTextColor;
+
+        #gSelect{
+            color: $newTextColor;
+        }
+
+        #gSelect:hover {
+            color: #FFFFFF;
+        }
 
         #createBtn{
             border-radius: 5px;
@@ -51,6 +59,8 @@
             background-color: $newMainColor;
             font-weight: 600;
         }
+
+        
 
         ul{
             display: flex;
@@ -68,11 +78,21 @@
                    font-weight: 700;
                    font-size: 24px;
                    color: $newTextColor;
-                   border-bottom: solid 4px $newMainColor;
                 }
                 
                 .navHome:hover{
-                    font-size: 26px;
+                    font-size: 25px;
+                    border-bottom: solid 4px $newMainColor;
+                }
+
+                
+            }
+        }
+
+        ul {
+            li {
+                #gSelect {
+                    background-color: aqua;
                 }
             }
         }

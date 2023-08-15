@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/SpeedTyping.io/static/css/main.87ff13d5.css",
-    "main.js": "/SpeedTyping.io/static/js/main.db766b8c.js",
+    "main.js": "/SpeedTyping.io/static/js/main.8968b33d.js",
     "index.html": "/SpeedTyping.io/index.html",
     "main.87ff13d5.css.map": "/SpeedTyping.io/static/css/main.87ff13d5.css.map",
-    "main.db766b8c.js.map": "/SpeedTyping.io/static/js/main.db766b8c.js.map"
+    "main.8968b33d.js.map": "/SpeedTyping.io/static/js/main.8968b33d.js.map"
   },
   "entrypoints": [
     "static/css/main.87ff13d5.css",
-    "static/js/main.db766b8c.js"
+    "static/js/main.8968b33d.js"
   ]
 }

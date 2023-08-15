@@ -10,7 +10,7 @@ export default function Navbar () {
             <div className='menu'>
                 <ul>
                     <li>
-                        <Link className='navHome' to='/'>Home</Link>
+                        {/* <Link className='navHome' to='/'>Home</Link> */}Home
                     </li>
                     <li id='gSelect'>
                         Game Mode

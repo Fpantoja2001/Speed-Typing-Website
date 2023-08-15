@@ -19,9 +19,10 @@ function App() {
 
         <Router>
           <Navbar/>
+          <PracticeMode/>
           <Routes>
-            <Route path='/' element={<Home/>}/>
-            <Route path='/practice' element={<PracticeMode/>}/>
+            {/* <Route path='/' element={<Home/>}/> */}
+            {/* <Route path='/' element={<PracticeMode/>}/> */}
             <Route path='/bugReport' element={<BugReport/>}/>
           </Routes>
         </Router>

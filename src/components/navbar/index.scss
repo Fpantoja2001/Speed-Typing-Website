@@ -44,14 +44,6 @@
         justify-content: end;
         color: $newTextColor;
 
-        #gameModeSelect{
-            color: $newTextColor;
-        }
-
-        #gameModeSelect:hover {
-            border-bottom: solid 4px $newMainColor;
-        }
-
         #createBtn{
             border-radius: 10px;
             color: $newMainColor;
@@ -65,6 +57,16 @@
             background-color: $newMainColor;
             font-weight: 600;
             text-align: center;
+            display: flex;
+            align-items: center;
+        }
+
+        #loginBtn:hover{
+            background-color: #0966B8;
+        }
+
+        #createBtn:hover{
+            border: 4px #E5BA00 solid;
         }
 
         ul{
@@ -76,21 +78,25 @@
                 list-style: none;
                 text-decoration: none;
                 margin-right:30px;
-
-                .navHome{
-                   list-style: none; 
-                   text-decoration: none;
-                   font-weight: 700;
-                   font-size: 24px;
-                   color: $newTextColor;
-                }
-                .navHome:hover{
-                    border-bottom: solid 4px $newMainColor;
-                }
-                
             }
         }
 
     }
 
 }
+
+@media (max-width: 1920px) {
+    .navbar {
+        .title {
+            h1 {
+                font-size: 30px;
+            }
+            span {
+                font-size: 30px;
+            }
+        }
+        .menu {
+            font-size: 18px;
+        }
+    }
+  }

@@ -13,23 +13,33 @@ import BugReport from './components/bugreport';
 function App() {
   return (
   
-    <div className="app">
-      {/* hello */}
+    // <div className="app">
+    //   {/* hello */}
       
-      <div className='sections'> 
+    //   <div className='sections'> 
+    //     <Navbar/>
+    //     <Router>
+    //       <Routes>
+    //         {/* <Route path='/' element={<Home/>}/> */}
+    //         <Route path='/' element={<PracticeMode/>}/>
+    //         <Route path='/bugReport' element={<BugReport/>}/>
+    //       </Routes>
+    //     </Router>
+        
+    //   </div>
 
-        <Router>
-          <Navbar/>
-          <PracticeMode/>
-          <Routes>
-            {/* <Route path='/' element={<Home/>}/> */}
-            {/* <Route path='/' element={<PracticeMode/>}/> */}
-            <Route path='/bugReport' element={<BugReport/>}/>
-          </Routes>
-        </Router>
+    // </div>
+
+    <div className='app'>
+      <div className='sections'>
+        <Navbar/>
+        <Routes>
+          <Route path='/' element={<PracticeMode/>}/>
+          <Route path='/bugReport' element={<BugReport/>}/>
+        </Routes>
+        
         
       </div>
-
     </div>
   );
 }

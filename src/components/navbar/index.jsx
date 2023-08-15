@@ -9,12 +9,6 @@ export default function Navbar () {
             </div>
             <div className='menu'>
                 <ul>
-                    <li>
-                        {/* <Link className='navHome' to='/'>Home</Link> */}Home
-                    </li>
-                    <li id='gameModeSelect'>
-                        Game Mode
-                    </li>
                     <li id='createBtn'>
                         Create Account
                     </li>

@@ -19,11 +19,17 @@
         height: 100%;
         
 
-        h1{
+        h1 {
             font-weight: 700;
             font-size: 36px;
             margin-left: 30px;
             color: $newMainColor;
+        }
+
+        span {
+            font-weight: 700;
+            font-size: 36px;
+            color: $accentColor;
         }
     }
 
@@ -38,18 +44,18 @@
         justify-content: end;
         color: $newTextColor;
 
-        #gSelect{
+        #gameModeSelect{
             color: $newTextColor;
         }
 
-        #gSelect:hover {
-            color: #FFFFFF;
+        #gameModeSelect:hover {
+            border-bottom: solid 4px $newMainColor;
         }
 
         #createBtn{
-            border-radius: 5px;
+            border-radius: 10px;
             color: $newMainColor;
-            border: 2px $newAccentColor solid;
+            border: 4px $newAccentColor solid;
             font-weight: 600;
         }
 
@@ -58,9 +64,8 @@
             color: #FFFFFF;
             background-color: $newMainColor;
             font-weight: 600;
+            text-align: center;
         }
-
-        
 
         ul{
             display: flex;
@@ -79,23 +84,13 @@
                    font-size: 24px;
                    color: $newTextColor;
                 }
-                
                 .navHome:hover{
-                    font-size: 25px;
                     border-bottom: solid 4px $newMainColor;
                 }
-
                 
             }
         }
 
-        ul {
-            li {
-                #gSelect {
-                    background-color: aqua;
-                }
-            }
-        }
     }
 
 }

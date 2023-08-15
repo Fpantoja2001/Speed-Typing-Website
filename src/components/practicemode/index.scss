@@ -24,6 +24,66 @@
         align-items: center;
         font-size: 18px;
 
+        .selectorButtons {
+            width: 20px;
+            height: 200px;
+            width: 5%;
+            position: absolute;
+            left: -50px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+
+            span{
+                height: 20%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: $textColor;
+                font-size: 100px;
+
+                #nb{
+                    font-size: 50px;
+                }
+                #re, #br {
+                    font-size: 30px;
+                }
+
+                a{
+                    color: $textColor;
+                    display: flex;
+                    align-items: center;
+                }
+
+
+                
+
+                #re:hover{
+                    color: $newAccentColor;
+                    font-size: 30px;
+                }
+                #br:hover{
+                    color: $newAccentColor;
+                    font-size: 30px;
+                }
+                #nb:hover{
+                    color: $newAccentColor;
+                    font-size: 41px;
+                }
+           
+            }
+            
+        }
+
+        .gameWrapper {
+            width: 80%;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            position: relative;
+        }
+
         .progressStats{
             background-color: $newSecondMainColor;
             border-radius: 100px;
@@ -51,7 +111,7 @@
         }
 
         #overhead{
-            width: 76%;
+            width: 77.5%;
             display: flex;
             flex-direction: row;
            
@@ -97,6 +157,20 @@
                 margin-bottom: auto;
                 margin-right: 2%;
             } 
+
+            #timeBox{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: $newBackGroundColor;
+                height: 34px;
+                padding: 0px 10px 0px 10px;
+                background-color: $newSecondMainColor;
+                border-radius: 10px;
+                margin-top: auto;
+                margin-bottom: auto;
+                margin-right: 2%;
+            }
         }
 
         
@@ -114,16 +188,14 @@
         .reference {
             color: $newTextColor;
             background-color: $newSecondAccentColor;
-            padding: 20px;
-            margin: 60px 20px 20px 20px;
+            padding: 15px;
             border-radius: 4px;
-            width: 70%;
+            width: 90%;
             border-radius: 10px;
             display: flex;
             flex-wrap: wrap;  
             font-size: 20px;
                 
-
             div{
                 margin-right: 8px;
             }
@@ -213,51 +285,8 @@
                 right: 5%;
             }
 
-            .options {
-                display: flex;
-                position: absolute;
-                left: 45%;
-                align-items: center;
-                justify-content: center;
-
-
-                span{
-
-                    height: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: $textColor;
-
-                    #nb{
-                        font-size: 35px;
-                    }
-
-                    a{
-                    color: $textColor;
-                    display: flex;
-                    align-items: center;
-                    margin: 0px 10px 0px 10px;
-                    }
-
-                    #re:hover{
-                        color: $newAccentColor;
-                        font-size: 30px;
-                    }
-                    #br:hover{
-                        color: $newAccentColor;
-                        font-size: 30px;
-                    }
-                    #nb:hover{
-                        color: $newAccentColor;
-                        font-size: 41px;
-                    }
-               
-                }
-            }
-
         }
-        }
+    }
 
         
 

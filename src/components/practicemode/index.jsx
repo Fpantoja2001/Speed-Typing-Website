@@ -81,6 +81,7 @@ export default function PracticeMode (){
         }
         
         function gameStart (){
+
             inputBox.current.removeAttribute('disabled')
 
             inputBox.current.focus()
@@ -94,7 +95,7 @@ export default function PracticeMode (){
             timerEnd = setInterval(() => {
                 wperm = Math.round(((wordPOS - 10) / timerFormat()) * 60)
                 cpmCal = Math.round((tempCharCount / timerFormat()) * 60)
-                timerUpdate.current.innerText = `Time ${timerFormat()}`
+                timerUpdate.current.innerText = `${timerFormat()}`
                 wpm.current.innerText = `${wperm}`  
                
                 cpmBar.current.style.width = `${cpmCal / 10}%`
@@ -129,7 +130,6 @@ export default function PracticeMode (){
  
             data.content.split(' ').map((char) => {
                 divIdentifier++
-
                 const divGen = document.createElement('div')
                 divGen.id = divIdentifier
 
@@ -173,10 +173,10 @@ export default function PracticeMode (){
             countDown.current.innerText = `6`
             inputBox.current.setAttribute('disabled',true)
             inputBox.current.value = ''
-            document.getElementById('pp').innerText = `Progress 0%`
+            document.getElementById('pp').innerText = `0%`
             accuracyField.current.innerText = `Accuracy 0%`
             wpm.current.innerText = `0`
-            timerUpdate.current.innerText = `Time 0`
+            timerUpdate.current.innerText = `0`
             clearInterval(timerEnd)
             clearInterval(cdsi) 
             document.getElementById('pb').style.width = 0 
@@ -227,7 +227,6 @@ export default function PracticeMode (){
                 } 
             }
             
-
             for (let i = 0; i < e.target.selectionStart; i++){
 
                 if (e.target.selectionStart < tempWord.length){
@@ -244,9 +243,7 @@ export default function PracticeMode (){
                 } else {
 
                     break;
-
                 }
-                
             }
 
             if(e.target.value === tempWord) {
@@ -292,16 +289,37 @@ export default function PracticeMode (){
 
                    <div className='progressBar'>
                         <div className='update' id='pb'></div>
-                        <span className='progressPercent' id='pp'>Progress 0%</span>
+                        <span className='progressPercent' id='pp'>0%</span>
                         
                     </div> 
                     
                     <span className='countDown' ref={countDown} id='cdBox'>6</span>
+                    <span className='elapsedTimer' ref={timerUpdate} id='timeBox'>0</span>
                 </div>
-                
+            
+                <div className='gameWrapper'>
+                    <div className='reference' id='quoteBox'></div>
+                    <div className='selectorButtons'>
+                        <span className='bugReport'>
+                            <Tippy content='Bug Report' delay={[400,0]}>
+                                <Link to='/bugReport'><BugReportIcon id='br'></BugReportIcon></Link>    
+                            </Tippy>
+                        </span>
+            
+                        <span className='replay'>
+                            <Tippy content='Replay' delay={[400,0]}>
+                            <ReplayIcon id='re' onClick={() => setCount((c) => c - 1)}></ReplayIcon> 
+                            </Tippy>
+                        </span>
 
-                <div className='reference' id='quoteBox'></div>
-                
+                        <span className='nextGame'>
+                            <Tippy content='Next Game' delay={[400,0]}>
+                            <NavigateNextIcon className='icon' id='nb' onClick={() => setCount((c) => c + 1)}></NavigateNextIcon> 
+                            </Tippy>                       
+                        </span> 
+                    </div>
+                    
+                </div>
                 <div className='input'>
                     <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled={true} placeholder='Type here...'/> 
                 </div>
@@ -316,37 +334,13 @@ export default function PracticeMode (){
             </div> 
 
                 
-                <div className='secondWrapper'>
+                <div className='secondWrapper' hidden={true}>
 
                     <div className='currentGameStats'>
 
                         <div className='topBar'>
-                        <span className ='timer' ref={timerUpdate}>Time 0</span>
-
-                            <div className='options'>
-
-                            <span className='bugReport'>
-                                    <Tippy content='Bug Report' delay={[400,0]}>
-                                        <Link to='/bugReport'><BugReportIcon id='br'></BugReportIcon></Link>    
-                                    </Tippy>
-                                </span>
-                        
-                                <span className='replay'>
-                                    <Tippy content='Replay' delay={[400,0]}>
-                                    <ReplayIcon id='re' onClick={() => setCount((c) => c - 1)}></ReplayIcon> 
-                                    </Tippy>
-                                </span>
-
-                                <span className='nextGame'>
-                                    <Tippy content='Next Game' delay={[400,0]}>
-                                    <NavigateNextIcon className='icon' id='nb' onClick={() => setCount((c) => c + 1)}></NavigateNextIcon> 
-                                    </Tippy>                       
-                            </span> 
-
-                            </div>
-                        
+                        <span className ='timer'>Time 0</span>
                             <span className='accuracy' id='accuracy' ref={accuracyField}>Accuracy 0% </span>
-                            
                         </div>
 
                         <div className='mainStats'>
@@ -370,13 +364,9 @@ export default function PracticeMode (){
                                 <button id='mediumSelect' onClick={quoteLengthSelect(2)}>Medium</button>
                                 <button id='longSelect' onClick={quoteLengthSelect(3)}>Long</button>  */}
                             </div>
-                            
                         </div>
 
                     </div>
-
-                    
-                
 
                 </div>
                 

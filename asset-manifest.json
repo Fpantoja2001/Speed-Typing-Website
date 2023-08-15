@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/SpeedTyping.io/static/css/main.24087fe5.css",
+    "main.js": "/SpeedTyping.io/static/js/main.22a262c9.js",
+    "index.html": "/SpeedTyping.io/index.html",
+    "main.24087fe5.css.map": "/SpeedTyping.io/static/css/main.24087fe5.css.map",
+    "main.22a262c9.js.map": "/SpeedTyping.io/static/js/main.22a262c9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.24087fe5.css",
+    "static/js/main.22a262c9.js"
+  ]
+}

@@ -11,13 +11,44 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: $newBackGroundColor;
+    background-color: $bg-color;
     font-family: 'JetBrains Mono', monospace;
 
-    .wrapper {
+    .wrapper-0 {
+        background-color: #FFFFFF;
+        width: 70%;
+        height: 10%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .topBar {
+            background-color: #E63946;
+            width: 75%;
+            height: 40%;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: row;
+
+            .lengthSelectorBar {
+                width: 50%;
+                height: 100%;
+                background-color: aqua;
+                display: flex;
+                flex-direction: row;
+
+                button {
+                    width: 33%;
+                }
+            }
+            
+        }
+    }
+
+    .wrapper-1 {
         width: 70%;
         height: 50%;
-        background-color: $newBackGroundColor;
+        background-color: red;
         display: flex;
         flex-direction: column;
         justify-content: center;

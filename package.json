@@ -1,7 +1,7 @@
 {
   "name": "stype",
   "version": "0.1.0",
-  "homepage": "https://fpantoja2001.github.io/SpeedTyping.io",
+  "homepage": "https://fpantoja2001.github.io/Speed-Typing-Website/",
   "private": true,
   "dependencies": {
     "@emailjs/browser": "^3.6.2",

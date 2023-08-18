@@ -6,6 +6,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ReplayIcon from '@mui/icons-material/Replay';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import { roundArrow } from 'tippy.js';
 
 export default function PracticeMode (){
 
@@ -43,6 +44,7 @@ export default function PracticeMode (){
 
     let toggle = useRef()
     let replayTog = useRef()
+    let selectedQuoteLength = useRef()
 
     // function quoteLengthSelect (x){
     //     console.log(x)
@@ -103,24 +105,23 @@ export default function PracticeMode (){
         return quoteLength;
     }
 
-    async function apiCall (ql) {
-        console.log(ql)
+    async function apiCall (quoteLength) {
 
         const shortQuote = 'https://api.quotable.io/random?maxLength=100'
         const mediumQuote = 'https://api.quotable.io/random?minLength=100&maxLength=200'
         const longQuote = 'https://api.quotable.io/random?minLength=200'
 
-        if (ql === 'short'){
+        if (quoteLength === 3){
             const response = await fetch(shortQuote) 
             const data = await response.json()
             toggle.current = data
             return data
-        } else if (ql === 'medium'){
+        } else if (quoteLength === 4){
             const response = await fetch(mediumQuote) 
             const data = await response.json()
             toggle.current = data
             return data
-        } else if (ql === 'long') {
+        } else if (quoteLength === 5) {
             const response = await fetch(longQuote)
             const data = await response.json()
             toggle.current = data
@@ -219,17 +220,31 @@ export default function PracticeMode (){
                 return 1
             })
         }
-        
 
+        let randomVar =  selectedQuoteLength.current
+        
         async function nextQuote(count){
-            console.log(quoteLength)
             if (count > replayTog.current || count === 0){
-                newQuote(await apiCall('medium')) 
+                
+                if (count === replayTog.current + 2){
+                    newQuote(await apiCall(3))
+                    randomVar = 3
+                } else if (count === replayTog.current + 3) {
+                    newQuote(await apiCall(4))
+                    randomVar = 4
+                } else if (count === replayTog.current + 4) {
+                    newQuote(await apiCall(5))
+                    randomVar = 5
+                } else {
+                    console.log(selectedQuoteLength.current)
+                    newQuote(await apiCall(selectedQuoteLength.current))
+                }
+
             }else if (count < replayTog.current){
                 newQuote(toggle.current)
             }
         }
-        
+
         nextQuote(count)
         countDownStart()
 
@@ -251,6 +266,7 @@ export default function PracticeMode (){
             clearInterval(cdsi) 
             document.getElementById('pb').style.width = 0 
             replayTog.current = count
+            selectedQuoteLength.current = randomVar
             wpmBar.current.style.width = 0
             cpmBar.current.style.width = 0
             cpm.current.innerText = `0`
@@ -356,9 +372,9 @@ export default function PracticeMode (){
             <div className='wrapper-0'>
                 <div className='topBar'>
                     <div className='lengthSelectorBar'>
-                        <button id='sqs' onClick={() => {quoteLengthSelect(1)}}>short</button>
-                        <button id='mqs' onClick={() => {quoteLengthSelect(2)}}>medium</button>
-                        <button id='lqs' onClick={() => {quoteLengthSelect(3)}}>long</button>
+                        <button id='sqs' onClick={() => setCount((c) => c + 2)}>short</button>
+                        <button id='mqs' onClick={() => setCount((c) => c + 3)}>medium</button>
+                        <button id='lqs' onClick={() => setCount((c) => c + 4)}>long</button>
                     </div>
                     
                 </div>

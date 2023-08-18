@@ -38,72 +38,11 @@ export default function PracticeMode (){
     // It essentially is taking each word and assigning it a div, and it then takes every chracter of that word 
     // and assigns it its own div
 
-    let quoteLength = 'howdy';
-
     const [count,setCount] = useState(0)
 
     let toggle = useRef()
     let replayTog = useRef()
     let selectedQuoteLength = useRef()
-
-    // function quoteLengthSelect (x){
-    //     console.log(x)
-    //     if (x === 1) {
-    //         console.log('1')
-    //     } else if (x === 2){
-    //         console.log('2')
-    //     } else if (x === 3){
-    //         console.log('3')
-    //     }
-    // }
-
-    // async function newQuote(ql) {
-
-    //     const shortQuote = 'https://api.quotable.io/random?maxLength=100'
-    //     const mediumQuote = 'https://api.quotable.io/random?minLength=100&maxLength=200'
-    //     const longQuote = 'https://api.quotable.io/random?minLength=200'
-
-    //     if (ql === 'short'){
-    //         const response = await fetch(shortQuote) 
-    //         const data = await response.json()
-    //         toggle.current = data
-    //         return data
-    //     } else if (ql === 'medium'){
-    //         const response = await fetch(mediumQuote) 
-    //         const data = await response.json()
-    //         toggle.current = data
-    //         return data
-    //     } else if (ql === 'long') {
-    //         const response = await fetch(longQuote)
-    //         const data = await response.json()
-    //         toggle.current = data
-    //         return data
-    //     } else {
-    //         const response = await fetch(shortQuote) 
-    //         const data = await response.json()
-    //         toggle.current = data
-    //         return data
-    //     }
-
-
-
-    // }
-
-    async function varU(){
-        return quoteLength
-    }
-
-    async function quoteLengthSelect (x){
-        if (x === 1) {
-            quoteLength = 'short';
-        } else if (x === 2){
-            quoteLength = 'medium';
-        } else if (x === 3){
-            quoteLength = 'long';
-        }
-        console.log(quoteLength)
-        return quoteLength;
-    }
 
     async function apiCall (quoteLength) {
 

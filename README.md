@@ -1,1 +1,1 @@
-# SpeedTyping.io
+# Speed Typing Website

@@ -4,11 +4,13 @@
 .navbar {
     background-color: $bg-color;
     height: 80px;
-    width: 100%;
+    width: 70%;
     display: flex;
     flex-direction: row;
     color: $accentColor;
     font-family: 'IBM Plex Sans', sans-serif !important;
+    margin-left: auto;
+    margin-right: auto;
 
 
     .title{

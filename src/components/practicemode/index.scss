@@ -15,30 +15,60 @@
     font-family: 'JetBrains Mono', monospace;
 
     .wrapper-0 {
-        background-color: #FFFFFF;
         width: 70%;
-        height: 10%;
+        height: 7.5%;
         display: flex;
         align-items: center;
         justify-content: center;
 
         .topBar {
-            background-color: #E63946;
-            width: 75%;
-            height: 40%;
+            background-color: $newSecondAccentColor;
+            width: 50%;
+            height: 45%;
             border-radius: 10px;
             display: flex;
             flex-direction: row;
 
-            .lengthSelectorBar {
-                width: 50%;
+            .startGameWrapper {
                 height: 100%;
-                background-color: aqua;
+                width: 10%;
+
+                #startGameButton {
+                    height: 100%;
+                    width: 100%;
+                    background-color: transparent;
+                    border: none;
+                    font-size: 16px;
+                }
+            }
+
+            .lengthSelectorBar {
+                width: 40%;
+                height: 100%;
                 display: flex;
                 flex-direction: row;
 
                 button {
-                    width: 33%;
+                    width: 25%;
+                    background-color: transparent;
+                    border: none;
+                    font-size: 16px;
+                }
+
+                span {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                    width: 25%;
+                }
+
+                button:hover{
+                    font-size: 17px;
+                }
+
+                .selected {
+                   color: $newMainColor;
                 }
             }
             
@@ -48,7 +78,6 @@
     .wrapper-1 {
         width: 70%;
         height: 50%;
-        background-color: red;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -249,16 +278,18 @@
                 color: green;
             }
 
-                
-            } 
+        } 
+
+        .preGameFilter {
+            filter: blur(5px);
+        }
             
         
-            .input{
-                display: flex;
-                justify-content: center;
-                flex-direction: row;
-                width: 100%;
-                
+        .input{
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            width: 100%;
                 
             .typingBox{
                 width: 70%;
@@ -268,9 +299,6 @@
                 border: none;
                 background-color:transparent;
                 border-bottom: solid 5px $newAccentColor;
-
-                
-
             } 
             
             ::placeholder{

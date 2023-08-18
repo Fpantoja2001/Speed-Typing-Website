@@ -43,6 +43,8 @@ export default function PracticeMode (){
     let toggle = useRef()
     let replayTog = useRef()
     let selectedQuoteLength = useRef()
+    let gameState = useRef()
+    gameState.current = 0
 
     async function apiCall (quoteLength) {
 
@@ -164,18 +166,31 @@ export default function PracticeMode (){
         
         async function nextQuote(count){
             if (count > replayTog.current || count === 0){
-                
+
+                try {
+                    document.getElementById(`qL${randomVar}`).classList.remove('selected')
+                } catch {
+                    if (randomVar === undefined && count > replayTog.current){
+                        document.getElementById(`qL${3}`).classList.remove('selected')
+                    }
+                }
+
                 if (count === replayTog.current + 2){
                     newQuote(await apiCall(3))
                     randomVar = 3
+                    document.getElementById(`qL${randomVar}`).classList.add('selected')
                 } else if (count === replayTog.current + 3) {
                     newQuote(await apiCall(4))
                     randomVar = 4
+                    document.getElementById(`qL${randomVar}`).classList.add('selected')
                 } else if (count === replayTog.current + 4) {
                     newQuote(await apiCall(5))
                     randomVar = 5
+                    document.getElementById(`qL${randomVar}`).classList.add('selected')
+                } else if (count === replayTog.current + 5){
+                    newQuote(toggle.current)
+                    countDownStart()
                 } else {
-                    console.log(selectedQuoteLength.current)
                     newQuote(await apiCall(selectedQuoteLength.current))
                 }
 
@@ -185,30 +200,33 @@ export default function PracticeMode (){
         }
 
         nextQuote(count)
-        countDownStart()
+        // countDownStart()
 
         // Clears all fields previously editted during games runtime
         return () => {
-            quoteBox.innerHTML = ''
-            // authorField.innerText = ''
-            initWordCount.innerText = ''
-            initCharCount.innerText = '' 
-            document.getElementById('cdBox').removeAttribute('hidden')
-            countDown.current.innerText = `6`
-            inputBox.current.setAttribute('disabled',true)
-            inputBox.current.value = ''
-            document.getElementById('pp').innerText = `0%`
-            accuracyField.current.innerText = `Accuracy 0%`
-            wpm.current.innerText = `0`
-            timerUpdate.current.innerText = `0`
-            clearInterval(timerEnd)
-            clearInterval(cdsi) 
-            document.getElementById('pb').style.width = 0 
-            replayTog.current = count
-            selectedQuoteLength.current = randomVar
-            wpmBar.current.style.width = 0
-            cpmBar.current.style.width = 0
-            cpm.current.innerText = `0`
+            try {
+                quoteBox.innerHTML = ''
+                // authorField.innerText = ''
+                initWordCount.innerText = ''
+                initCharCount.innerText = '' 
+                document.getElementById('cdBox').removeAttribute('hidden')
+                countDown.current.innerText = `6`
+                inputBox.current.setAttribute('disabled',true)
+                inputBox.current.value = ''
+                document.getElementById('pp').innerText = `0%`
+                accuracyField.current.innerText = `Accuracy 0%`
+                wpm.current.innerText = `0`
+                timerUpdate.current.innerText = `0`
+                clearInterval(timerEnd)
+                clearInterval(cdsi) 
+                document.getElementById('pb').style.width = 0 
+                replayTog.current = count
+                selectedQuoteLength.current = randomVar
+                wpmBar.current.style.width = 0
+                cpmBar.current.style.width = 0
+                cpm.current.innerText = `0`  
+            } catch {}
+            
         }
 
     },[count]) 
@@ -310,10 +328,14 @@ export default function PracticeMode (){
 
             <div className='wrapper-0'>
                 <div className='topBar'>
+                    <div className='startGameWrapper'>
+                        <button id='startGameButton' onClick={() => setCount((c) => c + 5)}>Start</button>
+                    </div>
                     <div className='lengthSelectorBar'>
-                        <button id='sqs' onClick={() => setCount((c) => c + 2)}>short</button>
-                        <button id='mqs' onClick={() => setCount((c) => c + 3)}>medium</button>
-                        <button id='lqs' onClick={() => setCount((c) => c + 4)}>long</button>
+                        <span>length:</span>
+                        <button id='qL3' onClick={() => setCount((c) => c + 2)} className='selected'>short</button>
+                        <button id='qL4' onClick={() => setCount((c) => c + 3)}>medium</button>
+                        <button id='qL5' onClick={() => setCount((c) => c + 4)}>long</button>
                     </div>
                     
                 </div>

@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ReplayIcon from '@mui/icons-material/Replay';
+import MouseOutlinedIcon from '@mui/icons-material/MouseOutlined';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+
 import { roundArrow } from 'tippy.js';
 
 export default function PracticeMode (){
@@ -76,13 +78,13 @@ export default function PracticeMode (){
     }
     
     function countDownStart (){
-            let cdt = 6
+            let cdt = 3
             cdsi  = setInterval(() => {
                 cdt--
                 countDown.current.innerText = `${cdt}`
                 
                 if(cdt  === 0){
-                    document.getElementById('cdBox').setAttribute('hidden',true)
+                    // document.getElementById('cdBox').setAttribute('hidden',true)
                     clearInterval(cdsi)
                     gameStart()
                 }
@@ -101,12 +103,14 @@ export default function PracticeMode (){
 
         function elapsedTime(){
             startTime = new Date() 
-    
+
             timerEnd = setInterval(() => {
                 wperm = Math.round(((wordPOS - 10) / timerFormat()) * 60)
                 cpmCal = Math.round((tempCharCount / timerFormat()) * 60)
-                timerUpdate.current.innerText = `${timerFormat()}`
+
+                // timerUpdate.current.innerText = `${timerFormat()}`
                 wpm.current.innerText = `${wperm}`  
+                document.getElementById('cdBox').innerText = `${timerFormat()}`
                
                 // cpmBar.current.style.width = `${cpmCal / 10}%`
                 cpm.current.innerText = cpmCal
@@ -188,36 +192,44 @@ export default function PracticeMode (){
                     randomVar = 5
                     document.getElementById(`qL${randomVar}`).classList.add('selected')
                 } else if (count === replayTog.current + 5){
-                    newQuote(toggle.current)
+                    
                     try {
                         document.getElementById(`qL${randomVar}`).classList.add('selected')
                     } catch {
                         document.getElementById(`qL${3}`).classList.add('selected')
                     }
-                    console.log(document.getElementById('quoteBox').classList.add('removeBlur'))
+                    
+                    newQuote(toggle.current)
                     countDownStart()
+                    document.getElementById(`gsp`).setAttribute('hidden',true)
+                    console.log(document.getElementById('quoteBox').classList.add('removeBlur'))
+
+                    
                 } else {
                     newQuote(await apiCall(selectedQuoteLength.current))
-                    // document.getElementById(`qL${randomVar}`).classList.add('selected')
                 }
 
             }else if (count < replayTog.current){
                 newQuote(toggle.current)
+                document.getElementById('quoteBox').classList.add('removeBlur')
+                document.getElementById(`gsp`).setAttribute('hidden',true)
+                countDownStart()
             }
         }
 
         nextQuote(count)
-        // countDownStart()
 
         // Clears all fields previously editted during games runtime
         return () => {
             try {
+                document.getElementById(`gsp`).removeAttribute('hidden')
+                document.getElementById('quoteBox').classList.remove('removeBlur')
                 quoteBox.innerHTML = ''
                 // authorField.innerText = ''
                 initWordCount.innerText = ''
                 initCharCount.innerText = '' 
                 document.getElementById('cdBox').removeAttribute('hidden')
-                countDown.current.innerText = `6`
+                countDown.current.innerText = `3`
                 inputBox.current.setAttribute('disabled',true)
                 inputBox.current.value = ''
                 document.getElementById('pp').innerText = `0%`
@@ -333,36 +345,38 @@ export default function PracticeMode (){
         
         <div className='page'>
 
-            <div className='wrapper-0'>
-                <div className='topBar'>
-                    {/* <div className='startGameWrapper'>
-                        <button id='startGameButton' onClick={() => setCount((c) => c + 5)}>Start</button>
-                    </div> */}
-                    <div className='lengthSelectorBar'>
-                        <span>length:</span>
-                        <button id='qL3' onClick={() => setCount((c) => c + 2)} className='selected'>short</button>
-                        <button id='qL4' onClick={() => setCount((c) => c + 3)}>medium</button>
-                        <button id='qL5' onClick={() => setCount((c) => c + 4)}>long</button>
-                    </div>
-                    
-                </div>
-            </div>
+            
             
             <div className='wrapper-1'>
                 
-                <div id='overhead'>
+                <div id='overhead' hidden={true}>
 
                    <div className='progressBar'>
-                        <div className='update' id='pb'></div>
+                        <div className='update' hidden={true} id='pb'></div>
                         <span className='progressPercent' id='pp' hidden={true}>0%</span>
                         
                     </div> 
                     
-                    <span className='countDown' ref={countDown} id='cdBox'>6</span>
-                    <span className='elapsedTimer' ref={timerUpdate} id='timeBox'>0</span>
+                    
+                    <span className='elapsedTimer' hidden={true} ref={timerUpdate} id='timeBox'>0</span>
+                </div>
+                <div className='wrapper-0'>
+                    <div className='topBar'>
+                        <div className='lengthSelectorBar'>
+                            <span>Quote Length</span>
+                            <span className='divider'>|</span>
+                            <button id='qL3' onClick={() => setCount((c) => c + 2)} className='selected'>Short</button>
+                            <button id='qL4' onClick={() => setCount((c) => c + 3)}>Medium</button>
+                            <button id='qL5' onClick={() => setCount((c) => c + 4)}>Long</button>
+                        </div>
+                    </div>
                 </div>
             
                 <div className='gameWrapper'>
+                    <div className='gameStartPrompt' id='gsp'>
+                        <MouseOutlinedIcon id='moi'></MouseOutlinedIcon>
+                        click here to start game
+                    </div>
                     <div className='reference' id='quoteBox' onClick={() => setCount((c) => c + 5)}></div>
 
                     <div className='test'>
@@ -370,11 +384,7 @@ export default function PracticeMode (){
                         <span id='progressWords'>Word 0 / ? </span>
                     </div>
 
-                   
-
-
-
-                    
+                   <span className='countDown' ref={countDown} id='cdBox'>3</span>
 
                     <div className='selectorButtons'>
                         <span className='bugReport'>

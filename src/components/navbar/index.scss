@@ -4,7 +4,7 @@
 .navbar {
     background-color: $bg-color;
     height: 80px;
-    width: 70%;
+    width: calc(56% + 115px);
     display: flex;
     flex-direction: row;
     color: $accentColor;

@@ -5,6 +5,7 @@ import {HashRouter as Router,Route,Routes} from "react-router-dom";
 import PracticeMode from './components/practicemode';
 import BugReport from './components/bugreport';
 import Navbar from './components/navbar';
+import Footer from './components/footer';
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
           <Route path='/' element={<PracticeMode/>}/>
           <Route path='/bugReport' element={<BugReport/>}/>
         </Routes>
+
+        <Footer/>
       </div>
     </div>
   );

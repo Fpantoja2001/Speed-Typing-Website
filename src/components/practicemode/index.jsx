@@ -108,14 +108,14 @@ export default function PracticeMode (){
                 timerUpdate.current.innerText = `${timerFormat()}`
                 wpm.current.innerText = `${wperm}`  
                
-                cpmBar.current.style.width = `${cpmCal / 10}%`
+                // cpmBar.current.style.width = `${cpmCal / 10}%`
                 cpm.current.innerText = cpmCal
 
-                if (wperm < 100){
-                    wpmBar.current.style.width = `${(wperm * 7.5)/10}%`
-                } else if (wperm > 100) {
-                    wpmBar.current.style.width = `${(wperm * 3.75)/10}%`
-                }
+                // if (wperm < 100){
+                //     wpmBar.current.style.width = `${(wperm * 7.5)/10}%`
+                // } else if (wperm > 100) {
+                //     wpmBar.current.style.width = `${(wperm * 3.75)/10}%`
+                // }
                 
             },1000)
         }
@@ -189,9 +189,16 @@ export default function PracticeMode (){
                     document.getElementById(`qL${randomVar}`).classList.add('selected')
                 } else if (count === replayTog.current + 5){
                     newQuote(toggle.current)
+                    try {
+                        document.getElementById(`qL${randomVar}`).classList.add('selected')
+                    } catch {
+                        document.getElementById(`qL${3}`).classList.add('selected')
+                    }
+                    console.log(document.getElementById('quoteBox').classList.add('removeBlur'))
                     countDownStart()
                 } else {
                     newQuote(await apiCall(selectedQuoteLength.current))
+                    // document.getElementById(`qL${randomVar}`).classList.add('selected')
                 }
 
             }else if (count < replayTog.current){
@@ -222,9 +229,9 @@ export default function PracticeMode (){
                 document.getElementById('pb').style.width = 0 
                 replayTog.current = count
                 selectedQuoteLength.current = randomVar
-                wpmBar.current.style.width = 0
-                cpmBar.current.style.width = 0
-                cpm.current.innerText = `0`  
+                // wpmBar.current.style.width = 0
+                // cpmBar.current.style.width = 0
+                cpm.current.innerText = '0' 
             } catch {}
             
         }
@@ -328,9 +335,9 @@ export default function PracticeMode (){
 
             <div className='wrapper-0'>
                 <div className='topBar'>
-                    <div className='startGameWrapper'>
+                    {/* <div className='startGameWrapper'>
                         <button id='startGameButton' onClick={() => setCount((c) => c + 5)}>Start</button>
-                    </div>
+                    </div> */}
                     <div className='lengthSelectorBar'>
                         <span>length:</span>
                         <button id='qL3' onClick={() => setCount((c) => c + 2)} className='selected'>short</button>
@@ -347,7 +354,7 @@ export default function PracticeMode (){
 
                    <div className='progressBar'>
                         <div className='update' id='pb'></div>
-                        <span className='progressPercent' id='pp'>0%</span>
+                        <span className='progressPercent' id='pp' hidden={true}>0%</span>
                         
                     </div> 
                     
@@ -356,37 +363,58 @@ export default function PracticeMode (){
                 </div>
             
                 <div className='gameWrapper'>
-                    <div className='reference' id='quoteBox'></div>
+                    <div className='reference' id='quoteBox' onClick={() => setCount((c) => c + 5)}></div>
+
+                    <div className='test'>
+                        <span id ='progressChar'>Char 0 / ?</span> 
+                        <span id='progressWords'>Word 0 / ? </span>
+                    </div>
+
+                   
+
+
+
+                    
+
                     <div className='selectorButtons'>
                         <span className='bugReport'>
-                            <Tippy content='Bug Report' delay={[400,0]}>
+                            <Tippy content='Bug Report' placement='left' delay={[400,0] }>
                                 <Link to='/bugReport'><BugReportIcon id='br'></BugReportIcon></Link>    
                             </Tippy>
                         </span>
             
                         <span className='replay'>
-                            <Tippy content='Replay' delay={[400,0]}>
+                            <Tippy content='Replay' placement='left' delay={[400,0]}>
                             <ReplayIcon id='re' onClick={() => setCount((c) => c - 1)}></ReplayIcon> 
                             </Tippy>
                         </span>
 
                         <span className='nextGame'>
-                            <Tippy content='Next Game' delay={[400,0]}>
+                            <Tippy content='Next Game' placement='left' delay={[400,0]}>
                             <NavigateNextIcon className='icon' id='nb' onClick={() => setCount((c) => c + 1)}></NavigateNextIcon> 
                             </Tippy>                       
                         </span> 
                     </div>
                     
                 </div>
+
+                {/* <div className='test'>
+                    <span id ='progressChar'>Char 0 / ?</span>
+                    <span id='progressWords'>Word 0 / ? </span>
+                </div> */}
+
                 <div className='input'>
                     <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled={true} placeholder='Type here...'/> 
                 </div>
 
                 <div className='progressStats'>
-                    <span id ='progressChar'>Char 0 / ?</span>
+                    <span className='wpmTitle'>WPM:</span>
+                    <span className='wpm' ref={wpm}>0</span> 
                     <span className='divider'>|</span>
-                    <span id='progressWords'>Word 0 / ? </span>
-                    
+                    <span className='accuracy' id='accuracy' ref={accuracyField}>Accuracy 0% </span>
+                    <span className='divider'>|</span>
+                    <span id='cpmTitle'>CPM:</span>
+                    <span className='cpm' ref={cpm}>0</span>
                 </div>
                 
             </div> 
@@ -398,32 +426,22 @@ export default function PracticeMode (){
 
                         <div className='topBar'>
                         <span className ='timer'>Time 0</span>
-                            <span className='accuracy' id='accuracy' ref={accuracyField}>Accuracy 0% </span>
+                            
                         </div>
 
                         <div className='mainStats'>
-                            <span className='wpmTitle'>WPM</span>
+                            {/* <span className='wpmTitle'>WPM</span>
                             <span className='wpmBar' ref={wpmBar}></span>
                             <span className='wpm' ref={wpm}>0</span>  
-                            <div className='divisor'></div>
+                            <div className='divisor'></div> */}
                             
                         </div>
 
                         <div className='cpmStats'>
-                            <span className='cpmTitle'>CPM</span>
+                            {/* <span className='cpmTitle'>CPM</span>
                             <span className='cpmBar' ref={cpmBar}></span>
-                            <span className='cpm' ref={cpm}>0</span>
+                            <span className='cpm' ref={cpm}>0</span> */}
                         </div>
-
-                        <div className='quoteLengthSelect'>
-                            <p>Quote Length</p>
-                            <div className='selectors'>
-                                {/* <button id='shortSelect' onClick={quoteLengthSelect(1)}>Short</button>
-                                <button id='mediumSelect' onClick={quoteLengthSelect(2)}>Medium</button>
-                                <button id='longSelect' onClick={quoteLengthSelect(3)}>Long</button>  */}
-                            </div>
-                        </div>
-
                     </div>
 
                 </div>

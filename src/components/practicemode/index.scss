@@ -142,6 +142,73 @@
             justify-content: center;
             display: flex;
             position: relative;
+
+
+            .reference {
+                color: $newTextColor;
+                background-color: $newSecondAccentColor;
+                padding: 15px;
+                border-radius: 4px;
+                width: 90%;
+                border-radius: 10px;
+                display: flex;
+                flex-wrap: wrap;  
+                font-size: 20px;
+                filter: blur(5px);
+                transition: all 0.2s;
+     
+                div{
+                    margin-right: 8px;
+                }
+    
+                .onWord {
+                    text-decoration: underline;
+                    text-decoration-color:black;
+                }
+    
+                .cursor {
+                    background-color: aqua;
+                }
+    
+                .wrong{
+                    color: #E63946;
+                }
+    
+                .correct{
+                    color: green;
+                }
+    
+            } 
+
+            .reference.removeBlur {
+                filter: none;
+            }
+
+            .test {
+                margin-left: auto;
+                margin-right: auto;
+                position: absolute;
+                width: calc(90% + 30px);
+                background-color: #E63946;
+                pointer-events: none;
+                top: 120%;
+                
+                #progressChar{
+                    color: #FFFFFF;
+                    position: absolute;
+                    left: 0;
+                }
+                #progressWords {
+                    color: #FFFFFF;
+                    position: absolute;
+                    right: 0;
+                }
+            }
+
+
+            
+
+            
         }
 
         .progressStats{
@@ -198,7 +265,7 @@
 
                 .update {
                     background-color:$newAccentColor;
-                    height: 100%;
+                    height: 80%;
                     transition: all 0.2s;
                     border-radius: 10px;
                 }
@@ -243,42 +310,8 @@
                 float: right;
             }
         }
-        
-
-        .reference {
-            color: $newTextColor;
-            background-color: $newSecondAccentColor;
-            padding: 15px;
-            border-radius: 4px;
-            width: 90%;
-            border-radius: 10px;
-            display: flex;
-            flex-wrap: wrap;  
-            font-size: 20px;
-                
-            div{
-                margin-right: 8px;
-            }
 
 
-            .onWord {
-                text-decoration: underline;
-                text-decoration-color:black;
-            }
-
-            .cursor {
-                background-color: aqua;
-            }
-
-            .wrong{
-                color: #E63946;
-            }
-
-            .correct{
-                color: green;
-            }
-
-        } 
 
         .preGameFilter {
             filter: blur(5px);
@@ -290,15 +323,17 @@
             justify-content: center;
             flex-direction: row;
             width: 100%;
-                
+            
+
             .typingBox{
-                width: 70%;
+                width: 71.5%;
                 padding: 20px;
-                margin: 50px 20px 20px 20px;
+                margin: 90px 20px 20px 20px;
                 outline: none;
                 border: none;
                 background-color:transparent;
                 border-bottom: solid 5px $newAccentColor;
+                color: #FFFFFF;
             } 
             
             ::placeholder{

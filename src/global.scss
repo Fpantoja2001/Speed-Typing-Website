@@ -1,17 +1,11 @@
-$darkColor: #4D5061;
-$accentColor: #E8C547;
-$textColor: #CDD1C4;
-$contrast: #4D5061;
+:root {
+  --bg-color: #111111;
+  --main-color: #4A90F3;
+  --main-accent-color: #FFCF00;
+  --second-accent-color:#D9D7D9;
+  --second-text-color: #FFFFFF;
+  --stat-text-color: #FFFFFF;
+  --text-color: #120E11;
+} 
 
-// 5C80BC
-
-// 30323D
-
-$newMainColor: #0B72CD;
-$newTextColor: #120E11;
-$newAccentColor: #FFCF00;
-$newBackGroundColor: #FFFFFF;
-$newSecondMainColor: #4A90F3;
-$newSecondAccentColor: #D9D7D9;
-
-$bg-color: #111111;
+// blue color: 4A90F3 or 0B72CD

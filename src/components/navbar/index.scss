@@ -1,91 +1,88 @@
 @import '../../global.scss';
 
-
-.navbar {
-    background-color: $bg-color;
+.wrapper {
+    width: 100%;
     height: 80px;
-    width: calc(56% + 115px);
-    display: flex;
-    flex-direction: row;
-    color: $accentColor;
-    font-family: 'IBM Plex Sans', sans-serif !important;
-    margin-left: auto;
-    margin-right: auto;
-
-
-    .title{
-        width:50%;
-        text-align: center;
+   .navbar {
+        background-color: var(--bg-color);
+        height: 100%;
+        width: calc(56% + 115px);
+        display: flex;
+        flex-direction: row;
+        color: var(--main-accent-color);
+        font-family: 'IBM Plex Sans', sans-serif !important;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
         display: flex;
         align-items: center;
-        height: 100%;
-        
 
-        h1 {
-            font-weight: 700;
-            font-size: 36px;
-            margin-left: 30px;
-            color: $newMainColor;
-        }
 
-        span {
-            font-weight: 700;
-            font-size: 36px;
-            color: $accentColor;
-        }
-    }
-
-    .menu {
-        height: 100%;
-        width: 50%;
-        float: right;
-        display: flex;
-        align-items: center;
-        font-size: 24px;
-        font-weight: 700;
-        justify-content: end;
-        color: $newTextColor;
-
-        #createBtn{
-            border-radius: 10px;
-            color: $newMainColor;
-            border: 4px $newAccentColor solid;
-            font-weight: 600;
-        }
-
-        #loginBtn{
-            border-radius: 5px;
-            color: #FFFFFF;
-            background-color: $newMainColor;
-            font-weight: 600;
+        .title{
+            width:50%;
             text-align: center;
             display: flex;
             align-items: center;
-        }
+            height: 100%;
+            
 
-        #loginBtn:hover{
-            background-color: #0966B8;
-        }
+            h1 {
+                font-weight: 700;
+                font-size: 36px;
+                margin-left: 30px;
+                color: var(--main-color);
+                margin-right: 0;
+            }
 
-        #createBtn:hover{
-            border: 4px #E5BA00 solid;
-        }
-
-        ul{
-            display: flex;
-            flex-direction: row;
-            float: right;
-            li{
-                padding: 5px 15px 5px 15px;
-                list-style: none;
-                text-decoration: none;
-                margin-right:30px;
+            span {
+                font-weight: 700;
+                font-size: 36px;
+                color: var(--main-accent-color);
             }
         }
 
-    }
+        .login {
+            width: 50%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            
+           .loginButton{
+                position: absolute;
+                border: 2px solid var(--main-accent-color);
+                right: 20px;
+                color: var(--second-text-color);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+                margin-top: 10px;
+                // height: 47.5px;
+                
+                #loginText {
+                    font-size: 18px;
+                    margin-right: 20px;
+                    margin-left: 20px;
+                }
 
+                #slash{
+                    color: var(--main-color);
+                }
+                
+                #lb{
+                    font-size: 34px;
+                    margin-right: 20px;
+                    color: var(--second-text-color)
+                }
+            } 
+        }
+
+        
+
+    } 
 }
+
 
 @media (max-width: 1920px) {
     .navbar {

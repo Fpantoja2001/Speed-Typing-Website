@@ -6,13 +6,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: $darkColor;
+    background-color: var(--bg-color);
     width: 100%;
 
     h1{
         font-size: 40px;
         text-align: center;
-        color: $accentColor;
+        color: var(--main-accent-color);
         margin: 20px;
     }
 
@@ -20,7 +20,7 @@
         font-size: 18px;
         margin: 20px;
         text-align: center;
-        color: $textColor;
+        color: var(--second-accent-color);
         width: 50%;
     }
 
@@ -78,7 +78,7 @@
             height: 300px;
             padding: 10px;
             background-color: #f2f1f7;
-            color: $darkColor;
+            color: var(--bg-color);
             resize: none;
            
         }

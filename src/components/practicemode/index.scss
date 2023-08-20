@@ -11,7 +11,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: $bg-color;
+    background-color: var(--bg-color);
     font-family: 'JetBrains Mono', monospace;
 
     .wrapper-0 {
@@ -23,13 +23,12 @@
         margin-bottom: 7.5%;
 
         .topBar {
-            background-color: $newSecondMainColor;
+            background-color: var(--main-color);
             border-radius: 100px;
             padding: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: $newBackGroundColor;
 
             .lengthSelectorBar {
                 width: 100%;
@@ -38,7 +37,7 @@
                 flex-direction: row;
 
                 button {
-                    color:$newBackGroundColor;
+                    color:var(--stat-text-color);
                     background-color: transparent;
                     border: none;
                     font-size: 18px;
@@ -46,7 +45,7 @@
                 }
 
                 span {
-                    color: $newBackGroundColor;
+                    color: var(--stat-text-color);
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -56,7 +55,7 @@
                 }
 
                 .divider{
-                    color:$newAccentColor;
+                    color: var(--main-accent-color);
                     margin:  0px 10px 0px 10px;
                 }
 
@@ -65,7 +64,7 @@
                 }
 
                 .selected {
-                   color: $newAccentColor;
+                   color: var(--main-accent-color);
                    transition: all 0.2s;
                 }
             }
@@ -98,7 +97,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                color: $textColor;
+                color: var(--second-text-color);
                 font-size: 100px;
 
                 #nb{
@@ -109,7 +108,7 @@
                 }
 
                 a{
-                    color: $textColor;
+                    color: var(--second-text-color);
                     display: flex;
                     align-items: center;
                 }
@@ -118,15 +117,15 @@
                 
 
                 #re:hover{
-                    color: $newAccentColor;
+                    color: var(--main-accent-color);
                     font-size: 30px;
                 }
                 #br:hover{
-                    color: $newAccentColor;
+                    color: var(--main-accent-color);
                     font-size: 30px;
                 }
                 #nb:hover{
-                    color: $newAccentColor;
+                    color: var(--main-accent-color);
                     font-size: 41px;
                 }
            
@@ -142,7 +141,7 @@
             position: relative;
 
             .gameStartPrompt {
-                color: $newSecondAccentColor;
+                color: var(--second-text-color);
                 background-color: transparent;
                 position: absolute;
                 height: 100%;
@@ -163,8 +162,8 @@
 
 
             .reference {
-                color: $newTextColor;
-                background-color: $newSecondAccentColor;
+                color: var(--text-color);
+                background-color: var(--second-accent-color);
                 padding: 15px;
                 width: 90%;
                 border-radius: 10px;
@@ -208,17 +207,16 @@
                 margin-right: auto;
                 position: absolute;
                 width: calc(90% + 30px);
-                background-color: #E63946;
                 pointer-events: none;
                 top: 120%;
                 
                 #progressChar{
-                    color: #FFFFFF;
+                    color: var(--second-text-color);
                     position: absolute;
                     left: 0;
                 }
                 #progressWords {
-                    color: #FFFFFF;
+                    color: var(--second-text-color);
                     position: absolute;
                     right: 0;
                 }
@@ -228,10 +226,10 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                color: $newBackGroundColor;
+                color: var(--stat-text-color);
                 height: 50px;
                 padding: 0px 15px 0px 15px;
-                background-color: $newSecondMainColor;
+                background-color: var(--main-color);
                 border-radius: 10px;
                 right: -25px;
                 position: absolute;
@@ -240,7 +238,7 @@
         }
 
         .progressStats{
-            background-color: $newSecondMainColor;
+            background-color: var(--main-color);
             border-radius: 100px;
             padding: 10px;
             display: flex;
@@ -254,12 +252,12 @@
             }
             
             .divider{
-                color:$newAccentColor;
+                color:var(--main-accent-color);
                 margin:  0px 10px 0px 10px;
             }
             
             span {
-                color: $newBackGroundColor;
+                color: var(--stat-text-color);
                 float: right;
                 transition: all 0.2s;
                 margin: 0px 10px 0px 10px;
@@ -289,12 +287,12 @@
                     justify-content: center;
                     align-items: center;
                     border-radius: 10px;
-                    background-color: $newSecondMainColor;
-                    color: #FFFFFF;
+                    background-color: var(--main-color);
+                    color: var(--second-text-color);
                 }
 
                 .update {
-                    background-color:$newAccentColor;
+                    background-color:var(--main-accent-color);
                     height: 80%;
                     transition: all 0.2s;
                     border-radius: 10px;
@@ -307,7 +305,7 @@
 
         .authorHolder{
             width: 73%;
-            color: $accentColor;
+            color: var(--main-accent-color);
 
             .author {
                 float: right;
@@ -335,12 +333,12 @@
                 outline: none;
                 border: none;
                 background-color:transparent;
-                border-bottom: solid 5px $newAccentColor;
-                color: #FFFFFF;
+                border-bottom: solid 5px var(--main-accent-color);
+                color: var(--second-text-color);
             } 
             
             ::placeholder{
-                color: $newSecondAccentColor;
+                color: var(--second-accent-color);
                 font-size: 18px;
                 font-family: 'JetBrains Mono', monospace;
             }
@@ -391,7 +389,7 @@
         height: 40%;
         border-radius: 10px;
         background-color: transparent;
-        border: solid $newTextColor 5px;
+        border: solid var(--text-color) 5px;
         margin-bottom: 80px;
 
         .mainStats {
@@ -412,14 +410,14 @@
             .wpm{
                 margin-left: 10px;
                 margin-top: 60px;
-                color: $newAccentColor;
+                color: var(--main-accent-color);
             }
 
             .wpmBar {
                 left: 15%;
                 height: 80%;
                 width: 0%;
-                background-color: $newSecondAccentColor;
+                background-color: var(--second-accent-color);
                 border-radius: 10px;
                 margin-left: 15%;
                 transition: all .2s;
@@ -429,7 +427,7 @@
             
 
             .divisor {
-                background-color: $newSecondMainColor;
+                background-color: var(--main-color);
                 position: absolute;
                 left: 13%;
                 top: 10%;
@@ -458,7 +456,7 @@
             .cpmBar{
                 height: 80%;
                 width: 0%;
-                background-color: $newSecondAccentColor;
+                background-color: var(--second-accent-color);
                 border-radius: 10px;
                 transition: all .2s;
                 margin-left: 15%;
@@ -467,7 +465,7 @@
 
             .cpm {
                 margin-left: 10px;
-                color: $newAccentColor;
+                color: var(--main-accent-color);
             }
         }
             

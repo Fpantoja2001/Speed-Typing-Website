@@ -40,6 +40,8 @@ export default function Footer(){
                     document.getElementById('quoteBox').style.setProperty('opacity','10%')
                 }}></ModeNightIcon>
             </div>
+
+            <div className='versionTag'>v1.0</div>
         </div>  
       </div>  
       

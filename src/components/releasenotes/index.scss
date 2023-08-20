@@ -31,17 +31,17 @@
         p{
             border-left: 6px solid var(--main-accent-color);
             color: var(--second-text-color);
-            padding: 20px;
+            padding: 20px 10px 20px 20px;
             display: flex;
             flex-direction: row;
 
             .version {
-                width: 15%;
+                width: 120px;
             }
 
             .date {
                 position: absolute;
-                right: 40px;
+                right: 20px;
                 bottom: 0;
             }
         }

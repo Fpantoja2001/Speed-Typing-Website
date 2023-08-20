@@ -1,0 +1,49 @@
+@import '../../global.scss';
+
+
+.wrapperReleaseNotes {
+    height: calc(100vh - 160px);
+    width: 100%;
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .titleContainer {
+        width: calc(56% + 115px);
+        position: relative;
+        height: 100px;
+
+        .title{
+            position: absolute;
+            font-size: 28px;
+            color: var(--main-color);
+        }
+    }
+
+    .releaseNotesContainer {
+        width: calc(56% + 115px);
+        display: flex;
+        background-color: transparent;
+        position: relative;
+       
+        p{
+            border-left: 6px solid var(--main-accent-color);
+            color: var(--second-text-color);
+            padding: 20px;
+            display: flex;
+            flex-direction: row;
+
+            .version {
+                width: 15%;
+            }
+
+            .date {
+                position: absolute;
+                right: 40px;
+                bottom: 0;
+            }
+        }
+    }
+}

@@ -6,6 +6,7 @@ import PracticeMode from './components/practicemode';
 import BugReport from './components/bugreport';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
+import ReleaseNotes from './components/releasenotes';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         
         <Routes>
           <Route path='/' element={<PracticeMode/>}/>
+          <Route path='/releaseNotes' element={<ReleaseNotes/>}/>
           <Route path='/bugReport' element={<BugReport/>}/>
         </Routes>
 

@@ -4,6 +4,8 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import FeedIcon from '@mui/icons-material/Feed';
+import { Link } from 'react-router-dom';
 
 export default function Footer(){
     
@@ -14,7 +16,8 @@ export default function Footer(){
             <div className='links'>
                 <a href="https://github.com/Fpantoja2001/Speed-Typing-Website"><GitHubIcon id='ghi'></GitHubIcon><span>Github</span></a>
                 <a href="https://www.linkedin.com/in/felix-manuel-pantoja/"> <LinkedInIcon id='lii'></LinkedInIcon><span>LinkedIn</span></a>
-                <a href="mailto:fpantoja@umass.edu"> <EmailIcon id='ei'></EmailIcon> <span>Email</span></a>   
+                <a href="mailto:fpantoja@umass.edu"> <EmailIcon id='ei'></EmailIcon> <span>Email</span></a>  
+                <Link id='rn' to={'/releaseNotes'}><FeedIcon id='fi'></FeedIcon><span>Release Notes</span></Link> 
             </div>
 
             <div className='creatorTag' hidden={true}>By Felix M. Pantoja Tejada</div>

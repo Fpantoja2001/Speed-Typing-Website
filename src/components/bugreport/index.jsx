@@ -34,10 +34,7 @@ export default function BugReport () {
             </h1>
 
             <p>
-                I am not the greatest developer, thus this form below is for you to 
-                report any bugs you many have found. Please be as thorough as possible, 
-                and if you're up to it include the steps to recreate the bug, as this would
-                make it easier to find the bug and would be very appreciated. Thank you !
+                this form is for you to report any bugs you many have found. Please be as thorough as possible, Thank you!
             </p>
 
             <div className='contact-form'>

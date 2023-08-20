@@ -27,7 +27,12 @@ export default function Footer(){
                     document.getElementById('mni').removeAttribute('hidden')
                     document.querySelector(':root').style.setProperty('--bg-color','#FFFFFF')
                     document.querySelector(':root').style.setProperty('--second-text-color','#120E11')
-                    document.getElementById('quoteBox').style.setProperty('opacity','50%')
+                    if (Number(document.getElementById('cdBox').innerText) > 0) {
+                        
+                    } else {
+                       document.getElementById('quoteBox').style.setProperty('opacity','50%') 
+                    }
+                    
                     
                 }}></LightModeIcon>
 
@@ -37,7 +42,12 @@ export default function Footer(){
                     document.getElementById('lmi').removeAttribute('hidden')
                     document.querySelector(':root').style.setProperty('--bg-color','#111111')
                     document.querySelector(':root').style.setProperty('--second-text-color','#FFFFFF')
-                    document.getElementById('quoteBox').style.setProperty('opacity','10%')
+
+                    if (Number(document.getElementById('cdBox').innerText) > 0) {
+                        
+                    } else {
+                       document.getElementById('quoteBox').style.setProperty('opacity','10%') 
+                    }
                 }}></ModeNightIcon>
             </div>
 

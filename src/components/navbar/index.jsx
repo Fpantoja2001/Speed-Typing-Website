@@ -6,9 +6,10 @@ export default function Navbar () {
     return (
         <div className='wrapper'>
            <div className='navbar'>
-            <div className='title'>
+            <Link to='/' className='title'>
                 <h1>Speedtyping.</h1><span>io</span>
-            </div>
+            </Link>
+            
             <div className='login'>
                 <div className='loginButton'>
                 <span id='loginText'>Login <span id='slash'>/</span> Signup</span>

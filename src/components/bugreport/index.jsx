@@ -27,7 +27,7 @@ export default function BugReport () {
 
     return (
 
-        <div className='wrapper'>
+        <div className='wrapperBugReport'>
 
             <h1>
                 Bug Report

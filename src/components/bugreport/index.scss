@@ -1,6 +1,6 @@
 @import '../../global.scss';
 
-.wrapper {
+.wrapperBugReport {
     height: calc(100vh - 160px);
     display: flex;
     flex-direction: column;
@@ -20,8 +20,8 @@
         font-size: 18px;
         margin: 20px;
         text-align: center;
-        color: var(--second-accent-color);
-        width: 50%;
+        color: var(--second-text-color);
+        width: 39%;
     }
 
     .contact-form{

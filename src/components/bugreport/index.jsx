@@ -5,10 +5,11 @@ import emailjs from '@emailjs/browser';
 export default function BugReport () {
     
     const form = useRef()
+    
+    // Code for sending emails containing bug reports
 
     const sendEmail = (e) => {
         e.preventDefault();
-
         emailjs.sendForm(
             'service_hhpbevl',
             'template_m5quqir',
@@ -20,14 +21,15 @@ export default function BugReport () {
             console.log(form.current)
         }, (error) => {
             window.alert('fail')
-        })
-
-        
+        }) 
     }
 
     return (
-
+        
         <div className='wrapperBugReport'>
+
+            {/* Code for known bugs display */}
+
             <div className='containerKnownBugs'>
                 <h1>
                     Known Bugs
@@ -62,6 +64,8 @@ export default function BugReport () {
                 </div>
             </div>
 
+            {/* Code for bug report form */}
+
             <div className='containerBugReport'>
                 
                 <h1>
@@ -94,13 +98,8 @@ export default function BugReport () {
                             </li>
                         </ul>
                     </form>
-
                 </div>
             </div>
-
-            
-
-        </div>
-        
+        </div> 
     )
 }

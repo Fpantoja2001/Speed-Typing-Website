@@ -11,19 +11,35 @@ export default function Footer(){
     
 
     return (
-      <div className='wrapper'>
-        <div className='footer'>
-            <div className='links'>
-                <a href="https://github.com/Fpantoja2001/Speed-Typing-Website"><GitHubIcon id='ghi'></GitHubIcon><span>Github</span></a>
-                <a href="https://www.linkedin.com/in/felix-manuel-pantoja/"> <LinkedInIcon id='lii'></LinkedInIcon><span>LinkedIn</span></a>
-                <a href="mailto:fpantoja@umass.edu?subject=Message from Speed Typing Website."> <EmailIcon id='ei'></EmailIcon> <span>Email</span></a>  
-                <Link id='rn' to={'/releaseNotes'}><FeedIcon id='fi'></FeedIcon><span>Release Notes</span></Link> 
+      <div className='wrapperFooter'>
+        <div className='containerFooter'>
+
+            {/* Code for footer links */}
+
+            <div className='containerLinks'>
+                <a href="https://github.com/Fpantoja2001/Speed-Typing-Website">
+                    <GitHubIcon id='ghi'></GitHubIcon>
+                    <span>Github</span>
+                </a>
+                <a href="https://www.linkedin.com/in/felix-manuel-pantoja/">
+                    <LinkedInIcon id='lii'></LinkedInIcon>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="mailto:fpantoja@umass.edu?subject=Message from Speed Typing Website.">
+                    <EmailIcon id='ei'></EmailIcon>
+                    <span>Email</span>
+                </a>  
+                <Link id='rn' to={'/releaseNotes'}>
+                    <FeedIcon id='fi'></FeedIcon>
+                    <span>Release Notes</span>
+                </Link> 
             </div>
 
-            <div className='creatorTag' hidden={true}>By Felix M. Pantoja Tejada</div>
-
-            <div className='colorMode'>
+            {/* Code for light / dark mode functionality. Works by changing root color varibles on click.  */}
+            
+            <div className='containerColorMode'>
                 <span id='modeTitle'>light mode</span>
+
                 <LightModeIcon id='lmi' onClick={() => {
                     document.getElementById('modeTitle').innerText = `Dark Mode`
                     document.getElementById('lmi').setAttribute('hidden', true)
@@ -35,8 +51,6 @@ export default function Footer(){
                     } else {
                        document.getElementById('quoteBox').style.setProperty('opacity','50%') 
                     }
-                    
-                    
                 }}></LightModeIcon>
 
                 <ModeNightIcon id='mni' hidden={true} onClick={() => {
@@ -52,9 +66,12 @@ export default function Footer(){
                        document.getElementById('quoteBox').style.setProperty('opacity','10%') 
                     }
                 }}></ModeNightIcon>
-            </div>
 
-            <div className='versionTag'>v1.0</div>
+            </div>
+            
+            {/* Code for version tag */}
+            
+            <div className='containerVersionTag'>v1.0</div>
         </div>  
       </div>  
       

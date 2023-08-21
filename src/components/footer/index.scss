@@ -1,10 +1,10 @@
 @import '../../global.scss';
 
-.wrapper {
+.wrapperFooter {
     width: 100%;
     height: 80px;
     background-color: var(--bg-color);
-    .footer {
+    .containerFooter {
         background-color: var(--bg-color);
         height: 100%;
         width: calc(56% + 115px);
@@ -14,8 +14,7 @@
         align-items: center;
         justify-content: center;
         position: relative;
-        
-        .links {
+        .containerLinks {
             width: 80%;
             height: 40%;
             display: flex;
@@ -25,7 +24,6 @@
             position: absolute;
             left: 0;
             background-color: transparent;
-
             a {
                 color: var(--second-text-color);
                 text-decoration: none;
@@ -35,9 +33,6 @@
                 height: 35px;
                 margin-right: 20px;
                 font-size: 18px;
-
-
-
                 #ghi {
                     font-size: 26px;
                     margin-right: 10px;
@@ -55,7 +50,6 @@
                         margin-right: 10px;
                     }
                 }  
-
                 #ei {
                     font-size: 32px;
                     margin-left: 10px;
@@ -63,39 +57,28 @@
                     span {
                         margin-left: 10px;
                         margin-right: 10px;
-                        
                     }
                 }
-
                 #fi{
                     font-size: 30px;
                     margin-left: 10px;
                     margin-right: 10px;
-
                     span{
                         margin-left: 10px;
                         margin-right: 10px;
                     }
                 }
-            }
-
-            
-            
-        }
-        .creatorTag {
-            height: 40%;
-            display: flex;
-            color: var(--main-accent-color);
+            }  
         }
 
-        .colorMode {
+
+        .containerColorMode {
             position: absolute;
             right: 55px;
             height: 40%;
             display: flex;
             flex-direction: row;
             align-items: center;
-
             span {
                 height: 100%;
                 display: flex;
@@ -112,11 +95,10 @@
             #mni {
                 color: var(--main-color);
                 font-size: 28px;
-
             }
         }
 
-        .versionTag {
+        .containerVersionTag {
             position: absolute;
             right: 0;
             color: var(--second-text-color);

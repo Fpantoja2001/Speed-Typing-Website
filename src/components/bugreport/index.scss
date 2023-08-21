@@ -44,7 +44,6 @@
             p{
                 width: calc(100% - 100px);
             }
-
         }
     }
 
@@ -75,12 +74,8 @@
         .contact-form{
             margin-top: 20px;
             width: 100%;
-
             ul{
                 margin: 0;
-                
-
-
                 li{
                     list-style: none;
                     display: block;
@@ -93,7 +88,6 @@
                 }
 
                 li.left {
-
                     width: 49%;
                     float: left;
                     clear: none;
@@ -102,9 +96,7 @@
                     &:first-child{
                         margin-left: 0;
                     }
-
                 }
-
             }
 
             input[type='text'],
@@ -130,11 +122,9 @@
                 color: var(--bg-color);
                 resize: none;
                 border-radius: 10px;
-            
             }
 
             .submit-button{
-
                 height: 50px;
                 margin: 0px 0px 9px 9px;
                 width: 20%;
@@ -146,10 +136,7 @@
                 border-radius: 5px;
                 box-shadow: 0px 5px 5px 0px rgb(0 0 0 / 15%);
                 border-color: transparent;
-
             }
         }
-
-    }
-    
+    } 
 }

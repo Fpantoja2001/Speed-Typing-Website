@@ -8,11 +8,17 @@ import MouseOutlinedIcon from '@mui/icons-material/MouseOutlined';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
-import { roundArrow } from 'tippy.js';
+export default function Landing (){
 
-export default function PracticeMode (){
-
-    const timerUpdate = useRef(),wpm = useRef(),countDown = useRef(),inputBox = useRef(), accuracyField = useRef(), wpmBar = useRef(), cpm =  useRef(),cpmBar = useRef()
+    const wpm = useRef()
+    const countDown = useRef()
+    const inputBox = useRef()
+    const accuracyField = useRef()
+    const cpm =  useRef()
+    let toggle = useRef()
+    let replayTog = useRef()
+    let selectedQuoteLength = useRef()
+    let gameState = useRef()
     // This variable serves to help the Count Down Timer
     let cdsi;
     // 
@@ -41,12 +47,6 @@ export default function PracticeMode (){
     // and assigns it its own div
 
     const [count,setCount] = useState(0)
-
-    let toggle = useRef()
-    let replayTog = useRef()
-    let selectedQuoteLength = useRef()
-    let gameState = useRef()
-    gameState.current = 0
 
     async function apiCall (quoteLength) {
 
@@ -84,7 +84,6 @@ export default function PracticeMode (){
                 countDown.current.innerText = `${cdt}`
                 
                 if(cdt  === 0){
-                    // document.getElementById('cdBox').setAttribute('hidden',true)
                     clearInterval(cdsi)
                     gameStart()
                 }
@@ -107,20 +106,10 @@ export default function PracticeMode (){
             timerEnd = setInterval(() => {
                 wperm = Math.round(((wordPOS - 10) / timerFormat()) * 60)
                 cpmCal = Math.round((tempCharCount / timerFormat()) * 60)
-
-                // timerUpdate.current.innerText = `${timerFormat()}`
                 wpm.current.innerText = `${wperm}`  
                 document.getElementById('cdBox').innerText = `${timerFormat()}`
-               
-                // cpmBar.current.style.width = `${cpmCal / 10}%`
                 cpm.current.innerText = cpmCal
 
-                // if (wperm < 100){
-                //     wpmBar.current.style.width = `${(wperm * 7.5)/10}%`
-                // } else if (wperm > 100) {
-                //     wpmBar.current.style.width = `${(wperm * 3.75)/10}%`
-                // }
-                
             },1000)
         }
         
@@ -135,12 +124,9 @@ export default function PracticeMode (){
         const quoteBox = document.getElementById('quoteBox')
         const initWordCount = document.getElementById('progressWords')
         const initCharCount = document.getElementById('progressChar')
-        
-        // const authorField = document.getElementById('author')
 
        async function newQuote (data){
 
-            // authorField.innerText = `- ${data.author}`
             quoteBox.innerHTML = ''
  
             data.content.split(' ').map((char) => {
@@ -225,24 +211,18 @@ export default function PracticeMode (){
                 document.getElementById(`gsp`).removeAttribute('hidden')
                 document.getElementById('quoteBox').classList.remove('removeBlur')
                 quoteBox.innerHTML = ''
-                // authorField.innerText = ''
                 initWordCount.innerText = ''
                 initCharCount.innerText = '' 
                 document.getElementById('cdBox').removeAttribute('hidden')
                 countDown.current.innerText = `3`
                 inputBox.current.setAttribute('disabled',true)
                 inputBox.current.value = ''
-                document.getElementById('pp').innerText = `0%`
                 accuracyField.current.innerText = `Accuracy 0%`
                 wpm.current.innerText = `0`
-                timerUpdate.current.innerText = `0`
                 clearInterval(timerEnd)
                 clearInterval(cdsi) 
-                document.getElementById('pb').style.width = 0 
                 replayTog.current = count
                 selectedQuoteLength.current = randomVar
-                // wpmBar.current.style.width = 0
-                // cpmBar.current.style.width = 0
                 cpm.current.innerText = '0' 
             } catch {}
             
@@ -327,8 +307,6 @@ export default function PracticeMode (){
             console.log(error)
         }
        document.getElementById('progressChar').innerText = `Char ${tempCharCount} / ${charCount}`
-       document.getElementById('pb').style.width = `${(tempCharCount/charCount)*100}%`
-       document.getElementById('pp').innerText = `${Math.round((tempCharCount/charCount)*100)}%`
        accuracyReport = (((charCount - incorrectCharCount)/charCount)*100).toFixed(2)
        accuracyField.current.innerText = `Accuracy ${accuracyReport}%`
        cursorPOS = e.target.selectionStart // value set to identify backspaces
@@ -343,48 +321,48 @@ export default function PracticeMode (){
 
     return (
         
-        <div className='page'>
+        <div className='wrapperLanding'>
+            <div className='containerLanding'>
 
-            
-            
-            <div className='wrapper-1'>
-                
-                <div id='overhead' hidden={true}>
+                {/* Div that contains game option selections */}
 
-                   <div className='progressBar'>
-                        <div className='update' hidden={true} id='pb'></div>
-                        <span className='progressPercent' id='pp' hidden={true}>0%</span>
-                        
-                    </div> 
-                    
-                    
-                    <span className='elapsedTimer' hidden={true} ref={timerUpdate} id='timeBox'>0</span>
-                </div>
-                <div className='wrapper-0'>
-                    <div className='topBar'>
-                        <div className='lengthSelectorBar'>
-                            <span>Quote Length</span>
-                            <span className='divider'>|</span>
-                            <button id='qL3' onClick={() => setCount((c) => c + 2)} className='selected'>Short</button>
-                            <button id='qL4' onClick={() => setCount((c) => c + 3)}>Medium</button>
-                            <button id='qL5' onClick={() => setCount((c) => c + 4)}>Long</button>
-                        </div>
+                <div className='containerGameOptions'>
+                    <div className='lengthSelectorBar'>
+                        <span>Quote Length</span>
+                        <span className='divider'>|</span>
+                        <button id='qL3' onClick={() => setCount((c) => c + 2)} className='selected'>Short</button>
+                        <button id='qL4' onClick={() => setCount((c) => c + 3)}>Medium</button>
+                        <button id='qL5' onClick={() => setCount((c) => c + 4)}>Long</button>
                     </div>
                 </div>
-            
-                <div className='gameWrapper'>
+                
+                {/* Code for the game component */}
+
+                <div className='containerGame'>
+
+                    {/* Div that overlays quoteHolder. Starts game on Click  */}
+
                     <div className='gameStartPrompt' id='gsp'>
                         <MouseOutlinedIcon id='moi'></MouseOutlinedIcon>
                         click here to start game
                     </div>
-                    <div className='reference' id='quoteBox' onClick={() => setCount((c) => c + 5)}></div>
 
-                    <div className='test'>
+                    {/* Div that holds the quote */}
+
+                    <div className='quoteHolder' id='quoteBox' onClick={() => setCount((c) => c + 5)}></div>
+                    
+                    {/* Div that keeps track of your progress through the quoute via char and word / total */}
+
+                    <div className='progressReport'>
                         <span id ='progressChar'>Char 0 / ?</span> 
                         <span id='progressWords'>Word 0 / ? </span>
                     </div>
 
-                   <span className='countDown' ref={countDown} id='cdBox'>3</span>
+                    {/* Element that keeps track of all time throughout the game */}
+
+                    <span className='countDown' ref={countDown} id='cdBox'>3</span>
+
+                    {/* Div that contains the different game options, next, replay etc. */}
 
                     <div className='selectorButtons'>
                         <span className='bugReport'>
@@ -408,16 +386,15 @@ export default function PracticeMode (){
                     
                 </div>
 
-                {/* <div className='test'>
-                    <span id ='progressChar'>Char 0 / ?</span>
-                    <span id='progressWords'>Word 0 / ? </span>
-                </div> */}
+                {/* Div that contains the text input box */}
 
                 <div className='input'>
                     <input type="text" className='typingBox' ref={inputBox} onInput={type} onPaste={cancelPaste} disabled={true} placeholder='Type here...'/> 
                 </div>
 
-                <div className='progressStats'>
+                {/* Div that contains the performance reports: wpm, cpm, and accuracy. */}
+
+                <div className='performanceReport'>
                     <span className='wpmTitle'>WPM:</span>
                     <span className='wpm' ref={wpm}>0</span> 
                     <span className='divider'>|</span>
@@ -426,36 +403,7 @@ export default function PracticeMode (){
                     <span id='cpmTitle'>CPM:</span>
                     <span className='cpm' ref={cpm}>0</span>
                 </div>
-                
-            </div> 
-
-                
-                <div className='secondWrapper' hidden={true}>
-
-                    <div className='currentGameStats'>
-
-                        <div className='topBar'>
-                        <span className ='timer'>Time 0</span>
-                            
-                        </div>
-
-                        <div className='mainStats'>
-                            {/* <span className='wpmTitle'>WPM</span>
-                            <span className='wpmBar' ref={wpmBar}></span>
-                            <span className='wpm' ref={wpm}>0</span>  
-                            <div className='divisor'></div> */}
-                            
-                        </div>
-
-                        <div className='cpmStats'>
-                            {/* <span className='cpmTitle'>CPM</span>
-                            <span className='cpmBar' ref={cpmBar}></span>
-                            <span className='cpm' ref={cpm}>0</span> */}
-                        </div>
-                    </div>
-
-                </div>
-                
+            </div>     
         </div>
     )
 

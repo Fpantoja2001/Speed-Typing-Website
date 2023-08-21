@@ -37,7 +37,7 @@ export default function BugReport () {
                        b1.1 - 
                     </div>
                     <p>
-                        Quote length selection dissapears on next game button press and reappears on game start press.
+                        Quote length selection disappears on next game button press and reappears on game start press.
                     </p>
                     
                 </div>
@@ -46,7 +46,7 @@ export default function BugReport () {
                        b1.2 - 
                     </div>
                     <p>
-                        The inability to enter in double dash '--' when a quote requires it.  
+                        Unable to enter in double dash '--' when a quote requires it.  
                     </p>
                     
                 </div>
@@ -55,7 +55,7 @@ export default function BugReport () {
                        b1.3 - 
                     </div>
                     <p>
-                        Each indivisual period in '...' will not turn green or red if it is either correct or wrong 
+                        Each individual period in '...' will not turn green or red if it is either correct or wrong 
                         until all characters in its spot have been filled.
                     </p>
                     

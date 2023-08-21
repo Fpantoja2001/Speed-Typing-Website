@@ -16,6 +16,9 @@ You can access via this [link](https://fpantoja2001.github.io/Speed-Typing-Websi
 [Tippyjs](https://atomiks.github.io/tippyjs/) - Tippy.js is the complete tooltip, popover, dropdown, and menu solution for the web.<br><br>
 [Emailjs](https://www.emailjs.com/) - EmailJS is a backend-as-a-service that gives you the tools to send emails to the users of your 
          application directly from your client or server-side code to fit your business requirements.<br>
+## API's
+
+[Quotable](https://github.com/lukePeavey/quotable) - Used to fetch all quotes. 
 
 ## Known bugs
 * Quote length selection dissapears on next game button press and reappears on game start press.

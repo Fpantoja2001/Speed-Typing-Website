@@ -18,7 +18,6 @@ export default function Landing (){
     let toggle = useRef()
     let replayTog = useRef()
     let selectedQuoteLength = useRef()
-    let gameState = useRef()
     // This variable serves to help the Count Down Timer
     let cdsi;
     // 

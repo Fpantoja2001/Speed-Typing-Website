@@ -11,10 +11,10 @@ export default function BugReport () {
     const sendEmail = (e) => {
         e.preventDefault();
         emailjs.sendForm(
-            'service_hhpbevl',
-            'template_m5quqir',
+            'service_f6t3dyq',
+            'template_sq6rrqc',
             form.current,
-            'uE9ktrV1sT1SDdPNZ'
+            'QrrJoGVWolccNmfYn'
         ).then((result) => {
             window.alert('success')
             form.current.reset()

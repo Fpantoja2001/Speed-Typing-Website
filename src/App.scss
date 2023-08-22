@@ -9,3 +9,19 @@
     background-color: var(--bg-color);
     transition: all .2s;
 }
+
+.mobileApp {
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+
+    h1{
+        font-size: 4vw;
+        color: var(--main-accent-color);
+        text-align: center;
+    }
+}
+

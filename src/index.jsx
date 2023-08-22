@@ -12,13 +12,10 @@ import Landing from './components/landing';
 import {isMobile} from 'react-device-detect';
 
 function App() {
-  console.log(isMobile)
-
   if (isMobile) {
     return(
       <div className='mobileApp'>
         <h1>This game has unfortunately not been optimized for mobile yet. Open this on your desktop to access the website. <br /><br />08/22/2023</h1>
-
       </div>
       
     )

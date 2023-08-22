@@ -18,6 +18,7 @@ export default function Landing (){
     let toggle = useRef()
     let replayTog = useRef()
     let selectedQuoteLength = useRef()
+    let gameStarted = useRef(0)
     // This variable serves to help the Count Down Timer
     let cdsi;
     // 
@@ -184,14 +185,16 @@ export default function Landing (){
                         document.getElementById(`qL${3}`).classList.add('selected')
                     }
                     
+                    console.log(gameStarted.current)
                     newQuote(toggle.current)
                     countDownStart()
                     document.getElementById(`gsp`).setAttribute('hidden',true)
-                    console.log(document.getElementById('quoteBox').classList.add('removeBlur'))
+                    document.getElementById('quoteBox').classList.add('removeBlur')
 
                     
                 } else {
                     newQuote(await apiCall(selectedQuoteLength.current))
+                    gameStarted.current = 0 
                 }
 
             }else if (count < replayTog.current){
@@ -348,8 +351,13 @@ export default function Landing (){
 
                     {/* Div that holds the quote */}
 
-                    <div className='quoteHolder' id='quoteBox' onClick={() => setCount((c) => c + 5)}></div>
-                    
+                    <div className='quoteHolder' id='quoteBox' onClick={
+                        () => {
+                            if (gameStarted.current === 0) {
+                                setCount((c) => c + 5)
+                                gameStarted.current += 1
+                            } 
+                        }}></div>
                     {/* Div that keeps track of your progress through the quoute via char and word / total */}
 
                     <div className='progressReport'>

@@ -194,6 +194,7 @@ export default function Landing (){
                     
                 } else {
                     newQuote(await apiCall(selectedQuoteLength.current))
+                    document.getElementById(`qL${randomVar}`).classList.add('selected')
                     gameStarted.current = 0 
                 }
 

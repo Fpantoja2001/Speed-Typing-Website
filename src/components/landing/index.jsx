@@ -165,6 +165,13 @@ export default function Landing (){
                     }
                 }
 
+                if (count === replayTog.current +1) {
+                    if (randomVar == undefined){
+                        randomVar = 3
+                        document.getElementById(`qL${randomVar}`).classList.add('selected') 
+                    }
+                }
+
                 if (count === replayTog.current + 2){
                     newQuote(await apiCall(3))
                     randomVar = 3
@@ -193,8 +200,10 @@ export default function Landing (){
 
                     
                 } else {
+                    try {
+                        document.getElementById(`qL${randomVar}`).classList.add('selected')   
+                    } catch {}
                     newQuote(await apiCall(selectedQuoteLength.current))
-                    document.getElementById(`qL${randomVar}`).classList.add('selected')
                     gameStarted.current = 0 
                 }
 

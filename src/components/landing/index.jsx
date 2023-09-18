@@ -178,16 +178,16 @@ export default function Landing (){
                     randomVar = 5
                     document.getElementById(`qL${randomVar}`).classList.add('selected')
                 } else if (count === replayTog.current + 5){
-                    
+                    //Problem
                     try {
                         document.getElementById(`qL${randomVar}`).classList.add('selected')
                     } catch {
                         document.getElementById(`qL${3}`).classList.add('selected')
                     }
-                    
-                    console.log(gameStarted.current)
+
                     newQuote(toggle.current)
                     countDownStart()
+                    gameStarted.current = 0 
                     document.getElementById(`gsp`).setAttribute('hidden',true)
                     document.getElementById('quoteBox').classList.add('removeBlur')
 
